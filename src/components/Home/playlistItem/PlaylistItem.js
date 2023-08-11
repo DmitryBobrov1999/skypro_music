@@ -1,8 +1,11 @@
 import React from 'react';
 import './playlistItem.css';
-import { playlistData } from './playlistData';
 
-export default function CreatePlaylistItem() {
+
+export default function CreatePlaylistItem(props) {
+
+	const playlistData = props.playlistData;
+	
 	return playlistData.map(data => {
 		return (
 			<div key={data.id} className='playlist__item'>

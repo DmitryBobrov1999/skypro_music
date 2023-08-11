@@ -1,6 +1,8 @@
 import './tracklist.css';
 import React from 'react';
 import CreatePlaylistItem from '../playlistItem/PlaylistItem.js';
+import { playlistData } from '../playlistItem/playlistData.js';
+
 export default function CreateTracklist() {
 	return (
 		<div className='main__centerblock centerblock'>
@@ -36,9 +38,7 @@ export default function CreateTracklist() {
 					</div>
 				</div>
 				<div className='content__playlist playlist'>
-					
-
-					<CreatePlaylistItem />
+					<CreatePlaylistItem playlistData={playlistData} />
 				</div>
 			</div>
 		</div>
