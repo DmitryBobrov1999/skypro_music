@@ -1,11 +1,18 @@
-import './App.css';
-
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CreateSignInPage from './components/signin/CreateSigninPage.js';
+import CreateSignUpPage from './components/signup/CreateSignupPage.js';
+import Home from './components/home/Home.js';
 function App() {
 	return (
 		<div className='App'>
-			<header className='App-header'>
-				Здесь скоро будет Skypro.Music
-			</header>
+			<Router>
+				<Routes>
+					<Route exact path='/' element={<Home />} />
+					<Route path='/signin' element={<CreateSignInPage />} />
+					<Route path='/signup' element={<CreateSignUpPage />} />
+				</Routes>
+			</Router>
 		</div>
 	);
 }
