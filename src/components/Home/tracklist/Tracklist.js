@@ -2,8 +2,9 @@ import './tracklist.css';
 import React from 'react';
 import CreatePlaylistItem from '../playlistItem/PlaylistItem.js';
 import { playlistData } from '../playlistItem/playlistData.js';
+import SearchByArtist from './SearchByArtist';
 
-export default function CreateTracklist() {
+export default function CreateTracklist({ isLoading }) {
 	return (
 		<div className='main__centerblock centerblock'>
 			<div className='centerblock__search search'>
@@ -20,9 +21,9 @@ export default function CreateTracklist() {
 			<h2 className='centerblock__h2'>Треки</h2>
 			<div className='centerblock__filter filter'>
 				<div className='filter__title'>Искать по:</div>
-				<div className='filter__button button-author _btn-text'>
-					исполнителю
-				</div>
+
+				<SearchByArtist playlistData={playlistData} />
+
 				<div className='filter__button button-year _btn-text'>году выпуска</div>
 				<div className='filter__button button-genre _btn-text'>жанру</div>
 			</div>
@@ -38,7 +39,10 @@ export default function CreateTracklist() {
 					</div>
 				</div>
 				<div className='content__playlist playlist'>
-					<CreatePlaylistItem playlistData={playlistData} />
+					<CreatePlaylistItem
+						playlistData={playlistData}
+						isLoading={isLoading}
+					/>
 				</div>
 			</div>
 		</div>
