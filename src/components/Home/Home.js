@@ -10,7 +10,7 @@ export default function Home({ isLoading }) {
 			<div className='container'>
 				<main className='main'>
 					<CreateNavMenu />
-					<CreateTracklist isLoading={isLoading} />
+					<CreateTracklist isLoading={isLoading}/>
 					<CreateSidebar isLoading={isLoading} />
 				</main>
 				<CreateAudioPlayer isLoading={isLoading} />

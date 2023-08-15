@@ -2,7 +2,11 @@ import './tracklist.css';
 import React from 'react';
 import CreatePlaylistItem from '../playlistItem/PlaylistItem.js';
 import { playlistData } from '../playlistItem/playlistData.js';
-import SearchByArtist from './SearchByArtist';
+import { yearData } from './searchByButton/yearData.js';
+import { genreData } from './searchByButton/genreData.js';
+import SearchByArtist from './searchByButton/SearchByArtist.js';
+import SearchByYear from './searchByButton/SearchByYear.js';
+import SearchByGenre from './searchByButton/SearchByGenre.js';
 
 export default function CreateTracklist({ isLoading }) {
 	return (
@@ -23,9 +27,8 @@ export default function CreateTracklist({ isLoading }) {
 				<div className='filter__title'>Искать по:</div>
 
 				<SearchByArtist playlistData={playlistData} />
-
-				<div className='filter__button button-year _btn-text'>году выпуска</div>
-				<div className='filter__button button-genre _btn-text'>жанру</div>
+				<SearchByYear yearData={yearData} />
+				<SearchByGenre genreData={genreData}  />
 			</div>
 			<div className='centerblock__content'>
 				<div className='content__title playlist-title'>
