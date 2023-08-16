@@ -27,6 +27,7 @@
 	-ms-flex-align: center;
 	align-items: center;
 	margin-bottom: 51px;
+	position: relative;
 }
 
 .centerblock__content {
@@ -159,4 +160,82 @@
 .col04 {
 	width: 60px;
 	text-align: end;
+}
+
+.byArtistMegaBlock {
+	padding: 34px;
+	width: 248px;
+	height: 305px;
+	background: #313131;
+	border-radius: 12px;
+	position: absolute;
+	top: 49px;
+	left: 92px;
+}
+
+.byGenreMegaBlock {
+	padding: 34px;
+	width: 248px;
+	height: 305px;
+	background: #313131;
+	border-radius: 12px;
+	position: absolute;
+	top: 49px;
+	left: 392px;
+}
+
+.byArtistBlock {
+	overflow-y: scroll;
+	width: 180px;
+	height: 237px;
+	display: flex;
+	flex-direction: column;
+	gap: 28px;
+}
+
+.byArtistBlock::-webkit-scrollbar {
+	width: 4px;
+}
+
+.byArtistBlock::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: #ffffff;
+}
+
+.byPar {
+	width: 152px;
+	font-family: 'StratosSkyeng', sans-serif;
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 24px;
+	letter-spacing: 0em;
+	text-align: left;
+	cursor: pointer;
+	color: #ffffff;
+}
+
+.byPar:hover {
+	color: #b672ff;
+	text-decoration: underline;
+}
+
+.byYearMegaBlock {
+	width: 221px;
+	height: 196px;
+	padding: 34px;
+	border-radius: 12px;
+	gap: 10px;
+	position: absolute;
+	top: 49px;
+	left: 246px;
+	background: #313131;
+}
+
+.byYearBlock {
+	width: 153px;
+	height: 128px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	
 }
