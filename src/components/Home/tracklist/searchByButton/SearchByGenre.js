@@ -1,10 +1,12 @@
 import React from 'react';
 import '../tracklist.css';
-import { useState } from 'react';
 
-export default function SearchByGenre({ genreData }) {
-	const [visible, setVisible] = useState(false);
-
+export default function SearchByGenre({
+	genreData,
+	visibleFilter,
+	openFilter,
+	closeAllFilters,
+}) {
 	const genreList = genreData.map(data => {
 		return (
 			<p className='byPar' key={data.id}>
@@ -13,36 +15,25 @@ export default function SearchByGenre({ genreData }) {
 		);
 	});
 
-	const toggleVisibility = () => setVisible(!visible);
-
-	const toggleByGenre = () => {
-		const byYearMegaBlock = document.querySelector('.byYearMegaBlock');
-		const byArtistMegaBlock = document.querySelector('.byArtistMegaBlock');
-		const buttonYear = document.querySelector('.button-year');
-		const buttonArtist = document.querySelector('.button-author');
-		if (visible) {
-			byYearMegaBlock.style.visibility = 'hidden';
-			byArtistMegaBlock.style.visibility = 'hidden';
-
-			buttonYear.style.borderColor = '#ffffff';
-			buttonYear.style.color = '#ffffff';
-			buttonArtist.style.borderColor = '#ffffff';
-			buttonArtist.style.color = '#ffffff';
-		} 
+	const toggleGenre = () => {
+		if (visibleFilter) {
+			closeAllFilters();
+		} else {
+			closeAllFilters();
+			openFilter('genre');
+		}
 	};
 
-	toggleByGenre();
-
 	const styles = {
-		color: `${visible ? '#9A48F1' : '#ffffff'}`,
-		borderColor: `${visible ? '#9A48F1' : '#ffffff'}`,
+		color: `${visibleFilter ? '#9A48F1' : '#ffffff'}`,
+		borderColor: `${visibleFilter ? '#9A48F1' : '#ffffff'}`,
 	};
 
 	return (
 		<>
 			<div
 				className='filter__button button-genre _btn-text'
-				onClick={toggleVisibility}
+				onClick={toggleGenre}
 				style={styles}
 			>
 				Жанру
@@ -50,7 +41,7 @@ export default function SearchByGenre({ genreData }) {
 			<div
 				className='byGenreMegaBlock'
 				style={{
-					visibility: `${visible ? 'visible' : 'hidden'}`,
+					visibility: `${visibleFilter ? 'visible' : 'hidden'}`,
 				}}
 			>
 				<div className='byArtistBlock'>{genreList}</div>

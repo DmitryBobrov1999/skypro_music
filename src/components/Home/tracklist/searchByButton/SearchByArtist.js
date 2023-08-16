@@ -1,9 +1,20 @@
 import React from 'react';
 import '../tracklist.css';
-import { useState } from 'react';
 
-export default function SearchByArtist({ playlistData }) {
-	const [visible, setVisible] = useState(false);
+export default function SearchByArtist({
+	playlistData,
+	visibleFilter,
+	openFilter,
+	closeAllFilters,
+}) {
+	const toggleArtist = () => {
+		if (visibleFilter) {
+			closeAllFilters();
+		} else {
+			closeAllFilters();
+			openFilter('artist');
+		}
+	};
 
 	const nameList = playlistData.map(data => {
 		return (
@@ -13,43 +24,25 @@ export default function SearchByArtist({ playlistData }) {
 		);
 	});
 
-	const toggleVisibility = () => setVisible(!visible);
-
-	const toggleByArtist = () => {
-		const byYearMegaBlock = document.querySelector('.byYearMegaBlock');
-		const byGenreMegaBlock = document.querySelector('.byGenreMegaBlock');
-		const buttonYear = document.querySelector('.button-year');
-		const buttonGenre = document.querySelector('.button-genre');
-		if (visible) {
-			byYearMegaBlock.style.visibility = 'hidden';
-			byGenreMegaBlock.style.visibility = 'hidden';
-			
-			buttonGenre.style.borderColor = '#ffffff';
-			buttonGenre.style.color = '#ffffff';
-			buttonYear.style.borderColor = '#ffffff';
-			buttonYear.style.color = '#ffffff';
-		} 
-	};
-
-	toggleByArtist();
-
 	const styles = {
-		color: `${visible ? '#9A48F1' : ''}`,
-		borderColor: `${visible ? '#9A48F1' : ''}`,
+		color: `${visibleFilter ? '#9A48F1' : ''}`,
+		borderColor: `${visibleFilter ? '#9A48F1' : ''}`,
 	};
 
 	return (
 		<>
 			<div
 				className='filter__button button-author _btn-text'
-				onClick={toggleVisibility}
+				onClick={toggleArtist}
 				style={styles}
 			>
 				Исполнителю
 			</div>
 			<div
 				className='byArtistMegaBlock'
-				style={{ visibility: `${visible ? 'visible' : 'hidden'}` }}
+				style={{
+					visibility: `${visibleFilter ? 'visible' : 'hidden'}`,
+				}}
 			>
 				<div className='byArtistBlock'>{nameList}</div>
 			</div>

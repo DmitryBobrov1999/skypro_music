@@ -7,8 +7,20 @@ import { genreData } from './searchByButton/genreData.js';
 import SearchByArtist from './searchByButton/SearchByArtist.js';
 import SearchByYear from './searchByButton/SearchByYear.js';
 import SearchByGenre from './searchByButton/SearchByGenre.js';
+import { useState } from 'react';
 
 export default function CreateTracklist({ isLoading }) {
+	
+	const [visibleFilter, setVisibleFilter] = useState(null);
+
+	const openFilter = filterName => {
+		setVisibleFilter(filterName);
+	};
+
+	const closeAllFilters = () => {
+		setVisibleFilter(null);
+	};
+
 	return (
 		<div className='main__centerblock centerblock'>
 			<div className='centerblock__search search'>
@@ -26,9 +38,24 @@ export default function CreateTracklist({ isLoading }) {
 			<div className='centerblock__filter filter'>
 				<div className='filter__title'>Искать по:</div>
 
-				<SearchByArtist playlistData={playlistData} />
-				<SearchByYear yearData={yearData} />
-				<SearchByGenre genreData={genreData}  />
+				<SearchByArtist
+					openFilter={openFilter}
+					closeAllFilters={closeAllFilters}
+					playlistData={playlistData}
+					visibleFilter={visibleFilter === 'artist'}
+				/>
+				<SearchByYear
+					openFilter={openFilter}
+					closeAllFilters={closeAllFilters}
+					yearData={yearData}
+					visibleFilter={visibleFilter === 'year'}
+				/>
+				<SearchByGenre
+					openFilter={openFilter}
+					closeAllFilters={closeAllFilters}
+					genreData={genreData}
+					visibleFilter={visibleFilter === 'genre'}
+				/>
 			</div>
 			<div className='centerblock__content'>
 				<div className='content__title playlist-title'>
