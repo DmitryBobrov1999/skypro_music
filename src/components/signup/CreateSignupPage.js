@@ -1,42 +1,36 @@
-import './signup.css';
+import './CreateSignupPage.styles.js';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import * as S from './CreateSignupPage.styles';
 
 export default function CreateSignUpPage() {
 	return (
-		<div className='wrapper'>
-			<div className='container-signup'>
-				<div className='modal__block'>
-					<form className='modal__form-login'>
+		<S.Wrapper>
+			<S.ContainerSignup>
+				<S.ModalBlock>
+					<S.ModalFormLogin>
 						<NavLink to='/'>
-							<div className='modal__logo'>
+							<S.ModalLogo>
 								<img src='../img/logo_modal.png' alt='logo' />
-							</div>
+							</S.ModalLogo>
 						</NavLink>
-						<input
-							className='modal__input login'
-							type='text'
-							name='login'
-							placeholder='Почта'
-						/>
-						<input
-							className='modal__input password-first'
+						<S.ModalInputLogin type='text' name='login' placeholder='Почта' />
+						<S.ModalInputLogin
 							type='password'
 							name='password'
 							placeholder='Пароль'
 						/>
-						<input
-							className='modal__input password-double'
+						<S.ModalInputLogin
 							type='password'
 							name='password'
 							placeholder='Повторите пароль'
 						/>
-						<button className='modal__btn-signup-ent'>
+						<S.ModalBtnSignupEnt>
 							<NavLink to='/'>Зарегистрироваться</NavLink>
-						</button>
-					</form>
-				</div>
-			</div>
-		</div>
+						</S.ModalBtnSignupEnt>
+					</S.ModalFormLogin>
+				</S.ModalBlock>
+			</S.ContainerSignup>
+		</S.Wrapper>
 	);
 }

@@ -1,4 +1,7 @@
-.nav__burger {
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
+
+export const NavBurger = styled.div`
 	width: 20px;
 	height: 36px;
 	padding: 13px 0;
@@ -13,32 +16,32 @@
 	-ms-flex-pack: justify;
 	justify-content: space-between;
 	cursor: pointer;
-}
+`;
 
-.burger__line {
+export const BurgerLine = styled.span`
 	display: inline-block;
 	width: 100%;
 	height: 1px;
 	background-color: #d3d3d3;
-}
+`;
 
-.nav__menu {
+export const NavMenu = styled.div`
 	display: block;
 	visibility: visible;
-}
+`;
 
-.menu__list {
+export const MenuList = styled.ul`
 	padding: 18px 0 10px 0;
-}
+`;
 
-.menu__item {
+export const MenuItem = styled.li`
 	padding: 5px 0;
 	margin-bottom: 16px;
-}
+`;
 
-.menu__link {
+export const MenuLink = styled(NavLink)`
 	color: #ffffff;
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 24px;
-}
+`;

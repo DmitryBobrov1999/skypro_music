@@ -1,5 +1,5 @@
 import React from 'react';
-import '../tracklist.css';
+import * as S from './SearchBy.styles';
 
 export default function SearchByArtist({
 	playlistData,
@@ -17,11 +17,7 @@ export default function SearchByArtist({
 	};
 
 	const nameList = playlistData.map(data => {
-		return (
-			<p className='byPar' key={data.id}>
-				{data.trackAuthor}
-			</p>
-		);
+		return <S.ByPar key={data.id}>{data.trackAuthor}</S.ByPar>;
 	});
 
 	const styles = {
@@ -31,21 +27,16 @@ export default function SearchByArtist({
 
 	return (
 		<>
-			<div
-				className='filter__button button-author _btn-text'
-				onClick={toggleArtist}
-				style={styles}
-			>
+			<S.FilterButton onClick={toggleArtist} style={styles}>
 				Исполнителю
-			</div>
-			<div
-				className='byArtistMegaBlock'
+			</S.FilterButton>
+			<S.byArtistMegaBlock
 				style={{
 					visibility: `${visibleFilter ? 'visible' : 'hidden'}`,
 				}}
 			>
-				<div className='byArtistBlock'>{nameList}</div>
-			</div>
+				<S.byArtistBlock>{nameList}</S.byArtistBlock>
+			</S.byArtistMegaBlock>
 		</>
 	);
 }
