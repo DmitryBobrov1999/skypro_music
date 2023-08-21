@@ -20,21 +20,12 @@ export default function SearchByArtist({
 		return <S.ByPar key={data.id}>{data.trackAuthor}</S.ByPar>;
 	});
 
-	const styles = {
-		color: `${visibleFilter ? '#9A48F1' : ''}`,
-		borderColor: `${visibleFilter ? '#9A48F1' : ''}`,
-	};
-
 	return (
 		<>
-			<S.FilterButton onClick={toggleArtist} style={styles}>
+			<S.FilterButton onClick={toggleArtist} visibleFilter={visibleFilter}>
 				Исполнителю
 			</S.FilterButton>
-			<S.byArtistMegaBlock
-				style={{
-					visibility: `${visibleFilter ? 'visible' : 'hidden'}`,
-				}}
-			>
+			<S.byArtistMegaBlock visibleFilter={visibleFilter}>
 				<S.byArtistBlock>{nameList}</S.byArtistBlock>
 			</S.byArtistMegaBlock>
 		</>

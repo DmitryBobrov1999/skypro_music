@@ -20,21 +20,12 @@ export default function SearchByGenre({
 		}
 	};
 
-	const styles = {
-		color: `${visibleFilter ? '#9A48F1' : ''}`,
-		borderColor: `${visibleFilter ? '#9A48F1' : ''}`,
-	};
-
 	return (
 		<>
-			<S.FilterButton onClick={toggleGenre} style={styles}>
+			<S.FilterButton onClick={toggleGenre} visibleFilter={visibleFilter}>
 				Жанру
 			</S.FilterButton>
-			<S.ByGenreMegaBlock
-				style={{
-					visibility: `${visibleFilter ? 'visible' : 'hidden'}`,
-				}}
-			>
+			<S.ByGenreMegaBlock visibleFilter={visibleFilter}>
 				<S.byArtistBlock>{genreList}</S.byArtistBlock>
 			</S.ByGenreMegaBlock>
 		</>

@@ -20,20 +20,13 @@ export default function SearchByYear({
 		}
 	};
 
-	const styles = {
-		color: `${visibleFilter ? '#9A48F1' : ''}`,
-		borderColor: `${visibleFilter ? '#9A48F1' : ''}`,
-	};
-
 	return (
 		<>
-			<S.FilterButton onClick={toggleYear} style={styles}>
+			<S.FilterButton onClick={toggleYear} visibleFilter={visibleFilter}>
 				Году выпуска
 			</S.FilterButton>
 			<S.ByYearMegaBlock
-				style={{
-					visibility: `${visibleFilter ? 'visible' : 'hidden'}`,
-				}}
+				visibleFilter={ visibleFilter }
 			>
 				<S.ByYearBlock>{yearList}</S.ByYearBlock>
 			</S.ByYearMegaBlock>

@@ -1,28 +1,27 @@
 import styled from 'styled-components';
 
 export const FilterButton = styled.div`
+	color: ${props => (props.visibleFilter ? '#9A48F1' : '')};
+	border-color: ${props => (props.visibleFilter ? '#9A48F1' : '')};
 	font-style: normal;
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 24px;
-	border: 1px solid #ffffff;
+	border: 1px solid;
 	border-radius: 60px;
 	padding: 6px 20px;
 	&:hover {
-		border-color: #d9b6ff;
-		color: #d9b6ff;
+		border-color: ${props => (props.visibleFilter ? '' : '#d9b6ff')};
+		color: ${props => (props.visibleFilter ? '' : '#d9b6ff')};
 		cursor: pointer;
 	}
-	&:active {
-		border-color: #ad61ff;
-		color: #ad61ff;
-		cursor: pointer;
-	}
+
 	&:not(:last-child) {
 		margin-right: 10px;
 	}
 `;
 export const ByYearMegaBlock = styled.div`
+	visibility: ${props => (props.visibleFilter ? 'visible' : 'hidden')};
 	width: 221px;
 	height: 196px;
 	padding: 34px;
@@ -59,6 +58,7 @@ export const ByPar = styled.p`
 `;
 
 export const byArtistMegaBlock = styled.div`
+	visibility: ${props => (props.visibleFilter ? 'visible' : 'hidden')};
 	padding: 34px;
 	width: 248px;
 	height: 305px;
@@ -86,6 +86,7 @@ export const byArtistBlock = styled.div`
 `;
 
 export const ByGenreMegaBlock = styled.div`
+	visibility: ${props => (props.visibleFilter ? 'visible' : 'hidden')};
 	padding: 34px;
 	width: 248px;
 	height: 305px;
