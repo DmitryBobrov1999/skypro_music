@@ -1,23 +1,19 @@
 import React from 'react';
-import '../tracklist.css';
+import * as S from './SearchBy.styles';
 
 export default function SearchByYear({
 	yearData,
-	visibleFilter,
+	$visibleFilter,
+
 	openFilter,
 	closeAllFilters,
 }) {
-	
 	const yearList = yearData.map(data => {
-		return (
-			<p className='byPar' key={data.id}>
-				{data.year}
-			</p>
-		);
+		return <S.ByPar key={data.id}>{data.year}</S.ByPar>;
 	});
 
 	const toggleYear = () => {
-		if (visibleFilter) {
+		if ($visibleFilter) {
 			closeAllFilters();
 		} else {
 			closeAllFilters();
@@ -25,28 +21,14 @@ export default function SearchByYear({
 		}
 	};
 
-	const styles = {
-		color: `${visibleFilter ? '#9A48F1' : '#ffffff'}`,
-		borderColor: `${visibleFilter ? '#9A48F1' : '#ffffff'}`,
-	};
-
 	return (
 		<>
-			<div
-				className='filter__button button-year _btn-text'
-				onClick={toggleYear}
-				style={styles}
-			>
+			<S.FilterButton onClick={toggleYear} $visibleFilter={$visibleFilter}>
 				Году выпуска
-			</div>
-			<div
-				className='byYearMegaBlock'
-				style={{
-					visibility: `${visibleFilter ? 'visible' : 'hidden'}`,
-				}}
-			>
-				<div className='byYearBlock'>{yearList}</div>
-			</div>
+			</S.FilterButton>
+			<S.ByYearMegaBlock $visibleFilter={$visibleFilter}>
+				<S.ByYearBlock>{yearList}</S.ByYearBlock>
+			</S.ByYearMegaBlock>
 		</>
 	);
 }

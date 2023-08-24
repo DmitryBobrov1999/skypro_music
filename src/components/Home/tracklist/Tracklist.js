@@ -1,17 +1,16 @@
-import './tracklist.css';
 import React from 'react';
 import CreatePlaylistItem from '../playlistItem/PlaylistItem.js';
-import { playlistData } from '../playlistItem/playlistData.js';
+import { playlistData } from '../playlistItem/PlaylistData.js';
 import { yearData } from './searchByButton/yearData.js';
 import { genreData } from './searchByButton/genreData.js';
 import SearchByArtist from './searchByButton/SearchByArtist.js';
 import SearchByYear from './searchByButton/SearchByYear.js';
 import SearchByGenre from './searchByButton/SearchByGenre.js';
 import { useState } from 'react';
+import * as S from './Tracklist.styles';
 
 export default function CreateTracklist({ isLoading }) {
-	
-	const [visibleFilter, setVisibleFilter] = useState(null);
+	const [$visibleFilter, setVisibleFilter] = useState(null);
 
 	const openFilter = filterName => {
 		setVisibleFilter(filterName);
@@ -22,59 +21,54 @@ export default function CreateTracklist({ isLoading }) {
 	};
 
 	return (
-		<div className='main__centerblock centerblock'>
-			<div className='centerblock__search search'>
-				<svg className='search__svg'>
+		<S.MainCenterBlock>
+			<S.CenterblockSearch>
+				<S.SearchSvg>
 					<use xlinkHref='img/icon/sprite.svg#icon-search' />
-				</svg>
-				<input
-					className='search__text'
-					type='search'
-					placeholder='Поиск'
-					name='search'
-				/>
-			</div>
-			<h2 className='centerblock__h2'>Треки</h2>
-			<div className='centerblock__filter filter'>
-				<div className='filter__title'>Искать по:</div>
+				</S.SearchSvg>
+				<S.SearchText type='search' placeholder='Поиск' name='search' />
+			</S.CenterblockSearch>
+			<S.CenterblockH2>Треки</S.CenterblockH2>
+			<S.CenterblockFilter>
+				<S.FilterTitle>Искать по:</S.FilterTitle>
 
 				<SearchByArtist
 					openFilter={openFilter}
 					closeAllFilters={closeAllFilters}
 					playlistData={playlistData}
-					visibleFilter={visibleFilter === 'artist'}
+					$visibleFilter={$visibleFilter === 'artist'}
 				/>
 				<SearchByYear
 					openFilter={openFilter}
 					closeAllFilters={closeAllFilters}
 					yearData={yearData}
-					visibleFilter={visibleFilter === 'year'}
+					$visibleFilter={$visibleFilter === 'year'}
 				/>
 				<SearchByGenre
 					openFilter={openFilter}
 					closeAllFilters={closeAllFilters}
 					genreData={genreData}
-					visibleFilter={visibleFilter === 'genre'}
+					$visibleFilter={$visibleFilter === 'genre'}
 				/>
-			</div>
-			<div className='centerblock__content'>
-				<div className='content__title playlist-title'>
-					<div className='playlist-title__col col01'>Трек</div>
-					<div className='playlist-title__col col02'>ИСПОЛНИТЕЛЬ</div>
-					<div className='playlist-title__col col03'>АЛЬБОМ</div>
-					<div className='playlist-title__col col04'>
-						<svg className='playlist-title__svg' alt='time'>
+			</S.CenterblockFilter>
+			<S.CenterblockContent>
+				<S.ContentTitle>
+					<S.PlaylistTitleCol1>Трек</S.PlaylistTitleCol1>
+					<S.PlaylistTitleCol2>ИСПОЛНИТЕЛЬ</S.PlaylistTitleCol2>
+					<S.PlaylistTitleCol3>АЛЬБОМ</S.PlaylistTitleCol3>
+					<S.PlaylistTitleCol4>
+						<S.PlaylistTitleSvg alt='time'>
 							<use xlinkHref='img/icon/sprite.svg#icon-watch' />
-						</svg>
-					</div>
-				</div>
-				<div className='content__playlist playlist'>
+						</S.PlaylistTitleSvg>
+					</S.PlaylistTitleCol4>
+				</S.ContentTitle>
+				<S.ContentPlaylist>
 					<CreatePlaylistItem
 						playlistData={playlistData}
 						isLoading={isLoading}
 					/>
-				</div>
-			</div>
-		</div>
+				</S.ContentPlaylist>
+			</S.CenterblockContent>
+		</S.MainCenterBlock>
 	);
 }

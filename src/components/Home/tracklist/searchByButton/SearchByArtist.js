@@ -1,14 +1,15 @@
 import React from 'react';
-import '../tracklist.css';
+import * as S from './SearchBy.styles';
 
 export default function SearchByArtist({
 	playlistData,
-	visibleFilter,
+	$visibleFilter,
+
 	openFilter,
 	closeAllFilters,
 }) {
 	const toggleArtist = () => {
-		if (visibleFilter) {
+		if ($visibleFilter) {
 			closeAllFilters();
 		} else {
 			closeAllFilters();
@@ -17,35 +18,17 @@ export default function SearchByArtist({
 	};
 
 	const nameList = playlistData.map(data => {
-		return (
-			<p className='byPar' key={data.id}>
-				{data.trackAuthor}
-			</p>
-		);
+		return <S.ByPar key={data.id}>{data.trackAuthor}</S.ByPar>;
 	});
-
-	const styles = {
-		color: `${visibleFilter ? '#9A48F1' : ''}`,
-		borderColor: `${visibleFilter ? '#9A48F1' : ''}`,
-	};
 
 	return (
 		<>
-			<div
-				className='filter__button button-author _btn-text'
-				onClick={toggleArtist}
-				style={styles}
-			>
+			<S.FilterButton onClick={toggleArtist} $visibleFilter={$visibleFilter}>
 				Исполнителю
-			</div>
-			<div
-				className='byArtistMegaBlock'
-				style={{
-					visibility: `${visibleFilter ? 'visible' : 'hidden'}`,
-				}}
-			>
-				<div className='byArtistBlock'>{nameList}</div>
-			</div>
+			</S.FilterButton>
+			<S.byArtistMegaBlock $visibleFilter={$visibleFilter}>
+				<S.byArtistBlock>{nameList}</S.byArtistBlock>
+			</S.byArtistMegaBlock>
 		</>
 	);
 }

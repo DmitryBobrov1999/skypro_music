@@ -1,44 +1,42 @@
 import React from 'react';
-import './playlistItem.css';
 import { PlaylistItemSkeleton } from '../SkeletonCard.js';
+import * as S from './PlaylistItem.styles';
 
 export default function CreatePlaylistItem({ playlistData, isLoading }) {
 	return playlistData.map(data => {
 		return (
-			<div key={data.id} className='playlist__item'>
-				<div className='playlist__track track'>
+			<S.PlaylistItem key={data.id}>
+				<S.PlaylistTrack>
 					{isLoading ? (
 						<>
-							<div className='track__title'>
-								<div className='track__title-image'>
-									<svg className='track__title-svg' alt='music'>
+							<S.TrackTitle>
+								<S.TrackTitleImage>
+									<S.TrackTitleSvg alt='music'>
 										<use xlinkHref='img/icon/sprite.svg#icon-note' />
-									</svg>
-								</div>
+									</S.TrackTitleSvg>
+								</S.TrackTitleImage>
 								<div className='track__title-text'>
-									<a className='track__title-link' href='http://'>
+									<S.TrackTitleLink href='http://'>
 										{data.trackName}
-										<span className='track__title-span'>
-											{data.trackNameSpan}
-										</span>
-									</a>
+										<S.TrackTitleSpan>{data.trackNameSpan}</S.TrackTitleSpan>
+									</S.TrackTitleLink>
 								</div>
-							</div>
-							<div className='track__author'>
-								<a className='track__author-link' href='http://'>
+							</S.TrackTitle>
+							<S.TrackAuthor>
+								<S.TrackAuthorLink href='http://'>
 									{data.trackAuthor}
-								</a>
-							</div>
-							<div className='track__album'>
-								<a className='track__album-link' href='http://'>
+								</S.TrackAuthorLink>
+							</S.TrackAuthor>
+							<S.TrackAlbum>
+								<S.TrackAlbumLink href='http://'>
 									{data.trackAlbum}
-								</a>
-							</div>
+								</S.TrackAlbumLink>
+							</S.TrackAlbum>
 							<div className='track__time'>
-								<svg className='track__time-svg' alt='time'>
+								<S.TrackTimeSvg alt='time'>
 									<use xlinkHref='img/icon/sprite.svg#icon-like' />
-								</svg>
-								<span className='track__time-text'>{data.trackDuration}</span>
+								</S.TrackTimeSvg>
+								<S.TrackTimeText>{data.trackDuration}</S.TrackTimeText>
 							</div>
 						</>
 					) : (
@@ -46,8 +44,8 @@ export default function CreatePlaylistItem({ playlistData, isLoading }) {
 							<PlaylistItemSkeleton />
 						</>
 					)}
-				</div>
-			</div>
+				</S.PlaylistTrack>
+			</S.PlaylistItem>
 		);
 	});
 }

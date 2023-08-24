@@ -1,22 +1,19 @@
 import React from 'react';
-import '../tracklist.css';
+import * as S from './SearchBy.styles';
 
 export default function SearchByGenre({
 	genreData,
-	visibleFilter,
+	$visibleFilter,
+
 	openFilter,
 	closeAllFilters,
 }) {
 	const genreList = genreData.map(data => {
-		return (
-			<p className='byPar' key={data.id}>
-				{data.genre}
-			</p>
-		);
+		return <S.ByPar key={data.id}>{data.genre}</S.ByPar>;
 	});
 
 	const toggleGenre = () => {
-		if (visibleFilter) {
+		if ($visibleFilter) {
 			closeAllFilters();
 		} else {
 			closeAllFilters();
@@ -24,28 +21,14 @@ export default function SearchByGenre({
 		}
 	};
 
-	const styles = {
-		color: `${visibleFilter ? '#9A48F1' : '#ffffff'}`,
-		borderColor: `${visibleFilter ? '#9A48F1' : '#ffffff'}`,
-	};
-
 	return (
 		<>
-			<div
-				className='filter__button button-genre _btn-text'
-				onClick={toggleGenre}
-				style={styles}
-			>
+			<S.FilterButton onClick={toggleGenre} $visibleFilter={$visibleFilter}>
 				Жанру
-			</div>
-			<div
-				className='byGenreMegaBlock'
-				style={{
-					visibility: `${visibleFilter ? 'visible' : 'hidden'}`,
-				}}
-			>
-				<div className='byArtistBlock'>{genreList}</div>
-			</div>
+			</S.FilterButton>
+			<S.ByGenreMegaBlock $visibleFilter={$visibleFilter}>
+				<S.byArtistBlock>{genreList}</S.byArtistBlock>
+			</S.ByGenreMegaBlock>
 		</>
 	);
 }

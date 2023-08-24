@@ -3,6 +3,7 @@ import CreateSignInPage from './components/signin/CreateSigninPage.js';
 import CreateSignUpPage from './components/signup/CreateSignupPage.js';
 import Home from './components/home/Home.js';
 import React, { useState, useEffect } from 'react';
+import { GlobalStyle } from './App.styles';
 
 function App() {
 	const [isLoading, setIsLoading] = useState(false);
@@ -15,6 +16,7 @@ function App() {
 
 	return (
 		<div className='App'>
+			<GlobalStyle />
 			<Router>
 				<Routes>
 					<Route exact path='/' element={<Home isLoading={isLoading} />} />
