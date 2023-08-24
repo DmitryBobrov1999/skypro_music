@@ -3,7 +3,8 @@ import * as S from './SearchBy.styles';
 
 export default function SearchByYear({
 	yearData,
-	visibleFilter,
+	$visibleFilter,
+
 	openFilter,
 	closeAllFilters,
 }) {
@@ -12,7 +13,7 @@ export default function SearchByYear({
 	});
 
 	const toggleYear = () => {
-		if (visibleFilter) {
+		if ($visibleFilter) {
 			closeAllFilters();
 		} else {
 			closeAllFilters();
@@ -22,12 +23,10 @@ export default function SearchByYear({
 
 	return (
 		<>
-			<S.FilterButton onClick={toggleYear} visibleFilter={visibleFilter}>
+			<S.FilterButton onClick={toggleYear} $visibleFilter={$visibleFilter}>
 				Году выпуска
 			</S.FilterButton>
-			<S.ByYearMegaBlock
-				visibleFilter={ visibleFilter }
-			>
+			<S.ByYearMegaBlock $visibleFilter={$visibleFilter}>
 				<S.ByYearBlock>{yearList}</S.ByYearBlock>
 			</S.ByYearMegaBlock>
 		</>

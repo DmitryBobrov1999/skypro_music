@@ -3,7 +3,8 @@ import * as S from './SearchBy.styles';
 
 export default function SearchByGenre({
 	genreData,
-	visibleFilter,
+	$visibleFilter,
+
 	openFilter,
 	closeAllFilters,
 }) {
@@ -12,7 +13,7 @@ export default function SearchByGenre({
 	});
 
 	const toggleGenre = () => {
-		if (visibleFilter) {
+		if ($visibleFilter) {
 			closeAllFilters();
 		} else {
 			closeAllFilters();
@@ -22,10 +23,10 @@ export default function SearchByGenre({
 
 	return (
 		<>
-			<S.FilterButton onClick={toggleGenre} visibleFilter={visibleFilter}>
+			<S.FilterButton onClick={toggleGenre} $visibleFilter={$visibleFilter}>
 				Жанру
 			</S.FilterButton>
-			<S.ByGenreMegaBlock visibleFilter={visibleFilter}>
+			<S.ByGenreMegaBlock $visibleFilter={$visibleFilter}>
 				<S.byArtistBlock>{genreList}</S.byArtistBlock>
 			</S.ByGenreMegaBlock>
 		</>

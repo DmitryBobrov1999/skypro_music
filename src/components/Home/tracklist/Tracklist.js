@@ -10,7 +10,7 @@ import { useState } from 'react';
 import * as S from './Tracklist.styles';
 
 export default function CreateTracklist({ isLoading }) {
-	const [visibleFilter, setVisibleFilter] = useState(null);
+	const [$visibleFilter, setVisibleFilter] = useState(null);
 
 	const openFilter = filterName => {
 		setVisibleFilter(filterName);
@@ -36,19 +36,19 @@ export default function CreateTracklist({ isLoading }) {
 					openFilter={openFilter}
 					closeAllFilters={closeAllFilters}
 					playlistData={playlistData}
-					visibleFilter={visibleFilter === 'artist'}
+					$visibleFilter={$visibleFilter === 'artist'}
 				/>
 				<SearchByYear
 					openFilter={openFilter}
 					closeAllFilters={closeAllFilters}
 					yearData={yearData}
-					visibleFilter={visibleFilter === 'year'}
+					$visibleFilter={$visibleFilter === 'year'}
 				/>
 				<SearchByGenre
 					openFilter={openFilter}
 					closeAllFilters={closeAllFilters}
 					genreData={genreData}
-					visibleFilter={visibleFilter === 'genre'}
+					$visibleFilter={$visibleFilter === 'genre'}
 				/>
 			</S.CenterblockFilter>
 			<S.CenterblockContent>
