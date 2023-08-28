@@ -19,17 +19,17 @@ export default function BurgerBlock() {
 			>
 				<S.MenuList>
 					<S.MenuItem>
-						<S.MenuLink to='#' >
+						<S.MenuLink to='/' >
 							Главное
 						</S.MenuLink>
 					</S.MenuItem>
 					<S.MenuItem>
-						<S.MenuLink to='#' >
+						<S.MenuLink to='/favorite' >
 							Мой плейлист
 						</S.MenuLink>
 					</S.MenuItem>
 					<S.MenuItem>
-						<S.MenuLink to='/signin'>
+						<S.MenuLink to='/login'>
 							Войти
 						</S.MenuLink>
 					</S.MenuItem>

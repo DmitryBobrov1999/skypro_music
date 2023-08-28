@@ -1,5 +1,4 @@
 import './CreateSigninPage.styles.js';
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import * as S from './CreateSigninPage.styles';
 
@@ -24,7 +23,7 @@ export default function CreateSignInPage() {
 							<NavLink to='/'>Войти</NavLink>
 						</S.ModalBtnEnter>
 						<S.ModalBtnSignup>
-							<NavLink to='/signup'>Зарегистрироваться</NavLink>
+							<NavLink to='/register'>Зарегистрироваться</NavLink>
 						</S.ModalBtnSignup>
 					</S.ModalFormLogin>
 				</S.ModalBlock>

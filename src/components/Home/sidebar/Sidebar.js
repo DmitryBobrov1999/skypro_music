@@ -1,6 +1,8 @@
 import React from 'react';
 import { SidebarSkeleton } from '../SkeletonCard.js';
 import * as S from './Sidebar.styles';
+import { NavLink } from 'react-router-dom';
+import { categoryMock } from '../../../pages/category/CategoryMock.js';
 
 export default function CreateSidebar({ isLoading }) {
 	return (
@@ -15,33 +17,23 @@ export default function CreateSidebar({ isLoading }) {
 			</S.SidebarPersonal>
 			<S.SidebarBlock>
 				<S.SidebarList>
-					<S.SidebarItem>
-						<S.SidebarLink href='#'>
-							{isLoading ? (
-								<S.SidebarImg src='img/playlist01.png' alt="day's playlist" />
-							) : (
-								<SidebarSkeleton />
-							)}
-						</S.SidebarLink>
-					</S.SidebarItem>
-					<S.SidebarItem className='sidebar__item'>
-						<S.SidebarLink href='#'>
-							{isLoading ? (
-								<S.SidebarImg src='img/playlist02.png' alt="day's playlist" />
-							) : (
-								<SidebarSkeleton />
-							)}
-						</S.SidebarLink>
-					</S.SidebarItem>
-					<S.SidebarItem className='sidebar__item'>
-						<S.SidebarLink href='#'>
-							{isLoading ? (
-								<S.SidebarImg src='img/playlist03.png' alt="day's playlist" />
-							) : (
-								<SidebarSkeleton />
-							)}
-						</S.SidebarLink>
-					</S.SidebarItem>
+					{categoryMock.map(track => (
+						<S.SidebarItem key={track.id}>
+							<S.SidebarLink>
+								{isLoading ? (
+									<NavLink to={`/category/${track.id}`}>
+										<S.SidebarImg
+											src={track.img}
+											
+										/>
+									</NavLink>
+								) : (
+									<SidebarSkeleton />
+								)}
+							</S.SidebarLink>
+						</S.SidebarItem>
+					))}
+					
 				</S.SidebarList>
 			</S.SidebarBlock>
 		</S.MainSidebar>
