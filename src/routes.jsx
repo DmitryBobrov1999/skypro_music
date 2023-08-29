@@ -24,11 +24,10 @@ export const AppRoutes = ({ user }) => {
 
 			<Route path='*' element={<NotFound />} />
 
-			<Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
-				<Route path='/' element={<Home isLoading={isLoading} />} />
-				<Route path='/favorite' element={<FavoriteTracks />} />
-				<Route path='/category/:id' element={<Category />} />
-			</Route>
+			<Route path='/' element={<Home isLoading={isLoading} />} />
+			<Route path='/favorite' element={<FavoriteTracks />} />
+			<Route path='/category/:id' element={<Category />} />
+			{/* <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}></Route> */}
 		</Routes>
 	);
 };
