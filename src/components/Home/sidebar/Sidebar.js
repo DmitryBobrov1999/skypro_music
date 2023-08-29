@@ -5,14 +5,20 @@ import { NavLink } from 'react-router-dom';
 import { categoryMock } from '../../../pages/category/CategoryMock.js';
 
 export default function CreateSidebar({ isLoading }) {
+	const sendFalseToLocalStorage = () => {
+		window.localStorage.setItem('user', false);
+	};
+
 	return (
 		<S.MainSidebar>
 			<S.SidebarPersonal>
 				<S.SidebarPersonalName>Sergey.Ivanov</S.SidebarPersonalName>
 				<S.SidebarIcon>
-					<svg alt='logout'>
-						<use xlinkHref='img/icon/sprite.svg#logout' />
-					</svg>
+					<NavLink to='login'>
+						<svg onClick={sendFalseToLocalStorage} alt='logout'>
+							<use xlinkHref='img/icon/sprite.svg#logout' />
+						</svg>
+					</NavLink>
 				</S.SidebarIcon>
 			</S.SidebarPersonal>
 			<S.SidebarBlock>
@@ -22,10 +28,7 @@ export default function CreateSidebar({ isLoading }) {
 							<S.SidebarLink>
 								{isLoading ? (
 									<NavLink to={`/category/${track.id}`}>
-										<S.SidebarImg
-											src={track.img}
-											
-										/>
+										<S.SidebarImg src={track.img} />
 									</NavLink>
 								) : (
 									<SidebarSkeleton />
@@ -33,7 +36,6 @@ export default function CreateSidebar({ isLoading }) {
 							</S.SidebarLink>
 						</S.SidebarItem>
 					))}
-					
 				</S.SidebarList>
 			</S.SidebarBlock>
 		</S.MainSidebar>

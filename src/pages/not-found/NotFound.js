@@ -13,7 +13,7 @@ export default function NotFound() {
 					<S.MainCenterBlock>
 						<S.CenterblockSearch>
 							<S.SearchSvg>
-								<use xlinkHref='img/icon/sprite.svg#icon-search' />
+								<use xlinkHref='/img/icon/sprite.svg#icon-search' />
 							</S.SearchSvg>
 							<S.SearchText type='search' placeholder='Поиск' name='search' />
 						</S.CenterblockSearch>
@@ -23,7 +23,7 @@ export default function NotFound() {
 
 							<S.ErrorSvgBlock>
 								<S.ErrorSvgName>Страница не найдена</S.ErrorSvgName>
-								<S.ErrorSvg src='img/icon/crying.png'></S.ErrorSvg>
+								<S.ErrorSvg src='/img/icon/crying.png'></S.ErrorSvg>
 							</S.ErrorSvgBlock>
 
 							<S.ErrorWhere>

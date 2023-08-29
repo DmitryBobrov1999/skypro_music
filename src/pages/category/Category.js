@@ -21,7 +21,7 @@ export default function Category() {
 					<S.MainCenterBlock>
 						<S.CenterblockSearch>
 							<S.SearchSvg>
-								<use xlinkHref='img/icon/sprite.svg#icon-search' />
+								<use xlinkHref='/img/icon/sprite.svg#icon-search' />
 							</S.SearchSvg>
 							<S.SearchText type='search' placeholder='Поиск' name='search' />
 						</S.CenterblockSearch>
@@ -34,7 +34,7 @@ export default function Category() {
 								<S.PlaylistTitleCol3>АЛЬБОМ</S.PlaylistTitleCol3>
 								<S.PlaylistTitleCol4>
 									<S.PlaylistTitleSvg alt='time'>
-										<use xlinkHref='img/icon/sprite.svg#icon-watch' />
+										<use xlinkHref='/img/icon/sprite.svg#icon-watch' />
 									</S.PlaylistTitleSvg>
 								</S.PlaylistTitleCol4>
 							</S.ContentTitle>

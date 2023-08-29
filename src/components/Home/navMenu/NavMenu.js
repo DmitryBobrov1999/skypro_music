@@ -6,7 +6,7 @@ export default function CreateNavMenu() {
 	return (
 		<S.MainMenu>
 			<S.NavLogo>
-				<S.LogoImage src='img/logo.png' alt='logo' />
+				<S.LogoImage src='/img/logo.png' alt='logo' />
 			</S.NavLogo>
 			<BurgerBlock />
 		</S.MainMenu>

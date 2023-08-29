@@ -12,27 +12,27 @@ export default function CreateAudioPlayer({ isLoading }) {
 						<S.PlayerControls>
 							<S.PlayerBtnPrev>
 								<S.PlayerBtnPrevSvg alt='prev'>
-									<use xlinkHref='img/icon/sprite.svg#icon-prev' />
+									<use xlinkHref='/img/icon/sprite.svg#icon-prev' />
 								</S.PlayerBtnPrevSvg>
 							</S.PlayerBtnPrev>
 							<S.PlayerBtnPlay>
 								<S.PlayerBtnPlaySvg alt='play'>
-									<use xlinkHref='img/icon/sprite.svg#icon-play' />
+									<use xlinkHref='/img/icon/sprite.svg#icon-play' />
 								</S.PlayerBtnPlaySvg>
 							</S.PlayerBtnPlay>
 							<S.PlayerBtnNext>
 								<S.PlayerBtnNextSvg alt='next'>
-									<use xlinkHref='img/icon/sprite.svg#icon-next' />
+									<use xlinkHref='/img/icon/sprite.svg#icon-next' />
 								</S.PlayerBtnNextSvg>
 							</S.PlayerBtnNext>
 							<S.PlayerBtnRepeat>
 								<S.PlayerBtnRepeatSvg alt='repeat'>
-									<use xlinkHref='img/icon/sprite.svg#icon-repeat' />
+									<use xlinkHref='/img/icon/sprite.svg#icon-repeat' />
 								</S.PlayerBtnRepeatSvg>
 							</S.PlayerBtnRepeat>
 							<S.PlayerBtnShuffle>
 								<S.PlayerBtnShuffleSvg alt='shuffle'>
-									<use xlinkHref='img/icon/sprite.svg#icon-shuffle' />
+									<use xlinkHref='/img/icon/sprite.svg#icon-shuffle' />
 								</S.PlayerBtnShuffleSvg>
 							</S.PlayerBtnShuffle>
 						</S.PlayerControls>
@@ -42,7 +42,7 @@ export default function CreateAudioPlayer({ isLoading }) {
 									<>
 										<S.TrackPlayImage>
 											<S.TrackPlaySvg alt='music'>
-												<use xlinkHref='img/icon/sprite.svg#icon-note' />
+												<use xlinkHref='/img/icon/sprite.svg#icon-note' />
 											</S.TrackPlaySvg>
 										</S.TrackPlayImage>
 										<S.TrackPlayAuthor>
@@ -63,12 +63,12 @@ export default function CreateAudioPlayer({ isLoading }) {
 							<S.TrackPlayLikeDis>
 								<S.TrackPlayLike>
 									<S.TrackPlayLikeSvg alt='like'>
-										<use xlinkHref='img/icon/sprite.svg#icon-like' />
+										<use xlinkHref='/img/icon/sprite.svg#icon-like' />
 									</S.TrackPlayLikeSvg>
 								</S.TrackPlayLike>
 								<S.TrackPlayDislike>
 									<S.TrackPlayDislikeSvg alt='dislike'>
-										<use xlinkHref='img/icon/sprite.svg#icon-dislike' />
+										<use xlinkHref='/img/icon/sprite.svg#icon-dislike' />
 									</S.TrackPlayDislikeSvg>
 								</S.TrackPlayDislike>
 							</S.TrackPlayLikeDis>
@@ -78,7 +78,7 @@ export default function CreateAudioPlayer({ isLoading }) {
 						<S.VolumeContent>
 							<S.VolumeImage>
 								<S.VolumeSvg alt='volume'>
-									<use xlinkHref='img/icon/sprite.svg#icon-volume' />
+									<use xlinkHref='/img/icon/sprite.svg#icon-volume' />
 								</S.VolumeSvg>
 							</S.VolumeImage>
 							<S.VolumeProgress>

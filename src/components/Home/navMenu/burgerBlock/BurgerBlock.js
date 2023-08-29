@@ -7,6 +7,10 @@ export default function BurgerBlock() {
 
 	const toggleVisibility = () => setVisible(!visible);
 
+	const sendFalseToLocalStorage = () => {
+		window.localStorage.setItem('user', false);
+	};
+
 	return (
 		<>
 			<S.NavBurger onClick={toggleVisibility}>
@@ -14,24 +18,16 @@ export default function BurgerBlock() {
 				<S.BurgerLine />
 				<S.BurgerLine />
 			</S.NavBurger>
-			<S.NavMenu
-				style={{ visibility: `${visible ? 'visible' : 'hidden'}` }}
-			>
+			<S.NavMenu style={{ visibility: `${visible ? 'visible' : 'hidden'}` }}>
 				<S.MenuList>
 					<S.MenuItem>
-						<S.MenuLink to='/' >
-							Главное
-						</S.MenuLink>
+						<S.MenuLink to='/'>Главное</S.MenuLink>
 					</S.MenuItem>
 					<S.MenuItem>
-						<S.MenuLink to='/favorite' >
-							Мой плейлист
-						</S.MenuLink>
+						<S.MenuLink to='/favorite'>Мой плейлист</S.MenuLink>
 					</S.MenuItem>
-					<S.MenuItem>
-						<S.MenuLink to='/login'>
-							Войти
-						</S.MenuLink>
+					<S.MenuItem onClick={sendFalseToLocalStorage}>
+						<S.MenuLink to='/login'>Выйти</S.MenuLink>
 					</S.MenuItem>
 				</S.MenuList>
 			</S.NavMenu>

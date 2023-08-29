@@ -8,7 +8,7 @@ import FavoriteTracks from './pages/favoriteTracks/FavoriteTracks';
 import Category from './pages/category/Category';
 import { ProtectedRoute } from './components/protected-route/ProtectedRoute';
 
-export const AppRoutes = ({ user }) => {
+export const AppRoutes = ({ isAllowed }) => {
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
@@ -24,10 +24,13 @@ export const AppRoutes = ({ user }) => {
 
 			<Route path='*' element={<NotFound />} />
 
-			<Route path='/' element={<Home isLoading={isLoading} />} />
-			<Route path='/favorite' element={<FavoriteTracks />} />
-			<Route path='/category/:id' element={<Category />} />
-			{/* <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}></Route> */}
+			<Route
+				element={<ProtectedRoute />}
+			>
+				<Route path='/' element={<Home isLoading={isLoading} />} />
+				<Route path='/favorite' element={<FavoriteTracks />} />
+				<Route path='/category/:id' element={<Category />} />
+			</Route>
 		</Routes>
 	);
 };
