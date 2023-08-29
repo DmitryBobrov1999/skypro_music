@@ -17,6 +17,12 @@ export const AppRoutes = ({ isAllowed }) => {
 		}, 2000);
 	}, []);
 
+	const sendFalseToLocalStorage = () => {
+		window.localStorage.setItem('user', false);
+	};
+
+	sendFalseToLocalStorage();
+
 	return (
 		<Routes>
 			<Route path='/login' element={<CreateSignInPage />} />

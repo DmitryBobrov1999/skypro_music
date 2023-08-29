@@ -9,6 +9,8 @@ export default function CreateSignInPage() {
 		window.localStorage.setItem('user', true);
 	};
 
+	
+
 	return (
 		<S.Wrapper>
 			<S.ContainerEnter>

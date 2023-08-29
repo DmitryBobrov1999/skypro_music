@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { categoryMock } from '../../../pages/category/CategoryMock.js';
 
 export default function CreateSidebar({ isLoading }) {
+	
 	const sendFalseToLocalStorage = () => {
 		window.localStorage.setItem('user', false);
 	};
