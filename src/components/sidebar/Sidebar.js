@@ -2,10 +2,9 @@ import React from 'react';
 import { SidebarSkeleton } from '../SkeletonCard.js';
 import * as S from './Sidebar.styles';
 import { NavLink } from 'react-router-dom';
-import { categoryMock } from '../../../pages/category/CategoryMock.js';
+import { categoryMock } from '../../pages/category/CategoryMock.js';
 
 export default function CreateSidebar({ isLoading }) {
-	
 	const sendFalseToLocalStorage = () => {
 		window.localStorage.setItem('user', false);
 	};
@@ -15,9 +14,9 @@ export default function CreateSidebar({ isLoading }) {
 			<S.SidebarPersonal>
 				<S.SidebarPersonalName>Sergey.Ivanov</S.SidebarPersonalName>
 				<S.SidebarIcon onClick={sendFalseToLocalStorage}>
-					<NavLink to='login'>
+					<NavLink to='/login'>
 						<svg alt='logout'>
-							<use xlinkHref='img/icon/sprite.svg#logout' />
+							<use xlinkHref='/img/icon/sprite.svg#logout' />
 						</svg>
 					</NavLink>
 				</S.SidebarIcon>

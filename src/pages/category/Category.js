@@ -1,11 +1,12 @@
 import { useParams } from 'react-router-dom';
 import * as S from '../not-found/NotFound.styles';
-import CreateNavMenu from '../../components/home/navMenu/NavMenu.js';
+import React from 'react';
+import CreateNavMenu from '../../components/navMenu/NavMenu.js';
 import ErrorAudioPlayer from '../../components/forError/ErrorAudioPlayer';
 import ErrorSidebar from '../../components/forError/ErrorSidebar';
 import { categoryMock } from './CategoryMock';
-import CategoryPlaylistItem from '../../components/home/playlistItem/CategoryPlaylistitem';
-import { playlistData } from '../../components/home/playlistItem/PlaylistData';
+import CategoryPlaylistItem from '../../components/playlistItem/CategoryPlaylistitem';
+import { playlistData } from '../../components/playlistItem/PlaylistData';
 
 export default function Category() {
 	const params = useParams();

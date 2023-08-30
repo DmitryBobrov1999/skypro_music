@@ -1,9 +1,9 @@
-import CreateAudioPlayer from '../../components/home/audioPlayer/AudioPlayer.js';
-import CreateSidebar from '../../components/home/sidebar/Sidebar.js';
-import CreateTracklist from '../../components/home/tracklist/Tracklist.js';
-import CreateNavMenu from '../../components/home/navMenu/NavMenu.js';
+import CreateAudioPlayer from '../../components/audioPlayer/AudioPlayer';
+import CreateSidebar from '../../components/sidebar/Sidebar';
+import CreateTracklist from '../../components/tracklist/Tracklist';
+import CreateNavMenu from '../../components/navMenu/NavMenu';
 import * as S from './MainPage.styles';
-
+import React from 'react';
 export default function Home({ isLoading }) {
 	return (
 		<S.Wrapper>

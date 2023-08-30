@@ -1,5 +1,5 @@
 import React from 'react';
-import * as S from '../home/audioPlayer/AudioPlayer.styles';
+import * as S from '../audioPlayer/AudioPlayer.styles';
 
 export default function ErrorAudioPlayer() {
 	return (
@@ -37,24 +37,23 @@ export default function ErrorAudioPlayer() {
 						</S.PlayerControls>
 						<S.PlayerTrackPlay>
 							<S.TrackPlayContain>
-								
-									<>
-										<S.TrackPlayImage>
-											<S.TrackPlaySvg alt='music'>
-												<use xlinkHref='/img/icon/sprite.svg#icon-note' />
-											</S.TrackPlaySvg>
-										</S.TrackPlayImage>
-										<S.TrackPlayAuthor>
-											<S.TrackPlayAuthorLink href='http://'>
-												Ты та...
-											</S.TrackPlayAuthorLink>
-										</S.TrackPlayAuthor>
-										<S.TrackPlayAlbum>
-											<S.TrackPlayAlbumLink href='http://'>
-												Баста
-											</S.TrackPlayAlbumLink>
-										</S.TrackPlayAlbum>
-									</>
+								<>
+									<S.TrackPlayImage>
+										<S.TrackPlaySvg alt='music'>
+											<use xlinkHref='/img/icon/sprite.svg#icon-note' />
+										</S.TrackPlaySvg>
+									</S.TrackPlayImage>
+									<S.TrackPlayAuthor>
+										<S.TrackPlayAuthorLink href='http://'>
+											Ты та...
+										</S.TrackPlayAuthorLink>
+									</S.TrackPlayAuthor>
+									<S.TrackPlayAlbum>
+										<S.TrackPlayAlbumLink href='http://'>
+											Баста
+										</S.TrackPlayAlbumLink>
+									</S.TrackPlayAlbum>
+								</>
 							</S.TrackPlayContain>
 							<S.TrackPlayLikeDis>
 								<S.TrackPlayLike>

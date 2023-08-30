@@ -152,9 +152,7 @@ export const ErrorBackToMain = styled.button`
 	width: 278px;
 	height: 52px;
 	border-radius: 6px;
-
 	background: #580ea2;
-
 	font-size: 18px;
 	font-weight: 400;
 	line-height: 24px;

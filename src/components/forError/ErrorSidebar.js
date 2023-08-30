@@ -1,5 +1,5 @@
 import React from 'react';
-import * as S from '../home/sidebar/Sidebar.styles';
+import * as S from '../sidebar/Sidebar.styles';
 import { NavLink } from 'react-router-dom';
 
 export default function ErrorSidebar() {

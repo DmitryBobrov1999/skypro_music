@@ -63,7 +63,7 @@ export const SidebarItem = styled.div`width: 250px;
 	}
 	`
 
-export const SidebarLink = styled.a`width: 100%;
+export const SidebarLink = styled.div`width: 100%;
 	height: 100%;`
 
 export const SidebarImg = styled.img`width: 100%;

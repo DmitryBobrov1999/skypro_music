@@ -1,26 +1,23 @@
 import './CreateSigninPage.styles.js';
 import { NavLink } from 'react-router-dom';
 import * as S from './CreateSigninPage.styles';
-
+import React from 'react';
 export default function CreateSignInPage() {
-	
-
 	const sendTrueToLocalStorage = () => {
 		window.localStorage.setItem('user', true);
 	};
-
-	
 
 	return (
 		<S.Wrapper>
 			<S.ContainerEnter>
 				<S.ModalBlock>
 					<S.ModalFormLogin action='#'>
-						<NavLink to='/'>
-							<S.ModalLogo>
+						<S.ModalLogo>
+							<NavLink to='/'>
 								<img src='../img/logo_modal.png' alt='logo' />
-							</S.ModalLogo>
-						</NavLink>
+							</NavLink>
+						</S.ModalLogo>
+
 						<S.ModalInputLogin type='text' name='login' placeholder='Почта' />
 						<S.ModalInputPassword
 							type='password'
