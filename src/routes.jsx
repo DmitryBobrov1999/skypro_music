@@ -8,7 +8,7 @@ import FavoriteTracks from './pages/favoriteTracks/FavoriteTracks';
 import Category from './pages/category/Category';
 import { ProtectedRoute } from './components/protected-route/ProtectedRoute';
 
-export const AppRoutes = ({ isAllowed }) => {
+export const AppRoutes = () => {
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
@@ -17,12 +17,6 @@ export const AppRoutes = ({ isAllowed }) => {
 		}, 2000);
 	}, []);
 
-	const sendFalseToLocalStorage = () => {
-		window.localStorage.setItem('user', false);
-	};
-
-	sendFalseToLocalStorage();
-
 	return (
 		<Routes>
 			<Route path='/login' element={<CreateSignInPage />} />
@@ -30,9 +24,7 @@ export const AppRoutes = ({ isAllowed }) => {
 
 			<Route path='*' element={<NotFound />} />
 
-			<Route
-				element={<ProtectedRoute />}
-			>
+			<Route element={<ProtectedRoute />}>
 				<Route path='/' element={<Home isLoading={isLoading} />} />
 				<Route path='/favorite' element={<FavoriteTracks />} />
 				<Route path='/category/:id' element={<Category />} />

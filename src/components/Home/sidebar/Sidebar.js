@@ -14,9 +14,9 @@ export default function CreateSidebar({ isLoading }) {
 		<S.MainSidebar>
 			<S.SidebarPersonal>
 				<S.SidebarPersonalName>Sergey.Ivanov</S.SidebarPersonalName>
-				<S.SidebarIcon>
+				<S.SidebarIcon onClick={sendFalseToLocalStorage}>
 					<NavLink to='login'>
-						<svg onClick={sendFalseToLocalStorage} alt='logout'>
+						<svg alt='logout'>
 							<use xlinkHref='img/icon/sprite.svg#logout' />
 						</svg>
 					</NavLink>
