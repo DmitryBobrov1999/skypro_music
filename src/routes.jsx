@@ -17,6 +17,7 @@ export const AppRoutes = () => {
 		}, 2000);
 	}, []);
 
+
 	return (
 		<Routes>
 			<Route path='/login' element={<CreateSignInPage />} />
