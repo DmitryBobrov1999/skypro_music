@@ -5,12 +5,18 @@ import ErrorSidebar from '../../components/forError/ErrorSidebar';
 import { NavLink } from 'react-router-dom';
 import React from 'react';
 
-export default function NotFound() {
+export default function NotFound({ sendFalseToLocalStorage,
+							user,
+							sendTrueToLocalStorage}) {
 	return (
 		<S.Wrapper>
 			<S.Container>
 				<S.Main>
-					<CreateNavMenu />
+					<CreateNavMenu
+						sendFalseToLocalStorage={sendFalseToLocalStorage}
+						user={user}
+						sendTrueToLocalStorage={sendTrueToLocalStorage}
+					/>
 					<S.MainCenterBlock>
 						<S.CenterblockSearch>
 							<S.SearchSvg>

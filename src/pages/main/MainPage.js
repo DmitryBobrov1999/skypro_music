@@ -4,17 +4,28 @@ import CreateTracklist from '../../components/tracklist/Tracklist';
 import CreateNavMenu from '../../components/navMenu/NavMenu';
 import * as S from './MainPage.styles';
 import React from 'react';
-export default function Home({ isLoading }) {
+export default function Home({
+	isLoading,
+	sendFalseToLocalStorage,
+	sendTrueToLocalStorage,
+	user,
+}) {
 	return (
 		<S.Wrapper>
 			<S.Container>
 				<S.Main>
-					<CreateNavMenu />
+					<CreateNavMenu
+						user={user}
+						sendTrueToLocalStorage={sendTrueToLocalStorage}
+						sendFalseToLocalStorage={sendFalseToLocalStorage}
+					/>
 					<CreateTracklist isLoading={isLoading} />
-					<CreateSidebar isLoading={isLoading} />
+					<CreateSidebar
+						sendFalseToLocalStorage={sendFalseToLocalStorage}
+						isLoading={isLoading}
+					/>
 				</S.Main>
 				<CreateAudioPlayer isLoading={isLoading} />
-				<footer className='footer'></footer>
 			</S.Container>
 		</S.Wrapper>
 	);

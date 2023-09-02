@@ -17,18 +17,57 @@ export const AppRoutes = () => {
 		}, 2000);
 	}, []);
 
+	const sendFalseToLocalStorage = () => {
+		window.localStorage.clear('user');
+	};
+
+	const user = localStorage.getItem('user');
+
+	const sendTrueToLocalStorage = () => {
+		window.localStorage.setItem('user', true);
+	};
+
+	
 
 	return (
 		<Routes>
 			<Route path='/login' element={<CreateSignInPage />} />
 			<Route path='/register' element={<CreateSignUpPage />} />
 
-			<Route path='*' element={<NotFound />} />
+			<Route
+				path='*'
+				element={
+					<NotFound
+						sendFalseToLocalStorage={sendFalseToLocalStorage}
+						user={user}
+						sendTrueToLocalStorage={sendTrueToLocalStorage}
+					/>
+				}
+			/>
 
 			<Route element={<ProtectedRoute />}>
-				<Route path='/' element={<Home isLoading={isLoading} />} />
+				<Route
+					path='/'
+					element={
+						<Home
+							sendFalseToLocalStorage={sendFalseToLocalStorage}
+							user={user}
+							sendTrueToLocalStorage={sendTrueToLocalStorage}
+							isLoading={isLoading}
+						/>
+					}
+				/>
 				<Route path='/favorite' element={<FavoriteTracks />} />
-				<Route path='/category/:id' element={<Category />} />
+				<Route
+					path='/category/:id'
+					element={
+						<Category
+							sendFalseToLocalStorage={sendFalseToLocalStorage}
+							user={user}
+							sendTrueToLocalStorage={sendTrueToLocalStorage}
+						/>
+					}
+				/>
 			</Route>
 		</Routes>
 	);

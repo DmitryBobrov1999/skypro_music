@@ -2,11 +2,7 @@ import React from 'react';
 import * as S from '../sidebar/Sidebar.styles';
 import { NavLink } from 'react-router-dom';
 
-export default function ErrorSidebar() {
-	const sendFalseToLocalStorage = () => {
-		window.localStorage.setItem('user', false);
-	};
-
+export default function ErrorSidebar({ sendFalseToLocalStorage }) {
 	return (
 		<S.MainSidebar>
 			<S.SidebarPersonal>
