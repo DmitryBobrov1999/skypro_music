@@ -4,12 +4,16 @@ import CreateTracklist from '../../components/tracklist/Tracklist';
 import CreateNavMenu from '../../components/navMenu/NavMenu';
 import * as S from './MainPage.styles';
 import React from 'react';
+
 export default function Home({
 	isLoading,
 	sendFalseToLocalStorage,
 	sendTrueToLocalStorage,
 	user,
 }) {
+
+
+	
 	return (
 		<S.Wrapper>
 			<S.Container>

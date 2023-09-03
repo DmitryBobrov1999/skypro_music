@@ -27,8 +27,6 @@ export const AppRoutes = () => {
 		window.localStorage.setItem('user', true);
 	};
 
-	
-
 	return (
 		<Routes>
 			<Route path='/login' element={<CreateSignInPage />} />
@@ -45,30 +43,39 @@ export const AppRoutes = () => {
 				}
 			/>
 
-			<Route element={<ProtectedRoute />}>
-				<Route
-					path='/'
-					element={
+			<Route
+				path='/'
+				element={
+					<ProtectedRoute>
 						<Home
 							sendFalseToLocalStorage={sendFalseToLocalStorage}
 							user={user}
 							sendTrueToLocalStorage={sendTrueToLocalStorage}
 							isLoading={isLoading}
 						/>
-					}
-				/>
-				<Route path='/favorite' element={<FavoriteTracks />} />
-				<Route
-					path='/category/:id'
-					element={
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path='/favorite'
+				element={
+					<ProtectedRoute>
+						<FavoriteTracks />
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path='/category/:id'
+				element={
+					<ProtectedRoute>
 						<Category
 							sendFalseToLocalStorage={sendFalseToLocalStorage}
 							user={user}
 							sendTrueToLocalStorage={sendTrueToLocalStorage}
 						/>
-					}
-				/>
-			</Route>
+					</ProtectedRoute>
+				}
+			/>
 		</Routes>
 	);
 };

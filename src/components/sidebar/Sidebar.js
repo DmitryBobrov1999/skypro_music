@@ -5,6 +5,8 @@ import { NavLink } from 'react-router-dom';
 import { categoryMock } from '../../pages/category/CategoryMock.js';
 
 export default function CreateSidebar({ isLoading, sendFalseToLocalStorage }) {
+
+
 	return (
 		<S.MainSidebar>
 			<S.SidebarPersonal>
