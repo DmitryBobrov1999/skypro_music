@@ -9,11 +9,12 @@ export default function CreateSignUpPage() {
 			<S.ContainerSignup>
 				<S.ModalBlock>
 					<S.ModalFormLogin>
-						<NavLink to='/'>
-							<S.ModalLogo>
+						<S.ModalLogo>
+							<NavLink to='/'>
 								<img src='../img/logo_modal.png' alt='logo' />
-							</S.ModalLogo>
-						</NavLink>
+							</NavLink>
+						</S.ModalLogo>
+
 						<S.ModalInputLogin type='text' name='login' placeholder='Почта' />
 						<S.ModalInputLogin
 							type='password'
