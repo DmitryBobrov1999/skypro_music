@@ -9,7 +9,7 @@ import SearchByGenre from './searchByButton/SearchByGenre.js';
 import { useState } from 'react';
 import * as S from './Tracklist.styles';
 
-export default function CreateTracklist({ isLoading }) {
+export default function CreateTracklist({ isLoading, tracks, openPlayer, addTodoError }) {
 	const [$visibleFilter, setVisibleFilter] = useState(null);
 
 	const openFilter = filterName => {
@@ -64,8 +64,10 @@ export default function CreateTracklist({ isLoading }) {
 				</S.ContentTitle>
 				<S.ContentPlaylist>
 					<CreatePlaylistItem
-						playlistData={playlistData}
+						addTodoError={addTodoError}
 						isLoading={isLoading}
+						tracks={tracks}
+						openPlayer={openPlayer}
 					/>
 				</S.ContentPlaylist>
 			</S.CenterblockContent>
