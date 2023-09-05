@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from '../audioPlayer/AudioPlayer.styles';
 
-export default function ErrorAudioPlayer() {
+export const ErrorAudioPlayer = () => {
 	return (
 		<S.Bar>
 			<S.BarContent>
@@ -85,4 +85,4 @@ export default function ErrorAudioPlayer() {
 			</S.BarContent>
 		</S.Bar>
 	);
-}
+};

@@ -1,13 +1,13 @@
-import CreateNavMenu from '../../components/navMenu/NavMenu.js';
+import { CreateNavMenu } from '../../components/navMenu/NavMenu.js';
 import * as S from './NotFound.styles';
-import ErrorAudioPlayer from '../../components/forError/ErrorAudioPlayer';
-import ErrorSidebar from '../../components/forError/ErrorSidebar';
+import { ErrorAudioPlayer } from '../../components/forError/ErrorAudioPlayer';
+import { ErrorSidebar } from '../../components/forError/ErrorSidebar';
 import { NavLink } from 'react-router-dom';
 import React from 'react';
 
-export default function NotFound({ sendFalseToLocalStorage,
+export const NotFound = ({ sendFalseToLocalStorage,
 							user,
-							sendTrueToLocalStorage}) {
+							sendTrueToLocalStorage}) => {
 	return (
 		<S.Wrapper>
 			<S.Container>

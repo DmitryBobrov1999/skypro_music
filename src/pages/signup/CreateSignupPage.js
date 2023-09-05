@@ -3,7 +3,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import * as S from './CreateSignupPage.styles';
 
-export default function CreateSignUpPage() {
+export const CreateSignUpPage = () => {
 	return (
 		<S.Wrapper>
 			<S.ContainerSignup>
@@ -34,4 +34,4 @@ export default function CreateSignUpPage() {
 			</S.ContainerSignup>
 		</S.Wrapper>
 	);
-}
+};

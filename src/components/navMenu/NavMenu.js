@@ -1,12 +1,12 @@
 import React from 'react';
-import BurgerBlock from './burgerBlock/BurgerBlock.js';
+import { BurgerBlock } from './burgerBlock/BurgerBlock.js';
 import * as S from './NavMenu.styles'
 
-export default function CreateNavMenu({
+export const CreateNavMenu = ({
 	sendTrueToLocalStorage,
 	user,
 	sendFalseToLocalStorage,
-}) {
+}) => {
 	return (
 		<S.MainMenu>
 			<S.NavLogo>
@@ -19,4 +19,4 @@ export default function CreateNavMenu({
 			/>
 		</S.MainMenu>
 	);
-}
+};

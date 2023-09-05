@@ -1,27 +1,33 @@
-import CreateAudioPlayer from '../../components/audioPlayer/AudioPlayer';
-import CreateSidebar from '../../components/sidebar/Sidebar';
-import CreateTracklist from '../../components/tracklist/Tracklist';
-import CreateNavMenu from '../../components/navMenu/NavMenu';
+import { CreateAudioPlayer } from '../../components/audioPlayer/AudioPlayer';
+import { CreateSidebar } from '../../components/sidebar/Sidebar';
+import { CreateTracklist } from '../../components/tracklist/Tracklist';
+import { CreateNavMenu } from '../../components/navMenu/NavMenu';
 import * as S from './MainPage.styles';
 import React, { useEffect, useState } from 'react';
 import { getTracks } from '../../api';
 
-export default function Home({
+export const Home = ({
 	isLoading,
 	sendFalseToLocalStorage,
 	sendTrueToLocalStorage,
 	user,
-}) {
+}) => {
 	const [tracks, setTracks] = useState([]);
-
-const [addTodoError, setAddTodoError] = useState(null);
 
 	const [currentPlayer, toCurrentPlayer] = useState(null);
 
+	const [addTodoError, setAddTodoError] = useState(null);
+
 	useEffect(() => {
-		getTracks().then(tracks => {
-			setTracks(tracks);
-		});
+		getTracks()
+			.then(tracks => {
+				setTracks(tracks);
+			})
+			.catch(error => {
+				setAddTodoError(
+					`Не удалось загрузить плейлист, попробуйте позже: ${error.message}`
+				);
+			});
 	}, []);
 
 	const openPlayer = track => {
@@ -52,4 +58,4 @@ const [addTodoError, setAddTodoError] = useState(null);
 			</S.Container>
 		</S.Wrapper>
 	);
-}
+};

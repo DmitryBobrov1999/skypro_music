@@ -4,9 +4,7 @@ import * as S from './Sidebar.styles';
 import { NavLink } from 'react-router-dom';
 import { categoryMock } from '../../pages/category/CategoryMock.js';
 
-export default function CreateSidebar({ isLoading, sendFalseToLocalStorage }) {
-
-
+export const CreateSidebar = ({ isLoading, sendFalseToLocalStorage }) => {
 	return (
 		<S.MainSidebar>
 			<S.SidebarPersonal>
@@ -38,4 +36,4 @@ export default function CreateSidebar({ isLoading, sendFalseToLocalStorage }) {
 			</S.SidebarBlock>
 		</S.MainSidebar>
 	);
-}
+};

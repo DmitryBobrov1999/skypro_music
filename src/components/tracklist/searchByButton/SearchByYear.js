@@ -1,13 +1,12 @@
 import React from 'react';
 import * as S from './SearchBy.styles';
 
-export default function SearchByYear({
+export const SearchByYear = ({
 	yearData,
 	$visibleFilter,
-
 	openFilter,
 	closeAllFilters,
-}) {
+}) => {
 	const yearList = yearData.map(data => {
 		return <S.ByPar key={data.id}>{data.year}</S.ByPar>;
 	});
@@ -31,4 +30,4 @@ export default function SearchByYear({
 			</S.ByYearMegaBlock>
 		</>
 	);
-}
+};

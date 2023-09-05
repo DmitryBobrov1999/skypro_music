@@ -1,11 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
-import CreateSignInPage from './pages/signin/CreateSigninPage';
-import CreateSignUpPage from './pages/signup/CreateSignupPage';
-import Home from './pages/main/MainPage';
+import { CreateSignInPage } from './pages/signin/CreateSigninPage';
+import { CreateSignUpPage } from './pages/signup/CreateSignupPage';
+import { Home } from './pages/main/MainPage';
 import React, { useState, useEffect } from 'react';
-import NotFound from './pages/not-found/NotFound';
-import FavoriteTracks from './pages/favoriteTracks/FavoriteTracks';
-import Category from './pages/category/Category';
+import { NotFound } from './pages/not-found/NotFound';
+import { FavoriteTracks } from './pages/favoriteTracks/FavoriteTracks';
+import { Category } from './pages/category/Category';
 import { ProtectedRoute } from './components/protected-route/ProtectedRoute';
 
 export const AppRoutes = () => {
@@ -14,7 +14,7 @@ export const AppRoutes = () => {
 	useEffect(() => {
 		setTimeout(() => {
 			setIsLoading(true);
-		}, 2000);
+		}, 1500);
 	}, []);
 
 	const sendFalseToLocalStorage = () => {

@@ -53,6 +53,8 @@ export const TrackTitleImage = styled.div`
 	margin-right: 17px;
 `;
 
+export const TrackTitleText = styled.div``
+
 export const TrackTitleSvg = styled.svg`
 	width: 18px;
 	height: 17px;
@@ -98,6 +100,8 @@ export const TrackAuthorLink = styled.a`
 export const TrackAlbum = styled.div`
 	width: 245px;
 `;
+
+export const TrackTime = styled.div``
 
 export const TrackAlbumLink = styled.a`
 	font-style: normal;

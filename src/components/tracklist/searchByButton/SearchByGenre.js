@@ -1,13 +1,12 @@
 import React from 'react';
 import * as S from './SearchBy.styles';
 
-export default function SearchByGenre({
+export const SearchByGenre = ({
 	genreData,
 	$visibleFilter,
-
 	openFilter,
 	closeAllFilters,
-}) {
+}) => {
 	const genreList = genreData.map(data => {
 		return <S.ByPar key={data.id}>{data.genre}</S.ByPar>;
 	});
@@ -31,4 +30,4 @@ export default function SearchByGenre({
 			</S.ByGenreMegaBlock>
 		</>
 	);
-}
+};

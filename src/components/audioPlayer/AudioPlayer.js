@@ -2,12 +2,16 @@ import React from 'react';
 
 import * as S from './AudioPlayer.styles';
 
-export default function CreateAudioPlayer({ currentPlayer }) {
+export const CreateAudioPlayer = ({ currentPlayer }) => {
 	return (
 		<>
 			{currentPlayer ? (
 				<S.Bar key={currentPlayer.id}>
-					<audio src={currentPlayer.track_file} controls></audio>
+					<audio
+						key={currentPlayer.id}
+						src={currentPlayer.track_file}
+						controls
+					></audio>
 					<S.BarContent>
 						<S.BarPlayerProgress />
 						<S.BarPlayerBlock>
@@ -89,4 +93,4 @@ export default function CreateAudioPlayer({ currentPlayer }) {
 			) : null}
 		</>
 	);
-}
+};
