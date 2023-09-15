@@ -9,7 +9,14 @@ import { SearchByGenre } from './searchByButton/SearchByGenre.js';
 import { useState } from 'react';
 import * as S from './Tracklist.styles';
 
-export const CreateTracklist = ({ isLoading, tracks, openPlayer, addTodoError }) => {
+export const CreateTracklist = ({
+	isLoading,
+	tracks,
+	openPlayer,
+	addTodoError,
+	setIsPlaying,
+	formatTime,
+}) => {
 	const [$visibleFilter, setVisibleFilter] = useState(null);
 
 	const openFilter = filterName => {
@@ -68,6 +75,8 @@ export const CreateTracklist = ({ isLoading, tracks, openPlayer, addTodoError })
 						isLoading={isLoading}
 						tracks={tracks}
 						openPlayer={openPlayer}
+						setIsPlaying={setIsPlaying}
+						formatTime={formatTime}
 					/>
 				</S.ContentPlaylist>
 			</S.CenterblockContent>

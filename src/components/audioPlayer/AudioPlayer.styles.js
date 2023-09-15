@@ -110,6 +110,12 @@ export const PlayerBtnPlaySvg = styled.svg`
 	fill: #d9d9d9;
 `;
 
+export const PlayerBtnPauseSvg = styled.svg`
+	width: 22px;
+	height: 20px;
+	fill: #d9d9d9;
+`;
+
 export const PlayerBtnNext = styled.div`
 	padding: 5px;
 	display: -webkit-box;
@@ -387,4 +393,24 @@ export const VolumeProgress = styled.div`
 export const VolumeProgressLine = styled.input`
 	width: 109px;
 	cursor: pointer;
+`;
+
+export const TimeDiv = styled.div`
+	display: flex;
+	width: 81px;
+	height: 18px;
+	position: absolute;
+	right: 5px;
+	top: -20px;
+	
+`;
+
+export const TimePar = styled.p`
+	font-family: StratosSkyeng;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 18px;
+	letter-spacing: 0.001em;
+	text-align: left;
+	color: #696969;
 `;
