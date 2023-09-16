@@ -2,10 +2,15 @@ import React from 'react';
 import { PlaylistItemSkeleton } from '../SkeletonCard.js';
 import * as S from './PlaylistItem.styles';
 
-export default function CreatePlaylistItem({ playlistData, isLoading }) {
-	return playlistData.map(data => {
+export const CreatePlaylistItem = ({ isLoading, tracks, openPlayer }) => {
+	return tracks.map(track => {
 		return (
-			<S.PlaylistItem key={data.id}>
+			<S.PlaylistItem
+				key={track.id}
+				onClick={() => {
+					openPlayer(track);
+				}}
+			>
 				<S.PlaylistTrack>
 					{isLoading ? (
 						<>
@@ -15,29 +20,27 @@ export default function CreatePlaylistItem({ playlistData, isLoading }) {
 										<use xlinkHref='img/icon/sprite.svg#icon-note' />
 									</S.TrackTitleSvg>
 								</S.TrackTitleImage>
-								<div className='track__title-text'>
-									<S.TrackTitleLink href='http://'>
-										{data.trackName}
-										<S.TrackTitleSpan>{data.trackNameSpan}</S.TrackTitleSpan>
+								<S.TrackTitleText className='track__title-text'>
+									<S.TrackTitleLink>
+										{track.name}
+										<S.TrackTitleSpan></S.TrackTitleSpan>
 									</S.TrackTitleLink>
-								</div>
+								</S.TrackTitleText>
 							</S.TrackTitle>
 							<S.TrackAuthor>
-								<S.TrackAuthorLink href='http://'>
-									{data.trackAuthor}
-								</S.TrackAuthorLink>
+								<S.TrackAuthorLink>{track.author}</S.TrackAuthorLink>
 							</S.TrackAuthor>
 							<S.TrackAlbum>
-								<S.TrackAlbumLink href='http://'>
-									{data.trackAlbum}
-								</S.TrackAlbumLink>
+								<S.TrackAlbumLink>{track.album}</S.TrackAlbumLink>
 							</S.TrackAlbum>
-							<div className='track__time'>
+							<S.TrackTime className='track__time'>
 								<S.TrackTimeSvg alt='time'>
 									<use xlinkHref='img/icon/sprite.svg#icon-like' />
 								</S.TrackTimeSvg>
-								<S.TrackTimeText>{data.trackDuration}</S.TrackTimeText>
-							</div>
+								<S.TrackTimeText>
+									{(track.duration_in_seconds / 60).toFixed(2)}
+								</S.TrackTimeText>
+							</S.TrackTime>
 						</>
 					) : (
 						<>
@@ -48,4 +51,4 @@ export default function CreatePlaylistItem({ playlistData, isLoading }) {
 			</S.PlaylistItem>
 		);
 	});
-}
+};

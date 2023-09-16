@@ -1,13 +1,13 @@
 import React from 'react';
 import * as S from './SearchBy.styles';
 
-export default function SearchByArtist({
+export const SearchByArtist = ({
 	playlistData,
 	$visibleFilter,
 
 	openFilter,
-	closeAllFilters,
-}) {
+	closeAllFilters
+}) => {
 	const toggleArtist = () => {
 		if ($visibleFilter) {
 			closeAllFilters();
@@ -31,4 +31,4 @@ export default function SearchByArtist({
 			</S.byArtistMegaBlock>
 		</>
 	);
-}
+};

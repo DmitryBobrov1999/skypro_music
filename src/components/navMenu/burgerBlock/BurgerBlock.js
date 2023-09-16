@@ -2,11 +2,11 @@ import React from 'react';
 import { useState } from 'react';
 import * as S from './BurgerBlock.styles'
 
-export default function BurgerBlock({
+export const BurgerBlock = ({
 	user,
 	sendFalseToLocalStorage,
 	sendTrueToLocalStorage,
-}) {
+}) => {
 	const [visible, setVisible] = useState(true);
 
 	const toggleVisibility = () => setVisible(!visible);
@@ -47,4 +47,4 @@ export default function BurgerBlock({
 			</S.NavMenu>
 		</>
 	);
-}
+};

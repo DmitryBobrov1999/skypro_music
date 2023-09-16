@@ -1,5 +1,3 @@
-export default function FavoriteTracks() {
-	return (
-		<p>favorite tracks</p>
-	)
-}
+export const FavoriteTracks = () => {
+	return <p>favorite tracks</p>;
+};

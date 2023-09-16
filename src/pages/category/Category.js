@@ -1,18 +1,18 @@
 import { useParams } from 'react-router-dom';
 import * as S from '../not-found/NotFound.styles';
 import React from 'react';
-import CreateNavMenu from '../../components/navMenu/NavMenu.js';
-import ErrorAudioPlayer from '../../components/forError/ErrorAudioPlayer';
-import ErrorSidebar from '../../components/forError/ErrorSidebar';
+import { CreateNavMenu } from '../../components/navMenu/NavMenu.js';
+import { ErrorAudioPlayer } from '../../components/forError/ErrorAudioPlayer';
+import { ErrorSidebar } from '../../components/forError/ErrorSidebar';
 import { categoryMock } from './CategoryMock';
-import CategoryPlaylistItem from '../../components/playlistItem/CategoryPlaylistitem';
+import { CategoryPlaylistItem } from '../../components/playlistItem/CategoryPlaylistitem';
 import { playlistData } from '../../components/playlistItem/PlaylistData';
 
-export default function Category({
+export const Category = ({
 	sendFalseToLocalStorage,
 	user,
 	sendTrueToLocalStorage,
-}) {
+}) => {
 	const params = useParams();
 
 	const track = categoryMock.find(track => track.id === Number(params.id));
@@ -59,4 +59,4 @@ export default function Category({
 			</S.Container>
 		</S.Wrapper>
 	);
-}
+};

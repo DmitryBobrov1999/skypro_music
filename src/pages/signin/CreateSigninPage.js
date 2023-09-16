@@ -2,7 +2,9 @@ import './CreateSigninPage.styles.js';
 import { NavLink } from 'react-router-dom';
 import * as S from './CreateSigninPage.styles';
 import React from 'react';
-export default function CreateSignInPage() {
+
+export const CreateSignInPage = () => {
+	
 	const sendTrueToLocalStorage = () => {
 		window.localStorage.setItem('user', true);
 	};
@@ -35,4 +37,4 @@ export default function CreateSignInPage() {
 			</S.ContainerEnter>
 		</S.Wrapper>
 	);
-}
+};

@@ -1,15 +1,15 @@
 import React from 'react';
-import CreatePlaylistItem from '../playlistItem/PlaylistItem.js';
+import { CreatePlaylistItem } from '../playlistItem/PlaylistItem.js';
 import { playlistData } from '../playlistItem/PlaylistData.js';
 import { yearData } from './searchByButton/yearData.js';
 import { genreData } from './searchByButton/genreData.js';
-import SearchByArtist from './searchByButton/SearchByArtist.js';
-import SearchByYear from './searchByButton/SearchByYear.js';
-import SearchByGenre from './searchByButton/SearchByGenre.js';
+import { SearchByArtist } from './searchByButton/SearchByArtist.js';
+import { SearchByYear } from './searchByButton/SearchByYear.js';
+import { SearchByGenre } from './searchByButton/SearchByGenre.js';
 import { useState } from 'react';
 import * as S from './Tracklist.styles';
 
-export default function CreateTracklist({ isLoading }) {
+export const CreateTracklist = ({ isLoading, tracks, openPlayer, addTodoError }) => {
 	const [$visibleFilter, setVisibleFilter] = useState(null);
 
 	const openFilter = filterName => {
@@ -63,12 +63,14 @@ export default function CreateTracklist({ isLoading }) {
 					</S.PlaylistTitleCol4>
 				</S.ContentTitle>
 				<S.ContentPlaylist>
+					<p style={{ color: 'red' }}>{addTodoError}</p>
 					<CreatePlaylistItem
-						playlistData={playlistData}
 						isLoading={isLoading}
+						tracks={tracks}
+						openPlayer={openPlayer}
 					/>
 				</S.ContentPlaylist>
 			</S.CenterblockContent>
 		</S.MainCenterBlock>
 	);
-}
+};
