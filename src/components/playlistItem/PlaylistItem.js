@@ -15,7 +15,7 @@ export const CreatePlaylistItem = ({
 				key={track.id}
 				onClick={() => {
 					openPlayer(track);
-					setIsPlaying(false);
+
 				}}
 			>
 				<S.PlaylistTrack>

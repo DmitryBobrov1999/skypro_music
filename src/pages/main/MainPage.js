@@ -1,10 +1,11 @@
+import React, { useEffect, useRef, useState } from 'react';
 import { CreateAudioPlayer } from '../../components/audioPlayer/AudioPlayer';
 import { CreateSidebar } from '../../components/sidebar/Sidebar';
 import { CreateTracklist } from '../../components/tracklist/Tracklist';
 import { CreateNavMenu } from '../../components/navMenu/NavMenu';
 import * as S from './MainPage.styles';
-import React, { useEffect, useRef, useState } from 'react';
-import { getTracks } from '../../api';
+
+import { getTracks } from '../../api/tracks';
 import { ProgressBar } from '../../components/ProgressBar/ProgressBar';
 
 export const Home = ({
@@ -19,9 +20,17 @@ export const Home = ({
 
 	const [addTodoError, setAddTodoError] = useState(null);
 
-	const [isPlaying, setIsPlaying] = useState(null);
+	const [isPlaying, setIsPlaying] = useState(false);
+
+	const [duration, setDuration] = useState(0);
+
+	const [currentTime, setCurrentTime] = useState(0);
+
+	const [volume, setVolume] = useState(10)
 
 	const audioRef = useRef();
+
+	const progressBarRef = useRef();
 
 	useEffect(() => {
 		getTracks()
@@ -35,17 +44,30 @@ export const Home = ({
 			});
 	}, []);
 
-	const handleStart = () => {
-		audioRef.current.play();
-		setIsPlaying(false);
+	useEffect(() => {
+		if(audioRef) {
+			audioRef.current.volume = volume / 100
+		}
+	}, [volume])
+
+	const togglePlay = () => {
+		if (isPlaying) {
+			audioRef.current.pause();
+			setIsPlaying(!isPlaying);
+		} else {
+			audioRef.current.play();
+			setIsPlaying(!isPlaying);
+		}
 	};
 
-	const handleStop = () => {
-		audioRef.current.pause();
-		setIsPlaying(true);
+	const handleProgressChange = () => {
+		audioRef.current.currentTime = progressBarRef.current.value;
+		progressBarRef.current.style.setProperty(
+			'--seek-before-width',
+			`${(progressBarRef.current.value / duration) * 100}%`
+		);
+		setCurrentTime(audioRef.current.currentTime);
 	};
-
-	const togglePlay = isPlaying ? handleStart : handleStop;
 
 	const openPlayer = track => {
 		toCurrentPlayer(track);
@@ -91,6 +113,14 @@ export const Home = ({
 					currentPlayer={currentPlayer}
 					ProgressBar={ProgressBar}
 					formatTime={formatTime}
+					progressBarRef={progressBarRef}
+					duration={duration}
+					setDuration={setDuration}
+					currentTime={currentTime}
+					setCurrentTime={setCurrentTime}
+					handleProgressChange={handleProgressChange}
+					volume={volume}
+					setVolume={setVolume}
 				/>
 			</S.Container>
 		</S.Wrapper>

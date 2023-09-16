@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 
 import * as S from './AudioPlayer.styles';
 
@@ -8,28 +8,20 @@ export const CreateAudioPlayer = ({
 	audioRef,
 	togglePlay,
 	ProgressBar,
+	progressBarRef,
+	duration,
+	setDuration,
+	currentTime,
+	handleProgressChange,
+	formatTime,
+	volume,
+	setVolume
 }) => {
-	const [currentTime, setCurrentTime] = useState(0);
-
-	const [duration, setDuration] = useState(0);
-
-	const progressBarRef = useRef();
-
+	
 	const onLoadedMetadata = () => {
 		const seconds = audioRef.current.duration;
 		setDuration(seconds);
 		progressBarRef.current.max = seconds;
-	};
-
-	const formatTime = time => {
-		if (time && !isNaN(time)) {
-			const minutes = Math.floor(time / 60);
-			const formatMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
-			const seconds = Math.floor(time % 60);
-			const formatSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
-			return `${formatMinutes}:${formatSeconds}`;
-		}
-		return '00:00';
 	};
 
 	return (
@@ -40,7 +32,6 @@ export const CreateAudioPlayer = ({
 						onLoadedMetadata={onLoadedMetadata}
 						ref={audioRef}
 						src={currentPlayer.track_file}
-						autoPlay
 					></audio>
 
 					<S.Bar key={currentPlayer.id}>
@@ -51,11 +42,10 @@ export const CreateAudioPlayer = ({
 						</S.TimeDiv>
 						<S.BarContent>
 							<ProgressBar
-								audioRef={audioRef}
-								setCurrentTime={setCurrentTime}
 								currentTime={currentTime}
 								duration={duration}
 								progressBarRef={progressBarRef}
+								handleProgressChange={handleProgressChange}
 							/>
 
 							<S.BarPlayerBlock>
@@ -68,13 +58,13 @@ export const CreateAudioPlayer = ({
 										</S.PlayerBtnPrev>
 										<S.PlayerBtnPlay onClick={togglePlay}>
 											{isPlaying ? (
-												<S.PlayerBtnPlaySvg alt='play'>
-													<use xlinkHref='/img/icon/sprite.svg#icon-play' />
-												</S.PlayerBtnPlaySvg>
-											) : (
 												<S.PlayerBtnPauseSvg alt='pause'>
 													<use xlinkHref='/img/icon/sprite.svg#icon-pause' />
 												</S.PlayerBtnPauseSvg>
+											) : (
+												<S.PlayerBtnPlaySvg alt='play'>
+													<use xlinkHref='/img/icon/sprite.svg#icon-play' />
+												</S.PlayerBtnPlaySvg>
 											)}
 										</S.PlayerBtnPlay>
 										<S.PlayerBtnNext>
@@ -133,7 +123,14 @@ export const CreateAudioPlayer = ({
 											</S.VolumeSvg>
 										</S.VolumeImage>
 										<S.VolumeProgress>
-											<S.VolumeProgressLine type='range' name='range' />
+											<S.VolumeProgressLine
+												type='range'
+												name='range'
+												min={0}
+												max={100}
+												value={volume}
+												onChange={() => setVolume()}
+											/>
 										</S.VolumeProgress>
 									</S.VolumeContent>
 								</S.BarVolumeBlock>

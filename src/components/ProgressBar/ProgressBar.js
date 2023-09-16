@@ -1,21 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
 import * as S from './ProgressBar.styles';
 
 export const ProgressBar = ({
-	audioRef,
+
 	duration,
-	setCurrentTime,
 	currentTime,
 	progressBarRef,
+	handleProgressChange,
 }) => {
-	const handleProgressChange = () => {
-		audioRef.current.currentTime = progressBarRef.current.value;
-		progressBarRef.current.style.setProperty(
-			'--seek-before-width',
-			`${(progressBarRef.current.value / duration) * 100}%`
-		);
-		setCurrentTime(audioRef.current.currentTime);
-	};
+	
 
 	return (
 		<S.StyledProgressInput
