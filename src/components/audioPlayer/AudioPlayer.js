@@ -5,25 +5,20 @@ import * as S from './AudioPlayer.styles';
 export const CreateAudioPlayer = ({
 	currentPlayer,
 	isPlaying,
+	setIsPlaying,
 	audioRef,
-	togglePlay,
 	ProgressBar,
 	progressBarRef,
 	duration,
-	setDuration,
-	currentTime,
+	timeProgress,
 	handleProgressChange,
 	formatTime,
 	volume,
-	setVolume
+	setVolume,
+	onLoadedMetadata,
+	loop,
+	setLoop,
 }) => {
-	
-	const onLoadedMetadata = () => {
-		const seconds = audioRef.current.duration;
-		setDuration(seconds);
-		progressBarRef.current.max = seconds;
-	};
-
 	return (
 		<>
 			{currentPlayer ? (
@@ -36,13 +31,13 @@ export const CreateAudioPlayer = ({
 
 					<S.Bar key={currentPlayer.id}>
 						<S.TimeDiv>
-							<S.TimePar>{formatTime(currentTime)}</S.TimePar>
+							<S.TimePar>{formatTime(timeProgress)}</S.TimePar>
 							<S.TimePar> / </S.TimePar>
 							<S.TimePar>{formatTime(duration)}</S.TimePar>
 						</S.TimeDiv>
 						<S.BarContent>
 							<ProgressBar
-								currentTime={currentTime}
+								currentTime={timeProgress}
 								duration={duration}
 								progressBarRef={progressBarRef}
 								handleProgressChange={handleProgressChange}
@@ -52,33 +47,51 @@ export const CreateAudioPlayer = ({
 								<S.BarPlayer>
 									<S.PlayerControls>
 										<S.PlayerBtnPrev>
-											<S.PlayerBtnPrevSvg alt='prev'>
+											<S.PlayerBtnPrevSvg
+												onClick={() => {
+													alert('Еще не реализовано');
+												}}
+												alt='prev'
+											>
 												<use xlinkHref='/img/icon/sprite.svg#icon-prev' />
 											</S.PlayerBtnPrevSvg>
 										</S.PlayerBtnPrev>
-										<S.PlayerBtnPlay onClick={togglePlay}>
+										<S.PlayerBtnPlay onClick={() => setIsPlaying(!isPlaying)}>
 											{isPlaying ? (
-												<S.PlayerBtnPauseSvg alt='pause'>
-													<use xlinkHref='/img/icon/sprite.svg#icon-pause' />
-												</S.PlayerBtnPauseSvg>
-											) : (
 												<S.PlayerBtnPlaySvg alt='play'>
 													<use xlinkHref='/img/icon/sprite.svg#icon-play' />
 												</S.PlayerBtnPlaySvg>
+											) : (
+												<S.PlayerBtnPauseSvg alt='pause'>
+													<use xlinkHref='/img/icon/sprite.svg#icon-pause' />
+												</S.PlayerBtnPauseSvg>
 											)}
 										</S.PlayerBtnPlay>
 										<S.PlayerBtnNext>
-											<S.PlayerBtnNextSvg alt='next'>
+											<S.PlayerBtnNextSvg
+												onClick={() => {
+													alert('Еще не реализовано');
+												}}
+												alt='next'
+											>
 												<use xlinkHref='/img/icon/sprite.svg#icon-next' />
 											</S.PlayerBtnNextSvg>
 										</S.PlayerBtnNext>
-										<S.PlayerBtnRepeat>
-											<S.PlayerBtnRepeatSvg alt='repeat'>
+										<S.PlayerBtnRepeat loop={loop}>
+											<S.PlayerBtnRepeatSvg
+												onClick={() => setLoop(!loop)}
+												alt='repeat'
+											>
 												<use xlinkHref='/img/icon/sprite.svg#icon-repeat' />
 											</S.PlayerBtnRepeatSvg>
 										</S.PlayerBtnRepeat>
 										<S.PlayerBtnShuffle>
-											<S.PlayerBtnShuffleSvg alt='shuffle'>
+											<S.PlayerBtnShuffleSvg
+												onClick={() => {
+													alert('Еще не реализовано');
+												}}
+												alt='shuffle'
+											>
 												<use xlinkHref='/img/icon/sprite.svg#icon-shuffle' />
 											</S.PlayerBtnShuffleSvg>
 										</S.PlayerBtnShuffle>
@@ -129,7 +142,7 @@ export const CreateAudioPlayer = ({
 												min={0}
 												max={100}
 												value={volume}
-												onChange={() => setVolume()}
+												onChange={e => setVolume(e.target.value)}
 											/>
 										</S.VolumeProgress>
 									</S.VolumeContent>

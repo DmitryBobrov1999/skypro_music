@@ -6,7 +6,6 @@ export const CreatePlaylistItem = ({
 	isLoading,
 	tracks,
 	openPlayer,
-	setIsPlaying,
 	formatTime,
 }) => {
 	return tracks.map(track => {

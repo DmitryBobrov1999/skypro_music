@@ -85,11 +85,19 @@ export const PlayerBtnPrev = styled.div`
 	-ms-flex-align: center;
 	align-items: center;
 	margin-right: 23px;
+	cursor: pointer;
+	fill: #d9d9d9;
 `;
 
 export const PlayerBtnPrevSvg = styled.svg`
 	width: 15px;
 	height: 14px;
+	fill: #d9d9d9;
+	stroke: #d9d9d9;
+	&:hover {
+		fill: #696969;
+		stroke: #696969;
+	}
 `;
 
 export const PlayerBtnPlay = styled.div`
@@ -108,12 +116,18 @@ export const PlayerBtnPlaySvg = styled.svg`
 	width: 22px;
 	height: 20px;
 	fill: #d9d9d9;
+	&:hover {
+		fill: #696969;
+	}
 `;
 
 export const PlayerBtnPauseSvg = styled.svg`
 	width: 22px;
 	height: 20px;
 	fill: #d9d9d9;
+	&:hover {
+		fill: #696969;
+	}
 `;
 
 export const PlayerBtnNext = styled.div`
@@ -125,7 +139,8 @@ export const PlayerBtnNext = styled.div`
 	-ms-flex-align: center;
 	align-items: center;
 	margin-right: 28px;
-	fill: #a53939;
+	cursor: pointer;
+	fill: #d9d9d9;
 `;
 
 export const PlayerBtnNextSvg = styled.svg`
@@ -133,6 +148,10 @@ export const PlayerBtnNextSvg = styled.svg`
 	height: 14px;
 	fill: inherit;
 	stroke: #d9d9d9;
+	&:hover {
+		fill: #696969;
+		stroke: #696969;
+	}
 `;
 
 export const PlayerBtnRepeat = styled.div`
@@ -144,9 +163,10 @@ export const PlayerBtnRepeat = styled.div`
 	-ms-flex-align: center;
 	align-items: center;
 	margin-right: 24px;
+	stroke: ${props => (props.loop ? '#fff' : '#696969')};
 	&:hover svg {
 		fill: transparent;
-		stroke: #acacac;
+		stroke: ${props => (props.loop ? '' : '#acacac')};
 		cursor: pointer;
 	}
 	&:active svg {
@@ -165,7 +185,6 @@ export const PlayerBtnRepeatSvg = styled.svg`
 	width: 18px;
 	height: 12px;
 	fill: transparent;
-	stroke: #696969;
 `;
 
 export const PlayerBtnShuffle = styled.div`
@@ -402,7 +421,6 @@ export const TimeDiv = styled.div`
 	position: absolute;
 	right: 5px;
 	top: -20px;
-	
 `;
 
 export const TimePar = styled.p`

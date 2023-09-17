@@ -14,7 +14,6 @@ export const CreateTracklist = ({
 	tracks,
 	openPlayer,
 	addTodoError,
-	setIsPlaying,
 	formatTime,
 }) => {
 	const [$visibleFilter, setVisibleFilter] = useState(null);
@@ -75,7 +74,6 @@ export const CreateTracklist = ({
 						isLoading={isLoading}
 						tracks={tracks}
 						openPlayer={openPlayer}
-						setIsPlaying={setIsPlaying}
 						formatTime={formatTime}
 					/>
 				</S.ContentPlaylist>
