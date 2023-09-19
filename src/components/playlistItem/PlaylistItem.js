@@ -2,13 +2,19 @@ import React from 'react';
 import { PlaylistItemSkeleton } from '../SkeletonCard.js';
 import * as S from './PlaylistItem.styles';
 
-export const CreatePlaylistItem = ({ isLoading, tracks, openPlayer }) => {
+export const CreatePlaylistItem = ({
+	isLoading,
+	tracks,
+	openPlayer,
+	formatTime,
+}) => {
 	return tracks.map(track => {
 		return (
 			<S.PlaylistItem
 				key={track.id}
 				onClick={() => {
 					openPlayer(track);
+
 				}}
 			>
 				<S.PlaylistTrack>
@@ -38,7 +44,7 @@ export const CreatePlaylistItem = ({ isLoading, tracks, openPlayer }) => {
 									<use xlinkHref='img/icon/sprite.svg#icon-like' />
 								</S.TrackTimeSvg>
 								<S.TrackTimeText>
-									{(track.duration_in_seconds / 60).toFixed(2)}
+									{formatTime(track.duration_in_seconds)}
 								</S.TrackTimeText>
 							</S.TrackTime>
 						</>
