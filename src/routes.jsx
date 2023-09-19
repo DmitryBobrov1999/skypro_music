@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { CreateSignInPage } from './pages/signin/CreateSigninPage';
-import { CreateSignUpPage } from './pages/signup/CreateSignupPage';
+import { AuthPage } from './pages/auth/AuthPage';
 import { Home } from './pages/main/MainPage';
 import React, { useState, useEffect } from 'react';
 import { NotFound } from './pages/not-found/NotFound';
@@ -17,42 +16,24 @@ export const AppRoutes = () => {
 		}, 1500);
 	}, []);
 
-	const sendFalseToLocalStorage = () => {
-		window.localStorage.clear('user');
-	};
-
-	const user = localStorage.getItem('user');
-
-	const sendTrueToLocalStorage = () => {
-		window.localStorage.setItem('user', true);
-	};
-
 	return (
 		<Routes>
-			<Route path='/login' element={<CreateSignInPage />} />
-			<Route path='/register' element={<CreateSignUpPage />} />
-
 			<Route
-				path='*'
-				element={
-					<NotFound
-						sendFalseToLocalStorage={sendFalseToLocalStorage}
-						user={user}
-						sendTrueToLocalStorage={sendTrueToLocalStorage}
-					/>
-				}
-			/>
+				path='/login'
+				element={<AuthPage isLoginMode={true}></AuthPage>}
+			></Route>
+			<Route
+				path='/register'
+				element={<AuthPage isLoginMode={false}></AuthPage>}
+			></Route>
+
+			<Route path='*' element={<NotFound />} />
 
 			<Route
 				path='/'
 				element={
 					<ProtectedRoute>
-						<Home
-							sendFalseToLocalStorage={sendFalseToLocalStorage}
-							user={user}
-							sendTrueToLocalStorage={sendTrueToLocalStorage}
-							isLoading={isLoading}
-						/>
+						<Home isLoading={isLoading} />
 					</ProtectedRoute>
 				}
 			/>
@@ -68,11 +49,7 @@ export const AppRoutes = () => {
 				path='/category/:id'
 				element={
 					<ProtectedRoute>
-						<Category
-							sendFalseToLocalStorage={sendFalseToLocalStorage}
-							user={user}
-							sendTrueToLocalStorage={sendTrueToLocalStorage}
-						/>
+						<Category />
 					</ProtectedRoute>
 				}
 			/>

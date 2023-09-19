@@ -8,11 +8,8 @@ import { categoryMock } from './CategoryMock';
 import { CategoryPlaylistItem } from '../../components/playlistItem/CategoryPlaylistitem';
 import { playlistData } from '../../components/playlistItem/PlaylistData';
 
-export const Category = ({
-	sendFalseToLocalStorage,
-	user,
-	sendTrueToLocalStorage,
-}) => {
+export const Category = (
+) => {
 	const params = useParams();
 
 	const track = categoryMock.find(track => track.id === Number(params.id));
@@ -22,9 +19,7 @@ export const Category = ({
 			<S.Container>
 				<S.Main>
 					<CreateNavMenu
-						sendFalseToLocalStorage={sendFalseToLocalStorage}
-						user={user}
-						sendTrueToLocalStorage={sendTrueToLocalStorage}
+
 					/>
 
 					<S.MainCenterBlock>

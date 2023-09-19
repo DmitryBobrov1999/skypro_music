@@ -1,11 +1,10 @@
 import { Navigate } from 'react-router-dom';
 
 export const ProtectedRoute = ({ redirectPath = '/login', children }) => {
-	const user = localStorage.getItem('user');
+	const userInfo = localStorage.getItem('user');
 
-	if (user === null) {
+	if (userInfo === null) {
 		return <Navigate to={redirectPath} />;
 	}
-
 	return <>{children}</>;
 };

@@ -9,10 +9,7 @@ import { getTracks } from '../../api/tracks';
 import { ProgressBar } from '../../components/ProgressBar/ProgressBar';
 
 export const Home = ({
-	isLoading,
-	sendFalseToLocalStorage,
-	sendTrueToLocalStorage,
-	user,
+	isLoading
 }) => {
 	const [tracks, setTracks] = useState([]);
 
@@ -114,9 +111,7 @@ export const Home = ({
 			<S.Container>
 				<S.Main>
 					<CreateNavMenu
-						user={user}
-						sendTrueToLocalStorage={sendTrueToLocalStorage}
-						sendFalseToLocalStorage={sendFalseToLocalStorage}
+	
 					/>
 					<CreateTracklist
 						addTodoError={addTodoError}
@@ -127,7 +122,6 @@ export const Home = ({
 						formatTime={formatTime}
 					/>
 					<CreateSidebar
-						sendFalseToLocalStorage={sendFalseToLocalStorage}
 						isLoading={isLoading}
 					/>
 				</S.Main>
