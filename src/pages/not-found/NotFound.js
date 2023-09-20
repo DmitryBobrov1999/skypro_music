@@ -1,18 +1,18 @@
-import { CreateNavMenu } from '../../components/navMenu/NavMenu.js';
+import { CreateNevMenuContext } from '../main/MainPage';
 import * as S from './NotFound.styles';
 import { ErrorAudioPlayer } from '../../components/forError/ErrorAudioPlayer';
 import { ErrorSidebar } from '../../components/forError/ErrorSidebar';
 import { NavLink } from 'react-router-dom';
 import React from 'react';
-
+import { removeUser } from '../main/MainPage';
 export const NotFound = () => {
+	
 	return (
 		<S.Wrapper>
 			<S.Container>
 				<S.Main>
-					<CreateNavMenu
+					<CreateNevMenuContext />
 
-					/>
 					<S.MainCenterBlock>
 						<S.CenterblockSearch>
 							<S.SearchSvg>
@@ -37,7 +37,8 @@ export const NotFound = () => {
 							</S.ErrorBackToMain>
 						</S.ErrorBlock>
 					</S.MainCenterBlock>
-					<ErrorSidebar />
+
+					<ErrorSidebar removeUser={removeUser}/>
 				</S.Main>
 
 				<ErrorAudioPlayer />

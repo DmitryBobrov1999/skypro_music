@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import * as S from './AuthPage.styles';
 import { useEffect, useState } from 'react';
 import { getAuthUp, getAuth } from '../../api/authApi';
@@ -10,13 +10,15 @@ export const AuthPage = ({ isLoginMode }) => {
 	const [password, setPassword] = useState('');
 	const [repeatPassword, setRepeatPassword] = useState('');
 
-	const userInfo = localStorage.getItem('user');
+	// const userInfo = localStorage.getItem('user');
+
+	const navigate = useNavigate();
 
 	const handleLogin = async () => {
 		getAuth({
 			email: email,
 			password: password,
-		});
+		}).then(() => navigate('/'));
 	};
 
 	const handleRegister = async () => {
@@ -65,13 +67,9 @@ export const AuthPage = ({ isLoginMode }) => {
 						</S.Inputs>
 						{error && <S.Error>{error}</S.Error>}
 						<S.Buttons>
-							<NavLink to='/'>
-								<S.PrimaryButton
-									onClick={() => handleLogin({ email, password })}
-								>
-									Войти
-								</S.PrimaryButton>
-							</NavLink>
+							<S.PrimaryButton onClick={() => handleLogin({ email, password })}>
+								Войти
+							</S.PrimaryButton>
 
 							<Link to='/register'>
 								<S.SecondaryButton>Зарегистрироваться</S.SecondaryButton>

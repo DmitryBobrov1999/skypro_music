@@ -26,7 +26,7 @@ export const getAuth = async ({ email, password }) => {
 		.then(response => response.json())
 		.then(data => {
 			if (data.id) {
-				localStorage.setItem('user', data.id);
+				localStorage.setItem('user', data.email);
 			}
 		});
 };

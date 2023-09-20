@@ -1,29 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
-import * as S from './BurgerBlock.styles'
+import * as S from './BurgerBlock.styles';
+import { NavMenuContext } from '../../../pages/main/MainPage';
 
-export const BurgerBlock = ({
-
-}) => {
+export const BurgerBlock = () => {
 	const [visible, setVisible] = useState(true);
 
 	const toggleVisibility = () => setVisible(!visible);
 
-	// function burgerLogic() {
-	// 	if () {
-	// 		return (
-	// 			<S.MenuItem >
-	// 				<S.MenuLink to='/login'>Выйти</S.MenuLink>
-	// 			</S.MenuItem>
-	// 		);
-	// 	} else {
-	// 		return (
-	// 			<S.MenuItem >
-	// 				<S.MenuLink to='/'>Войти</S.MenuLink>
-	// 			</S.MenuItem>
-	// 		);
-	// 	}
-	// }
+	const context = useContext(NavMenuContext);
 
 	return (
 		<>
@@ -40,7 +25,9 @@ export const BurgerBlock = ({
 					<S.MenuItem>
 						<S.MenuLink to='/favorite'>Мой плейлист</S.MenuLink>
 					</S.MenuItem>
-					{/* {burgerLogic()} */}
+					<S.MenuItem onClick={context}>
+						<S.MenuLink to='/login'>Выйти</S.MenuLink>
+					</S.MenuItem>
 				</S.MenuList>
 			</S.NavMenu>
 		</>

@@ -4,17 +4,14 @@ import * as S from './Sidebar.styles';
 import { NavLink } from 'react-router-dom';
 import { categoryMock } from '../../pages/category/CategoryMock.js';
 
-export const CreateSidebar = ({ isLoading }) => {
+export const CreateSidebar = ({ isLoading, removeUser }) => {
+	const userLogin = localStorage.getItem('user');
 
-	const removeUser = () => {
-		localStorage.clear()
-	}
-	
 	return (
 		<S.MainSidebar>
 			<S.SidebarPersonal>
-				<S.SidebarPersonalName>Sergey.Ivanov</S.SidebarPersonalName>
-				<S.SidebarIcon >
+				<S.SidebarPersonalName>{userLogin}</S.SidebarPersonalName>
+				<S.SidebarIcon onClick={removeUser}>
 					<NavLink to='/login'>
 						<svg alt='logout'>
 							<use xlinkHref='/img/icon/sprite.svg#logout' />
