@@ -10,15 +10,22 @@ export const AuthPage = ({ isLoginMode }) => {
 	const [password, setPassword] = useState('');
 	const [repeatPassword, setRepeatPassword] = useState('');
 
-	// const userInfo = localStorage.getItem('user');
-
 	const navigate = useNavigate();
+	const userLogin = localStorage.getItem('user');
 
 	const handleLogin = async () => {
-		getAuth({
+		// if (!email || !password) {
+		// 	setError('Пожалуйста, заполните все поля');
+		// 	return;
+		// }
+
+		await getAuth({
 			email: email,
 			password: password,
-		}).then(() => navigate('/'));
+			setError,
+		}).then(() => {
+			navigate('/');
+		});
 	};
 
 	const handleRegister = async () => {
@@ -26,10 +33,13 @@ export const AuthPage = ({ isLoginMode }) => {
 			email: email,
 			password: password,
 			username: email,
+			repeatPassword: repeatPassword,
+			setError,
 		});
+		if (userLogin) {
+			navigate('/');
+		}
 	};
-
-	// localStorage.clear()
 
 	useEffect(() => {
 		setError(null);

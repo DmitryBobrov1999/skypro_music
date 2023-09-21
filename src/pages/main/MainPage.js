@@ -26,7 +26,7 @@ export const CreateNevMenuContext = () => {
 			<CreateNavMenu />
 		</NavMenuContext.Provider>
 	);
-}
+};
 
 export const Home = ({ isLoading }) => {
 	const [tracks, setTracks] = useState([]);
@@ -124,13 +124,11 @@ export const Home = ({ isLoading }) => {
 		return '00:00';
 	};
 
-	
-
 	return (
 		<S.Wrapper>
 			<S.Container>
 				<S.Main>
-					<CreateNevMenuContext/>
+					<CreateNevMenuContext />
 					<CreateTracklist
 						addTodoError={addTodoError}
 						openPlayer={openPlayer}
