@@ -2,7 +2,6 @@ export const getAuthUp = async ({
 	email,
 	password,
 	username,
-	setError,
 	repeatPassword,
 }) => {
 	const response = await fetch(
@@ -20,18 +19,15 @@ export const getAuthUp = async ({
 			},
 		}
 	);
-	await response.json().then(data => {
-		if (data.id) {
-			localStorage.setItem('user', data.email);
-		}
-	});
-	if (!email || !password || !repeatPassword) {
-		setError('Пожалуйста, заполните все поля');
-		return;
+	const data = await response.json();
+	const status = response.status;
+	if (data.id) {
+		localStorage.setItem('user', data.email);
 	}
+	return { status };
 };
 
-export const getAuth = async ({ email, password, setError }) => {
+export const getAuth = async ({ email, password }) => {
 	const response = await fetch(
 		'https://skypro-music-api.skyeng.tech/user/login/',
 		{
@@ -45,17 +41,11 @@ export const getAuth = async ({ email, password, setError }) => {
 			},
 		}
 	);
-	await response.json().then(data => {
-		if (data.id) {
-			localStorage.setItem('user', data.email);
-		}
-	});
-	if (response.status === 400) {
-		setError('Пожалуйста, заполните все поля');
+	const data = await response.json();
+	const status = response.status;
+	if (data.id) {
+		localStorage.setItem('user', data.email);
 	}
 
-	if (response.status === 401) {
-
-		setError('Пользователь с таким email или паролем не найден');
-	}
+	return { status };
 };

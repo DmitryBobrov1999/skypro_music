@@ -1,13 +1,13 @@
 import React from 'react';
 import * as S from '../sidebar/Sidebar.styles';
 import { NavLink } from 'react-router-dom';
-
+import { CreateSidebarPersonalName } from '../sidebar/Sidebar';
 export const ErrorSidebar = ({ removeUser }) => {
-	const userLogin = localStorage.getItem('user');
+
 	return (
 		<S.MainSidebar>
 			<S.SidebarPersonal>
-				<S.SidebarPersonalName>{userLogin}</S.SidebarPersonalName>
+				<CreateSidebarPersonalName />
 				<S.SidebarIcon onClick={removeUser}>
 					<NavLink to='/login'>
 						<svg alt='logout'>

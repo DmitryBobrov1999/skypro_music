@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import { SidebarSkeleton } from '../SkeletonCard.js';
 import * as S from './Sidebar.styles';
 import { NavLink } from 'react-router-dom';
 import { categoryMock } from '../../pages/category/CategoryMock.js';
 
-export const CreateSidebar = ({ isLoading, removeUser }) => {
-	const userLogin = localStorage.getItem('user');
+export const PersonalNameContext = createContext(null);
 
+export const CreateSidebarPersonalName = () => {
+	const userName = localStorage.getItem('user');
+	return (
+		<PersonalNameContext.Provider value={userName}>
+			<S.SidebarPersonalName>{userName}</S.SidebarPersonalName>
+		</PersonalNameContext.Provider>
+	);
+};
+
+export const CreateSidebar = ({ isLoading, removeUser }) => {
 	return (
 		<S.MainSidebar>
 			<S.SidebarPersonal>
-				<S.SidebarPersonalName>{userLogin}</S.SidebarPersonalName>
+				<CreateSidebarPersonalName />
 				<S.SidebarIcon onClick={removeUser}>
 					<NavLink to='/login'>
 						<svg alt='logout'>

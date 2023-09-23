@@ -9,41 +9,63 @@ export const AuthPage = ({ isLoginMode }) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [repeatPassword, setRepeatPassword] = useState('');
-
+	const [isLoading, setIsLoading] = useState(false);
 	const navigate = useNavigate();
-	const userLogin = localStorage.getItem('user');
+	
 
 	const handleLogin = async () => {
-		// if (!email || !password) {
-		// 	setError('Пожалуйста, заполните все поля');
-		// 	return;
-		// }
+		if (!email || !password) {
+			setError('Укажите почту/пароль');
+			return;
+		}
+		setIsLoading(true);
 
-		await getAuth({
+		const { status } = await getAuth({
 			email: email,
 			password: password,
-			setError,
-		}).then(() => {
-			navigate('/');
 		});
+		setIsLoading(false);
+
+		if (status === 200) {
+			navigate('/');
+		} else if (status === 401) {
+			setError('Пользователь с таким email или паролем не найден');
+		}
 	};
 
+
 	const handleRegister = async () => {
-		getAuthUp({
+		if (!email || !password || !repeatPassword) {
+			setError('Укажите почту/пароль');
+			return;
+		}
+
+		if(password !== repeatPassword) {
+			setError('Пароли не совпадают');
+			return
+		}
+		setIsLoading(true);
+
+		const { status } = await getAuthUp({
 			email: email,
 			password: password,
 			username: email,
 			repeatPassword: repeatPassword,
-			setError,
 		});
-		if (userLogin) {
+		setIsLoading(false);
+
+		if (status === 201) {
 			navigate('/');
+		} else if (status === 400) {
+			setError('Пользователь с таким именем уже существует');
 		}
 	};
+
 
 	useEffect(() => {
 		setError(null);
 	}, [isLoginMode, email, password, repeatPassword]);
+
 
 	return (
 		<S.PageContainer>
@@ -77,8 +99,11 @@ export const AuthPage = ({ isLoginMode }) => {
 						</S.Inputs>
 						{error && <S.Error>{error}</S.Error>}
 						<S.Buttons>
-							<S.PrimaryButton onClick={() => handleLogin({ email, password })}>
-								Войти
+							<S.PrimaryButton
+								disabled={isLoading}
+								onClick={() => handleLogin({ email, password })}
+							>
+								{isLoading ? 'Войти' : 'Войти'}
 							</S.PrimaryButton>
 
 							<Link to='/register'>
@@ -120,8 +145,13 @@ export const AuthPage = ({ isLoginMode }) => {
 						{error && <S.Error>{error}</S.Error>}
 						<S.Buttons>
 							<NavLink>
-								<S.PrimaryButton onClick={handleRegister}>
-									Зарегистрироваться
+								<S.PrimaryButton
+									disabled={isLoading}
+									onClick={() =>
+										handleRegister({ email, password, repeatPassword })
+									}
+								>
+									{isLoading ? 'Зарегистрироваться' : 'Зарегистрироваться'}
 								</S.PrimaryButton>
 							</NavLink>
 						</S.Buttons>

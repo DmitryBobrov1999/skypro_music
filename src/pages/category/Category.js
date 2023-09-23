@@ -8,6 +8,7 @@ import { categoryMock } from './CategoryMock';
 import { CategoryPlaylistItem } from '../../components/playlistItem/CategoryPlaylistitem';
 import { playlistData } from '../../components/playlistItem/PlaylistData';
 import { removeUser } from '../main/MainPage';
+
 export const Category = () => {
 	const params = useParams();
 

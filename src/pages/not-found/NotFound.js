@@ -5,6 +5,7 @@ import { ErrorSidebar } from '../../components/forError/ErrorSidebar';
 import { NavLink } from 'react-router-dom';
 import React from 'react';
 import { removeUser } from '../main/MainPage';
+
 export const NotFound = () => {
 	
 	return (
