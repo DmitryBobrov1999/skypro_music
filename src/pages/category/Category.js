@@ -1,13 +1,13 @@
 import { useParams } from 'react-router-dom';
 import * as S from '../not-found/NotFound.styles';
-import React from 'react';
-import { CreateNevMenuContext } from '../main/MainPage';
+import React, { useContext } from 'react';
+
 import { ErrorAudioPlayer } from '../../components/forError/ErrorAudioPlayer';
 import { ErrorSidebar } from '../../components/forError/ErrorSidebar';
 import { categoryMock } from './CategoryMock';
 import { CategoryPlaylistItem } from '../../components/playlistItem/CategoryPlaylistitem';
+import { CreateNavMenu } from '../../components/navMenu/NavMenu';
 import { playlistData } from '../../components/playlistItem/PlaylistData';
-import { removeUser } from '../main/MainPage';
 
 export const Category = () => {
 	const params = useParams();
@@ -18,7 +18,7 @@ export const Category = () => {
 		<S.Wrapper>
 			<S.Container>
 				<S.Main>
-					<CreateNevMenuContext />
+					<CreateNavMenu />
 
 					<S.MainCenterBlock>
 						<S.CenterblockSearch>
@@ -46,7 +46,7 @@ export const Category = () => {
 						</S.CenterblockContent>
 					</S.MainCenterBlock>
 
-					<ErrorSidebar removeUser={removeUser} />
+					<ErrorSidebar />
 				</S.Main>
 
 				<ErrorAudioPlayer />

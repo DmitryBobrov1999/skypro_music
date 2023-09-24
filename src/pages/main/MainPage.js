@@ -1,5 +1,4 @@
 import React, {
-	createContext,
 	useCallback,
 	useEffect,
 	useRef,
@@ -13,20 +12,6 @@ import * as S from './MainPage.styles';
 
 import { getTracks } from '../../api/tracks';
 import { ProgressBar } from '../../components/ProgressBar/ProgressBar';
-
-export const removeUser = () => {
-	localStorage.removeItem('user');
-};
-
-export const NavMenuContext = createContext(null);
-
-export const CreateNevMenuContext = () => {
-	return (
-		<NavMenuContext.Provider value={removeUser}>
-			<CreateNavMenu />
-		</NavMenuContext.Provider>
-	);
-};
 
 export const Home = ({ isLoading }) => {
 	const [tracks, setTracks] = useState([]);
@@ -128,7 +113,7 @@ export const Home = ({ isLoading }) => {
 		<S.Wrapper>
 			<S.Container>
 				<S.Main>
-					<CreateNevMenuContext />
+					<CreateNavMenu />
 					<CreateTracklist
 						addTodoError={addTodoError}
 						openPlayer={openPlayer}
@@ -137,7 +122,7 @@ export const Home = ({ isLoading }) => {
 						setIsPlaying={setIsPlaying}
 						formatTime={formatTime}
 					/>
-					<CreateSidebar removeUser={removeUser} isLoading={isLoading} />
+					<CreateSidebar isLoading={isLoading} />
 				</S.Main>
 				<CreateAudioPlayer
 					isPlaying={isPlaying}

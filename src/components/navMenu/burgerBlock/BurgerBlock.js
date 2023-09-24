@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { useState } from 'react';
 import * as S from './BurgerBlock.styles';
-import { NavMenuContext } from '../../../pages/main/MainPage';
+import { NavMenuContext } from '../../../routes'; 
 
 export const BurgerBlock = () => {
 	const [visible, setVisible] = useState(true);
 
 	const toggleVisibility = () => setVisible(!visible);
 
-	const context = useContext(NavMenuContext);
+	const getNavMenuContext = useContext(NavMenuContext);
 
 	return (
 		<>
@@ -25,7 +25,7 @@ export const BurgerBlock = () => {
 					<S.MenuItem>
 						<S.MenuLink to='/favorite'>Мой плейлист</S.MenuLink>
 					</S.MenuItem>
-					<S.MenuItem onClick={context}>
+					<S.MenuItem onClick={getNavMenuContext}>
 						<S.MenuLink to='/login'>Выйти</S.MenuLink>
 					</S.MenuItem>
 				</S.MenuList>

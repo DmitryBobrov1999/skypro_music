@@ -1,11 +1,21 @@
 import { Routes, Route } from 'react-router-dom';
 import { AuthPage } from './pages/auth/AuthPage';
 import { Home } from './pages/main/MainPage';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import { NotFound } from './pages/not-found/NotFound';
 import { FavoriteTracks } from './pages/favoriteTracks/FavoriteTracks';
 import { Category } from './pages/category/Category';
 import { ProtectedRoute } from './components/protected-route/ProtectedRoute';
+
+export const PersonalNameContext = createContext(null);
+
+const userName = localStorage.getItem('user');
+
+export const NavMenuContext = createContext(null);
+
+const removeUser = () => {
+	localStorage.removeItem('user');
+};
 
 export const AppRoutes = () => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -27,13 +37,26 @@ export const AppRoutes = () => {
 				element={<AuthPage isLoginMode={false}></AuthPage>}
 			></Route>
 
-			<Route path='*' element={<NotFound />} />
+			<Route
+				path='*'
+				element={
+					<PersonalNameContext.Provider value={userName}>
+						<NavMenuContext.Provider value={removeUser}>
+							<NotFound />
+						</NavMenuContext.Provider>
+					</PersonalNameContext.Provider>
+				}
+			/>
 
 			<Route
 				path='/'
 				element={
 					<ProtectedRoute>
-						<Home isLoading={isLoading} />
+						<PersonalNameContext.Provider value={userName}>
+							<NavMenuContext.Provider value={removeUser}>
+								<Home isLoading={isLoading} />
+							</NavMenuContext.Provider>
+						</PersonalNameContext.Provider>
 					</ProtectedRoute>
 				}
 			/>
@@ -49,7 +72,11 @@ export const AppRoutes = () => {
 				path='/category/:id'
 				element={
 					<ProtectedRoute>
-						<Category />
+						<PersonalNameContext.Provider value={userName}>
+							<NavMenuContext.Provider value={removeUser}>
+								<Category />
+							</NavMenuContext.Provider>
+						</PersonalNameContext.Provider>
 					</ProtectedRoute>
 				}
 			/>
