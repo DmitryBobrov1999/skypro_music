@@ -1,7 +1,9 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import * as S from './AuthPage.styles';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { getAuthUp, getAuth } from '../../api/authApi';
+
+import { PersonalNameContext  } from '../../routes';
 
 export const AuthPage = ({ isLoginMode }) => {
 	const [error, setError] = useState(null);
@@ -11,7 +13,8 @@ export const AuthPage = ({ isLoginMode }) => {
 	const [repeatPassword, setRepeatPassword] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const navigate = useNavigate();
-	
+
+	const { setUserName } = useContext(PersonalNameContext);
 
 	const handleLogin = async () => {
 		if (!email || !password) {
@@ -27,12 +30,12 @@ export const AuthPage = ({ isLoginMode }) => {
 		setIsLoading(false);
 
 		if (status === 200) {
+			setUserName(localStorage.getItem('user'))
 			navigate('/');
 		} else if (status === 401) {
 			setError('Пользователь с таким email или паролем не найден');
 		}
 	};
-
 
 	const handleRegister = async () => {
 		if (!email || !password || !repeatPassword) {
@@ -40,9 +43,9 @@ export const AuthPage = ({ isLoginMode }) => {
 			return;
 		}
 
-		if(password !== repeatPassword) {
+		if (password !== repeatPassword) {
 			setError('Пароли не совпадают');
-			return
+			return;
 		}
 		setIsLoading(true);
 
@@ -61,11 +64,9 @@ export const AuthPage = ({ isLoginMode }) => {
 		}
 	};
 
-
 	useEffect(() => {
 		setError(null);
 	}, [isLoginMode, email, password, repeatPassword]);
-
 
 	return (
 		<S.PageContainer>

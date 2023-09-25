@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import * as S from '../not-found/NotFound.styles';
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { ErrorAudioPlayer } from '../../components/forError/ErrorAudioPlayer';
 import { ErrorSidebar } from '../../components/forError/ErrorSidebar';

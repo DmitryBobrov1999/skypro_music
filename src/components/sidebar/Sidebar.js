@@ -3,18 +3,19 @@ import { SidebarSkeleton } from '../SkeletonCard.js';
 import * as S from './Sidebar.styles';
 import { NavLink } from 'react-router-dom';
 import { categoryMock } from '../../pages/category/CategoryMock.js';
-import { PersonalNameContext } from '../../routes.jsx';
+import { PersonalNameContext } from '../../routes.jsx'; 
 import { NavMenuContext } from '../../routes.jsx';
 
 export const CreateSidebar = ({ isLoading }) => {
-	const getPersonalNameContext = useContext(PersonalNameContext);
+	const { userName } = useContext(PersonalNameContext);
 
 	const getNavMenuContext = useContext(NavMenuContext);
+
 
 	return (
 		<S.MainSidebar>
 			<S.SidebarPersonal>
-				<S.SidebarPersonalName>{getPersonalNameContext}</S.SidebarPersonalName>
+				<S.SidebarPersonalName>{userName}</S.SidebarPersonalName>
 
 				<S.SidebarIcon onClick={getNavMenuContext}>
 					<NavLink to='/login'>

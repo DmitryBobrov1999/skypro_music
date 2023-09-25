@@ -7,17 +7,24 @@ import { FavoriteTracks } from './pages/favoriteTracks/FavoriteTracks';
 import { Category } from './pages/category/Category';
 import { ProtectedRoute } from './components/protected-route/ProtectedRoute';
 
-export const PersonalNameContext = createContext(null);
-
-const userName = localStorage.getItem('user');
-
 export const NavMenuContext = createContext(null);
 
-const removeUser = () => {
-	localStorage.removeItem('user');
-};
+export const PersonalNameContext = createContext({
+	userName: null,
+	setUserName: () => {},
+});
 
 export const AppRoutes = () => {
+	const [userName, setUserName] = useState(localStorage.getItem('user'));
+
+	const value = { userName, setUserName };
+
+	// const userName = localStorage.getItem('user');
+
+	const removeUser = () => {
+		localStorage.removeItem('user');
+	};
+
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
@@ -27,59 +34,52 @@ export const AppRoutes = () => {
 	}, []);
 
 	return (
-		<Routes>
-			<Route
-				path='/login'
-				element={<AuthPage isLoginMode={true}></AuthPage>}
-			></Route>
-			<Route
-				path='/register'
-				element={<AuthPage isLoginMode={false}></AuthPage>}
-			></Route>
+		<PersonalNameContext.Provider value={value}>
+			<Routes>
+				<Route path='/login' element={<AuthPage isLoginMode={true} />}></Route>
+				<Route
+					path='/register'
+					element={<AuthPage isLoginMode={false} />}
+				></Route>
 
-			<Route
-				path='*'
-				element={
-					<PersonalNameContext.Provider value={userName}>
+				<Route
+					path='*'
+					element={
 						<NavMenuContext.Provider value={removeUser}>
 							<NotFound />
 						</NavMenuContext.Provider>
-					</PersonalNameContext.Provider>
-				}
-			/>
+					}
+				/>
 
-			<Route
-				path='/'
-				element={
-					<ProtectedRoute>
-						<PersonalNameContext.Provider value={userName}>
+				<Route
+					path='/'
+					element={
+						<ProtectedRoute>
 							<NavMenuContext.Provider value={removeUser}>
 								<Home isLoading={isLoading} />
 							</NavMenuContext.Provider>
-						</PersonalNameContext.Provider>
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path='/favorite'
-				element={
-					<ProtectedRoute>
-						<FavoriteTracks />
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path='/category/:id'
-				element={
-					<ProtectedRoute>
-						<PersonalNameContext.Provider value={userName}>
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path='/favorite'
+					element={
+						<ProtectedRoute>
+							<FavoriteTracks />
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path='/category/:id'
+					element={
+						<ProtectedRoute>
 							<NavMenuContext.Provider value={removeUser}>
 								<Category />
 							</NavMenuContext.Provider>
-						</PersonalNameContext.Provider>
-					</ProtectedRoute>
-				}
-			/>
-		</Routes>
+						</ProtectedRoute>
+					}
+				/>
+			</Routes>
+		</PersonalNameContext.Provider>
 	);
 };
