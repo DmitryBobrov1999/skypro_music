@@ -19,7 +19,6 @@ export const AppRoutes = () => {
 
 	const value = { userName, setUserName };
 
-	// const userName = localStorage.getItem('user');
 
 	const removeUser = () => {
 		localStorage.removeItem('user');
@@ -30,7 +29,7 @@ export const AppRoutes = () => {
 	useEffect(() => {
 		setTimeout(() => {
 			setIsLoading(true);
-		}, 1500);
+		}, 1000);
 	}, []);
 
 	return (

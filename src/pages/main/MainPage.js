@@ -1,24 +1,15 @@
-import React, {
-	useCallback,
-	useEffect,
-	useRef,
-	useState,
-} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { CreateAudioPlayer } from '../../components/audioPlayer/AudioPlayer';
 import { CreateSidebar } from '../../components/sidebar/Sidebar';
 import { CreateTracklist } from '../../components/tracklist/Tracklist';
 import { CreateNavMenu } from '../../components/navMenu/NavMenu';
 import * as S from './MainPage.styles';
 
-import { getTracks } from '../../api/tracks';
 import { ProgressBar } from '../../components/ProgressBar/ProgressBar';
 
 export const Home = ({ isLoading }) => {
-	const [tracks, setTracks] = useState([]);
 
 	const [currentPlayer, toCurrentPlayer] = useState(null);
-
-	const [addTodoError, setAddTodoError] = useState(null);
 
 	const [isPlaying, setIsPlaying] = useState(false);
 
@@ -42,17 +33,6 @@ export const Home = ({ isLoading }) => {
 		}
 	}, [loop, audioRef]);
 
-	useEffect(() => {
-		getTracks()
-			.then(tracks => {
-				setTracks(tracks);
-			})
-			.catch(error => {
-				setAddTodoError(
-					`Не удалось загрузить плейлист, попробуйте позже: ${error.message}`
-				);
-			});
-	}, []);
 
 	const repeat = useCallback(() => {
 		if (audioRef && audioRef.current) {
@@ -115,9 +95,7 @@ export const Home = ({ isLoading }) => {
 				<S.Main>
 					<CreateNavMenu />
 					<CreateTracklist
-						addTodoError={addTodoError}
 						openPlayer={openPlayer}
-						tracks={tracks}
 						isLoading={isLoading}
 						setIsPlaying={setIsPlaying}
 						formatTime={formatTime}

@@ -2,19 +2,14 @@ import React from 'react';
 import { PlaylistItemSkeleton } from '../SkeletonCard.js';
 import * as S from './PlaylistItem.styles';
 
-export const CreatePlaylistItem = ({
-	isLoading,
-	tracks,
-	openPlayer,
-	formatTime,
-}) => {
-	return tracks.map(track => {
-		return (
+export const CreatePlaylistItem = ({ isLoading, openPlayer, formatTime, todos }) => {
+	return (
+		todos &&
+		todos.map(track => (
 			<S.PlaylistItem
 				key={track.id}
 				onClick={() => {
 					openPlayer(track);
-
 				}}
 			>
 				<S.PlaylistTrack>
@@ -55,6 +50,6 @@ export const CreatePlaylistItem = ({
 					)}
 				</S.PlaylistTrack>
 			</S.PlaylistItem>
-		);
-	});
+		))
+	);
 };
