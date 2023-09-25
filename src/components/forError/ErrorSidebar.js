@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useContext} from 'react';
 import * as S from '../sidebar/Sidebar.styles';
 import { NavLink } from 'react-router-dom';
+import { NavMenuContext } from '../../routes';
+import { PersonalNameContext } from '../../routes'; 
 
-export const ErrorSidebar = ({ sendFalseToLocalStorage }) => {
+export const ErrorSidebar = () => {
+
+	const getNavMenuContext = useContext(NavMenuContext);
+
+	const { userName } = useContext(PersonalNameContext);
+
+	
 	return (
 		<S.MainSidebar>
 			<S.SidebarPersonal>
-				<S.SidebarPersonalName>Sergey.Ivanov</S.SidebarPersonalName>
-				<S.SidebarIcon onClick={sendFalseToLocalStorage}>
+				<S.SidebarPersonalName>{userName}</S.SidebarPersonalName>
+				<S.SidebarIcon onClick={getNavMenuContext}>
 					<NavLink to='/login'>
 						<svg alt='logout'>
 							<use xlinkHref='/img/icon/sprite.svg#logout' />

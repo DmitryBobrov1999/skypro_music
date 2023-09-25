@@ -1,15 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { SidebarSkeleton } from '../SkeletonCard.js';
 import * as S from './Sidebar.styles';
 import { NavLink } from 'react-router-dom';
 import { categoryMock } from '../../pages/category/CategoryMock.js';
+import { PersonalNameContext } from '../../routes.jsx'; 
+import { NavMenuContext } from '../../routes.jsx';
 
-export const CreateSidebar = ({ isLoading, sendFalseToLocalStorage }) => {
+export const CreateSidebar = ({ isLoading }) => {
+	const { userName } = useContext(PersonalNameContext);
+
+	const getNavMenuContext = useContext(NavMenuContext);
+
+
 	return (
 		<S.MainSidebar>
 			<S.SidebarPersonal>
-				<S.SidebarPersonalName>Sergey.Ivanov</S.SidebarPersonalName>
-				<S.SidebarIcon onClick={sendFalseToLocalStorage}>
+				<S.SidebarPersonalName>{userName}</S.SidebarPersonalName>
+
+				<S.SidebarIcon onClick={getNavMenuContext}>
 					<NavLink to='/login'>
 						<svg alt='logout'>
 							<use xlinkHref='/img/icon/sprite.svg#logout' />

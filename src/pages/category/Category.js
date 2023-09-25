@@ -1,18 +1,15 @@
 import { useParams } from 'react-router-dom';
 import * as S from '../not-found/NotFound.styles';
 import React from 'react';
-import { CreateNavMenu } from '../../components/navMenu/NavMenu.js';
+
 import { ErrorAudioPlayer } from '../../components/forError/ErrorAudioPlayer';
 import { ErrorSidebar } from '../../components/forError/ErrorSidebar';
 import { categoryMock } from './CategoryMock';
 import { CategoryPlaylistItem } from '../../components/playlistItem/CategoryPlaylistitem';
+import { CreateNavMenu } from '../../components/navMenu/NavMenu';
 import { playlistData } from '../../components/playlistItem/PlaylistData';
 
-export const Category = ({
-	sendFalseToLocalStorage,
-	user,
-	sendTrueToLocalStorage,
-}) => {
+export const Category = () => {
 	const params = useParams();
 
 	const track = categoryMock.find(track => track.id === Number(params.id));
@@ -21,11 +18,7 @@ export const Category = ({
 		<S.Wrapper>
 			<S.Container>
 				<S.Main>
-					<CreateNavMenu
-						sendFalseToLocalStorage={sendFalseToLocalStorage}
-						user={user}
-						sendTrueToLocalStorage={sendTrueToLocalStorage}
-					/>
+					<CreateNavMenu />
 
 					<S.MainCenterBlock>
 						<S.CenterblockSearch>
@@ -52,6 +45,7 @@ export const Category = ({
 							</S.ContentPlaylist>
 						</S.CenterblockContent>
 					</S.MainCenterBlock>
+
 					<ErrorSidebar />
 				</S.Main>
 

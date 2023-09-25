@@ -1,4 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 import { CreateAudioPlayer } from '../../components/audioPlayer/AudioPlayer';
 import { CreateSidebar } from '../../components/sidebar/Sidebar';
 import { CreateTracklist } from '../../components/tracklist/Tracklist';
@@ -8,12 +13,7 @@ import * as S from './MainPage.styles';
 import { getTracks } from '../../api/tracks';
 import { ProgressBar } from '../../components/ProgressBar/ProgressBar';
 
-export const Home = ({
-	isLoading,
-	sendFalseToLocalStorage,
-	sendTrueToLocalStorage,
-	user,
-}) => {
+export const Home = ({ isLoading }) => {
 	const [tracks, setTracks] = useState([]);
 
 	const [currentPlayer, toCurrentPlayer] = useState(null);
@@ -113,11 +113,7 @@ export const Home = ({
 		<S.Wrapper>
 			<S.Container>
 				<S.Main>
-					<CreateNavMenu
-						user={user}
-						sendTrueToLocalStorage={sendTrueToLocalStorage}
-						sendFalseToLocalStorage={sendFalseToLocalStorage}
-					/>
+					<CreateNavMenu />
 					<CreateTracklist
 						addTodoError={addTodoError}
 						openPlayer={openPlayer}
@@ -126,10 +122,7 @@ export const Home = ({
 						setIsPlaying={setIsPlaying}
 						formatTime={formatTime}
 					/>
-					<CreateSidebar
-						sendFalseToLocalStorage={sendFalseToLocalStorage}
-						isLoading={isLoading}
-					/>
+					<CreateSidebar isLoading={isLoading} />
 				</S.Main>
 				<CreateAudioPlayer
 					isPlaying={isPlaying}

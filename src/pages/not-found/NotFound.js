@@ -1,22 +1,17 @@
-import { CreateNavMenu } from '../../components/navMenu/NavMenu.js';
 import * as S from './NotFound.styles';
 import { ErrorAudioPlayer } from '../../components/forError/ErrorAudioPlayer';
 import { ErrorSidebar } from '../../components/forError/ErrorSidebar';
 import { NavLink } from 'react-router-dom';
 import React from 'react';
+import { CreateNavMenu } from '../../components/navMenu/NavMenu';
 
-export const NotFound = ({ sendFalseToLocalStorage,
-							user,
-							sendTrueToLocalStorage}) => {
+export const NotFound = () => {
 	return (
 		<S.Wrapper>
 			<S.Container>
 				<S.Main>
-					<CreateNavMenu
-						sendFalseToLocalStorage={sendFalseToLocalStorage}
-						user={user}
-						sendTrueToLocalStorage={sendTrueToLocalStorage}
-					/>
+					<CreateNavMenu />
+
 					<S.MainCenterBlock>
 						<S.CenterblockSearch>
 							<S.SearchSvg>
@@ -41,6 +36,7 @@ export const NotFound = ({ sendFalseToLocalStorage,
 							</S.ErrorBackToMain>
 						</S.ErrorBlock>
 					</S.MainCenterBlock>
+
 					<ErrorSidebar />
 				</S.Main>
 
@@ -48,4 +44,4 @@ export const NotFound = ({ sendFalseToLocalStorage,
 			</S.Container>
 		</S.Wrapper>
 	);
-}
+};
