@@ -8,9 +8,6 @@ import * as S from './MainPage.styles';
 import { ProgressBar } from '../../components/ProgressBar/ProgressBar';
 
 export const Home = ({ isLoading }) => {
-
-	const [currentPlayer, toCurrentPlayer] = useState(null);
-
 	const [isPlaying, setIsPlaying] = useState(false);
 
 	const [duration, setDuration] = useState(0);
@@ -19,7 +16,9 @@ export const Home = ({ isLoading }) => {
 
 	const [loop, setLoop] = useState(false);
 
-	const [volume, setVolume] = useState(20);
+	const [volume, setVolume] = useState(2);
+
+	const [stop, setStop] = useState(false);
 
 	const audioRef = useRef();
 
@@ -32,7 +31,6 @@ export const Home = ({ isLoading }) => {
 			audioRef.current.loop = loop;
 		}
 	}, [loop, audioRef]);
-
 
 	const repeat = useCallback(() => {
 		if (audioRef && audioRef.current) {
@@ -51,17 +49,19 @@ export const Home = ({ isLoading }) => {
 	useEffect(() => {
 		if (isPlaying) {
 			audioRef?.current?.pause();
+			setStop(false);
 		} else {
 			audioRef?.current?.play();
+			setStop(true);
 		}
 		playAnimationRef.current = requestAnimationFrame(repeat);
 	}, [isPlaying, audioRef, repeat]);
 
 	useEffect(() => {
-		if (audioRef && audioRef.current) {
+		if (audioRef && audioRef?.current) {
 			audioRef.current.volume = volume / 100;
 		}
-	}, [volume, audioRef]);
+	});
 
 	const handleProgressChange = () => {
 		audioRef.current.currentTime = progressBarRef.current.value;
@@ -72,10 +72,6 @@ export const Home = ({ isLoading }) => {
 		const seconds = audioRef.current.duration;
 		setDuration(seconds);
 		progressBarRef.current.max = seconds;
-	};
-
-	const openPlayer = track => {
-		toCurrentPlayer(track);
 	};
 
 	const formatTime = time => {
@@ -95,10 +91,10 @@ export const Home = ({ isLoading }) => {
 				<S.Main>
 					<CreateNavMenu />
 					<CreateTracklist
-						openPlayer={openPlayer}
 						isLoading={isLoading}
 						setIsPlaying={setIsPlaying}
 						formatTime={formatTime}
+						stop={stop}
 					/>
 					<CreateSidebar isLoading={isLoading} />
 				</S.Main>
@@ -106,7 +102,6 @@ export const Home = ({ isLoading }) => {
 					isPlaying={isPlaying}
 					setIsPlaying={setIsPlaying}
 					audioRef={audioRef}
-					currentPlayer={currentPlayer}
 					ProgressBar={ProgressBar}
 					formatTime={formatTime}
 					progressBarRef={progressBarRef}

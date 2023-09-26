@@ -53,7 +53,7 @@ export const TrackTitleImage = styled.div`
 	margin-right: 17px;
 `;
 
-export const TrackTitleText = styled.div``
+export const TrackTitleText = styled.div``;
 
 export const TrackTitleSvg = styled.svg`
 	width: 18px;
@@ -101,7 +101,7 @@ export const TrackAlbum = styled.div`
 	width: 245px;
 `;
 
-export const TrackTime = styled.div``
+export const TrackTime = styled.div``;
 
 export const TrackAlbumLink = styled.a`
 	font-style: normal;
@@ -126,4 +126,23 @@ export const TrackTimeText = styled.span`
 	line-height: 24px;
 	text-align: right;
 	color: #696969;
+`;
+
+export const PlayingDot = styled.svg`
+	width: 16px;
+	height: 16px;
+	background-color: #b672ff;
+	border-radius: 8px;
+	display: block;
+	animation: bubble_out 0.6s ease-in-out infinite both;
+	animation-play-state: ${props => (props.$stop ? 'running' : 'paused')};
+	@keyframes bubble_out {
+		0%,
+		to {
+			transform: scale(0.5);
+		}
+		50% {
+			transform: scale(1);
+		}
+	}
 `;

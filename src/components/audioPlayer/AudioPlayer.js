@@ -1,9 +1,8 @@
 import React from 'react';
-
+import { useDispatch, useSelector } from 'react-redux';
 import * as S from './AudioPlayer.styles';
 
 export const CreateAudioPlayer = ({
-	currentPlayer,
 	isPlaying,
 	setIsPlaying,
 	audioRef,
@@ -19,6 +18,8 @@ export const CreateAudioPlayer = ({
 	loop,
 	setLoop,
 }) => {
+	const { currentPlayer } = useSelector(state => state.todos);
+
 	return (
 		<>
 			{currentPlayer ? (
@@ -56,7 +57,11 @@ export const CreateAudioPlayer = ({
 												<use xlinkHref='/img/icon/sprite.svg#icon-prev' />
 											</S.PlayerBtnPrevSvg>
 										</S.PlayerBtnPrev>
-										<S.PlayerBtnPlay onClick={() => setIsPlaying(!isPlaying)}>
+										<S.PlayerBtnPlay
+											onClick={() => {
+												setIsPlaying(!isPlaying);
+											}}
+										>
 											{isPlaying ? (
 												<S.PlayerBtnPlaySvg alt='play'>
 													<use xlinkHref='/img/icon/sprite.svg#icon-play' />

@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PlaylistItemSkeleton } from '../SkeletonCard.js';
 import * as S from './PlaylistItem.styles';
 
-export const CreatePlaylistItem = ({ isLoading, openPlayer, formatTime, todos }) => {
+export const CreatePlaylistItem = ({
+	isLoading,
+	openPlayer,
+	formatTime,
+	todos,
+	$stop,
+}) => {
+	const [selectedTrackId, setSelectedTrackId] = useState(null);
 	return (
 		todos &&
 		todos.map(track => (
@@ -10,6 +17,7 @@ export const CreatePlaylistItem = ({ isLoading, openPlayer, formatTime, todos })
 				key={track.id}
 				onClick={() => {
 					openPlayer(track);
+					setSelectedTrackId(track.id);
 				}}
 			>
 				<S.PlaylistTrack>
@@ -17,9 +25,13 @@ export const CreatePlaylistItem = ({ isLoading, openPlayer, formatTime, todos })
 						<>
 							<S.TrackTitle>
 								<S.TrackTitleImage>
-									<S.TrackTitleSvg alt='music'>
-										<use xlinkHref='img/icon/sprite.svg#icon-note' />
-									</S.TrackTitleSvg>
+									{selectedTrackId === track.id ? (
+										<S.PlayingDot $stop={$stop} />
+									) : (
+										<S.TrackTitleSvg alt='music'>
+											<use xlinkHref='img/icon/sprite.svg#icon-note' />
+										</S.TrackTitleSvg>
+									)}
 								</S.TrackTitleImage>
 								<S.TrackTitleText className='track__title-text'>
 									<S.TrackTitleLink>
