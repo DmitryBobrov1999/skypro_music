@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { PlaylistItemSkeleton } from '../SkeletonCard.js';
 import * as S from './PlaylistItem.styles';
 

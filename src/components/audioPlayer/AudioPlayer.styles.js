@@ -195,9 +195,10 @@ export const PlayerBtnShuffle = styled.div`
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center;
+	stroke: ${props => (props.$isShuffle ? '#fff' : '#696969')};
 	&:hover svg {
 		fill: transparent;
-		stroke: #acacac;
+		stroke: ${props => (props.$isShuffle ? '' : '#acacac')};
 		cursor: pointer;
 	}
 	&:active svg {
@@ -216,7 +217,6 @@ export const PlayerBtnShuffleSvg = styled.svg`
 	width: 19px;
 	height: 12px;
 	fill: transparent;
-	stroke: #696969;
 `;
 
 export const PlayerTrackPlay = styled.div`
