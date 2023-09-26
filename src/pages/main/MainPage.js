@@ -6,10 +6,9 @@ import { CreateNavMenu } from '../../components/navMenu/NavMenu';
 import * as S from './MainPage.styles';
 
 import { ProgressBar } from '../../components/ProgressBar/ProgressBar';
+import { useSelector } from 'react-redux';
 
 export const Home = ({ isLoading }) => {
-	const [isPlaying, setIsPlaying] = useState(false);
-
 	const [duration, setDuration] = useState(0);
 
 	const [timeProgress, setTimeProgress] = useState(0);
@@ -25,6 +24,10 @@ export const Home = ({ isLoading }) => {
 	const progressBarRef = useRef();
 
 	const playAnimationRef = useRef();
+
+	const { isPlaying, currentPlayer, todos } = useSelector(state => state.todos);
+
+	const [selectedTrackId, setSelectedTrackId] = useState(null);
 
 	useEffect(() => {
 		if (audioRef && audioRef.current) {
@@ -92,15 +95,15 @@ export const Home = ({ isLoading }) => {
 					<CreateNavMenu />
 					<CreateTracklist
 						isLoading={isLoading}
-						setIsPlaying={setIsPlaying}
 						formatTime={formatTime}
 						stop={stop}
+						setSelectedTrackId={setSelectedTrackId}
+						selectedTrackId={selectedTrackId}
 					/>
 					<CreateSidebar isLoading={isLoading} />
 				</S.Main>
 				<CreateAudioPlayer
 					isPlaying={isPlaying}
-					setIsPlaying={setIsPlaying}
 					audioRef={audioRef}
 					ProgressBar={ProgressBar}
 					formatTime={formatTime}
@@ -114,6 +117,10 @@ export const Home = ({ isLoading }) => {
 					onLoadedMetadata={onLoadedMetadata}
 					loop={loop}
 					setLoop={setLoop}
+					currentPlayer={currentPlayer}
+					todos={todos}
+					setSelectedTrackId={setSelectedTrackId}
+					selectedTrackId={selectedTrackId}
 				/>
 			</S.Container>
 		</S.Wrapper>

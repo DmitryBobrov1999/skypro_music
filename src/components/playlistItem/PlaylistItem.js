@@ -8,8 +8,9 @@ export const CreatePlaylistItem = ({
 	formatTime,
 	todos,
 	$stop,
+	setSelectedTrackId,
+	selectedTrackId,
 }) => {
-	const [selectedTrackId, setSelectedTrackId] = useState(null);
 	return (
 		todos &&
 		todos.map(track => (

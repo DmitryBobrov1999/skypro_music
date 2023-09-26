@@ -11,7 +11,13 @@ import * as S from './Tracklist.styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTodos, setCurrentTrack } from '../../redux/slice/todo.js';
 
-export const CreateTracklist = ({ isLoading, formatTime, stop }) => {
+export const CreateTracklist = ({
+	isLoading,
+	formatTime,
+	stop,
+	setSelectedTrackId,
+	selectedTrackId,
+}) => {
 	const [$visibleFilter, setVisibleFilter] = useState(null);
 
 	const dispatch = useDispatch();
@@ -25,6 +31,7 @@ export const CreateTracklist = ({ isLoading, formatTime, stop }) => {
 	};
 
 	const { todos, error } = useSelector(state => state.todos);
+
 	const openPlayer = currentPlayer => {
 		dispatch(setCurrentTrack(currentPlayer));
 	};
@@ -87,6 +94,8 @@ export const CreateTracklist = ({ isLoading, formatTime, stop }) => {
 						isLoading={isLoading}
 						openPlayer={openPlayer}
 						formatTime={formatTime}
+						setSelectedTrackId={setSelectedTrackId}
+						selectedTrackId={selectedTrackId}
 					/>
 				</S.ContentPlaylist>
 			</S.CenterblockContent>

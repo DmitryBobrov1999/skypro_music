@@ -1,10 +1,11 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setCurrentTrack, setIsPlaying } from '../../redux/slice/todo';
+
 import * as S from './AudioPlayer.styles';
 
 export const CreateAudioPlayer = ({
 	isPlaying,
-	setIsPlaying,
 	audioRef,
 	ProgressBar,
 	progressBarRef,
@@ -17,8 +18,30 @@ export const CreateAudioPlayer = ({
 	onLoadedMetadata,
 	loop,
 	setLoop,
+	currentPlayer,
+	todos,
+	selectedTrackId,
+	setSelectedTrackId,
 }) => {
-	const { currentPlayer } = useSelector(state => state.todos);
+	const dispatch = useDispatch();
+
+	const handleBack = () => {
+		if (selectedTrackId === todos[0].id) {
+			dispatch(setCurrentTrack(todos[selectedTrackId - todos[0].id]));
+		} else {
+			setSelectedTrackId(prev => prev - 1);
+			dispatch(setCurrentTrack(todos[selectedTrackId - todos[0].id]));
+		}
+	};
+
+	const handleNext = () => {
+		if (selectedTrackId - todos[0].id + 1 >= todos.length) {
+			dispatch(setCurrentTrack(todos[todos.length - 1]));
+		} else {
+			setSelectedTrackId(prev => prev + 1);
+			dispatch(setCurrentTrack(todos[selectedTrackId - todos[0].id + 1]));
+		}
+	};
 
 	return (
 		<>
@@ -28,6 +51,7 @@ export const CreateAudioPlayer = ({
 						onLoadedMetadata={onLoadedMetadata}
 						ref={audioRef}
 						src={currentPlayer.track_file}
+						onEnded={handleNext}
 					></audio>
 
 					<S.Bar key={currentPlayer.id}>
@@ -47,19 +71,14 @@ export const CreateAudioPlayer = ({
 							<S.BarPlayerBlock>
 								<S.BarPlayer>
 									<S.PlayerControls>
-										<S.PlayerBtnPrev>
-											<S.PlayerBtnPrevSvg
-												onClick={() => {
-													alert('Еще не реализовано');
-												}}
-												alt='prev'
-											>
+										<S.PlayerBtnPrev onClick={handleBack}>
+											<S.PlayerBtnPrevSvg alt='prev'>
 												<use xlinkHref='/img/icon/sprite.svg#icon-prev' />
 											</S.PlayerBtnPrevSvg>
 										</S.PlayerBtnPrev>
 										<S.PlayerBtnPlay
 											onClick={() => {
-												setIsPlaying(!isPlaying);
+												dispatch(setIsPlaying(isPlaying));
 											}}
 										>
 											{isPlaying ? (
@@ -73,12 +92,7 @@ export const CreateAudioPlayer = ({
 											)}
 										</S.PlayerBtnPlay>
 										<S.PlayerBtnNext>
-											<S.PlayerBtnNextSvg
-												onClick={() => {
-													alert('Еще не реализовано');
-												}}
-												alt='next'
-											>
+											<S.PlayerBtnNextSvg onClick={handleNext} alt='next'>
 												<use xlinkHref='/img/icon/sprite.svg#icon-next' />
 											</S.PlayerBtnNextSvg>
 										</S.PlayerBtnNext>

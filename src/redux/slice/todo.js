@@ -26,11 +26,16 @@ const todoSlice = createSlice({
 		status: null,
 		error: null,
 		currentPlayer: null,
+		isPlaying: false,
 	},
 	reducers: {
 		setCurrentTrack(state, action) {
 			state.currentPlayer = action.payload;
+			
 		},
+		setIsPlaying(state, action) {
+			state.isPlaying = !state.isPlaying;
+		}
 	},
 	extraReducers: builder => {
 		builder.addCase(fetchTodos.pending, state => {
@@ -47,6 +52,6 @@ const todoSlice = createSlice({
 	},
 });
 
-export const { setCurrentTrack } = todoSlice.actions;
+export const { setCurrentTrack, setIsPlaying } = todoSlice.actions;
 
 export default todoSlice.reducer;
