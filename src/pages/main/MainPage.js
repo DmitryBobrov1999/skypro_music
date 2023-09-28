@@ -1,34 +1,23 @@
-import React, {
-	useCallback,
-	useEffect,
-	useRef,
-	useState,
-} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { CreateAudioPlayer } from '../../components/audioPlayer/AudioPlayer';
 import { CreateSidebar } from '../../components/sidebar/Sidebar';
 import { CreateTracklist } from '../../components/tracklist/Tracklist';
 import { CreateNavMenu } from '../../components/navMenu/NavMenu';
 import * as S from './MainPage.styles';
 
-import { getTracks } from '../../api/tracks';
 import { ProgressBar } from '../../components/ProgressBar/ProgressBar';
+import { useSelector } from 'react-redux';
 
 export const Home = ({ isLoading }) => {
-	const [tracks, setTracks] = useState([]);
-
-	const [currentPlayer, toCurrentPlayer] = useState(null);
-
-	const [addTodoError, setAddTodoError] = useState(null);
-
-	const [isPlaying, setIsPlaying] = useState(false);
-
 	const [duration, setDuration] = useState(0);
 
 	const [timeProgress, setTimeProgress] = useState(0);
 
 	const [loop, setLoop] = useState(false);
 
-	const [volume, setVolume] = useState(20);
+	const [volume, setVolume] = useState(2);
+
+	const [stop, setStop] = useState(false);
 
 	const audioRef = useRef();
 
@@ -36,23 +25,15 @@ export const Home = ({ isLoading }) => {
 
 	const playAnimationRef = useRef();
 
+	const { isPlaying, currentPlayer, todos } = useSelector(state => state.todos);
+
+	const [selectedTrackId, setSelectedTrackId] = useState(null);
+
 	useEffect(() => {
 		if (audioRef && audioRef.current) {
 			audioRef.current.loop = loop;
 		}
 	}, [loop, audioRef]);
-
-	useEffect(() => {
-		getTracks()
-			.then(tracks => {
-				setTracks(tracks);
-			})
-			.catch(error => {
-				setAddTodoError(
-					`Не удалось загрузить плейлист, попробуйте позже: ${error.message}`
-				);
-			});
-	}, []);
 
 	const repeat = useCallback(() => {
 		if (audioRef && audioRef.current) {
@@ -71,17 +52,19 @@ export const Home = ({ isLoading }) => {
 	useEffect(() => {
 		if (isPlaying) {
 			audioRef?.current?.pause();
+			setStop(false);
 		} else {
 			audioRef?.current?.play();
+			setStop(true);
 		}
 		playAnimationRef.current = requestAnimationFrame(repeat);
 	}, [isPlaying, audioRef, repeat]);
 
 	useEffect(() => {
-		if (audioRef && audioRef.current) {
+		if (audioRef && audioRef?.current) {
 			audioRef.current.volume = volume / 100;
 		}
-	}, [volume, audioRef]);
+	});
 
 	const handleProgressChange = () => {
 		audioRef.current.currentTime = progressBarRef.current.value;
@@ -92,10 +75,6 @@ export const Home = ({ isLoading }) => {
 		const seconds = audioRef.current.duration;
 		setDuration(seconds);
 		progressBarRef.current.max = seconds;
-	};
-
-	const openPlayer = track => {
-		toCurrentPlayer(track);
 	};
 
 	const formatTime = time => {
@@ -115,20 +94,17 @@ export const Home = ({ isLoading }) => {
 				<S.Main>
 					<CreateNavMenu />
 					<CreateTracklist
-						addTodoError={addTodoError}
-						openPlayer={openPlayer}
-						tracks={tracks}
 						isLoading={isLoading}
-						setIsPlaying={setIsPlaying}
 						formatTime={formatTime}
+						stop={stop}
+						setSelectedTrackId={setSelectedTrackId}
+						selectedTrackId={selectedTrackId}
 					/>
 					<CreateSidebar isLoading={isLoading} />
 				</S.Main>
 				<CreateAudioPlayer
 					isPlaying={isPlaying}
-					setIsPlaying={setIsPlaying}
 					audioRef={audioRef}
-					currentPlayer={currentPlayer}
 					ProgressBar={ProgressBar}
 					formatTime={formatTime}
 					progressBarRef={progressBarRef}
@@ -141,6 +117,10 @@ export const Home = ({ isLoading }) => {
 					onLoadedMetadata={onLoadedMetadata}
 					loop={loop}
 					setLoop={setLoop}
+					currentPlayer={currentPlayer}
+					todos={todos}
+					setSelectedTrackId={setSelectedTrackId}
+					selectedTrackId={selectedTrackId}
 				/>
 			</S.Container>
 		</S.Wrapper>

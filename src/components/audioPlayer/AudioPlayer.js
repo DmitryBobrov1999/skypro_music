@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setCurrentTrack, setIsPlaying } from '../../redux/slice/todo';
 
 import * as S from './AudioPlayer.styles';
 
 export const CreateAudioPlayer = ({
-	currentPlayer,
 	isPlaying,
-	setIsPlaying,
 	audioRef,
 	ProgressBar,
 	progressBarRef,
@@ -18,7 +18,54 @@ export const CreateAudioPlayer = ({
 	onLoadedMetadata,
 	loop,
 	setLoop,
+	currentPlayer,
+	todos,
+	selectedTrackId,
+	setSelectedTrackId,
 }) => {
+	const dispatch = useDispatch();
+
+	const [isShuffle, setIsShuffle] = useState(false);
+
+	const handleBack = () => {
+		if (selectedTrackId === todos[0].id) {
+			dispatch(setCurrentTrack(todos[selectedTrackId - todos[0].id]));
+		} else {
+			setSelectedTrackId(prev => prev - 1);
+			dispatch(setCurrentTrack(todos[selectedTrackId - todos[0].id]));
+		}
+	};
+
+	const handleNext = () => {
+		if (selectedTrackId - todos[0].id + 1 >= todos.length) {
+			dispatch(setCurrentTrack(todos[todos.length - 1]));
+		} else {
+			setSelectedTrackId(prev => prev + 1);
+			dispatch(setCurrentTrack(todos[selectedTrackId - todos[0].id + 1]));
+		}
+	};
+
+	const shuffleTracks = () => {
+		let prevNum;
+
+		const randomNum = Math.floor(Math.random() * todos.length);
+		if (prevNum === randomNum) {
+			let newRandomNum = randomNum === 0 ? randomNum + 1 : randomNum - 1;
+			prevNum = newRandomNum;
+
+			setSelectedTrackId(newRandomNum + todos[0].id);
+			dispatch(setCurrentTrack(todos[newRandomNum]));
+		} else {
+			prevNum = randomNum;
+			setSelectedTrackId(randomNum + todos[0].id);
+			dispatch(setCurrentTrack(todos[randomNum]));
+		}
+	};
+
+	const toSetIsPlaying = () => {
+		dispatch(setIsPlaying(isPlaying));
+	};
+
 	return (
 		<>
 			{currentPlayer ? (
@@ -27,6 +74,7 @@ export const CreateAudioPlayer = ({
 						onLoadedMetadata={onLoadedMetadata}
 						ref={audioRef}
 						src={currentPlayer.track_file}
+						onEnded={handleNext}
 					></audio>
 
 					<S.Bar key={currentPlayer.id}>
@@ -46,17 +94,14 @@ export const CreateAudioPlayer = ({
 							<S.BarPlayerBlock>
 								<S.BarPlayer>
 									<S.PlayerControls>
-										<S.PlayerBtnPrev>
-											<S.PlayerBtnPrevSvg
-												onClick={() => {
-													alert('Еще не реализовано');
-												}}
-												alt='prev'
-											>
+										<S.PlayerBtnPrev
+											onClick={isShuffle ? shuffleTracks : handleNext}
+										>
+											<S.PlayerBtnPrevSvg alt='prev'>
 												<use xlinkHref='/img/icon/sprite.svg#icon-prev' />
 											</S.PlayerBtnPrevSvg>
 										</S.PlayerBtnPrev>
-										<S.PlayerBtnPlay onClick={() => setIsPlaying(!isPlaying)}>
+										<S.PlayerBtnPlay onClick={toSetIsPlaying}>
 											{isPlaying ? (
 												<S.PlayerBtnPlaySvg alt='play'>
 													<use xlinkHref='/img/icon/sprite.svg#icon-play' />
@@ -69,9 +114,7 @@ export const CreateAudioPlayer = ({
 										</S.PlayerBtnPlay>
 										<S.PlayerBtnNext>
 											<S.PlayerBtnNextSvg
-												onClick={() => {
-													alert('Еще не реализовано');
-												}}
+												onClick={isShuffle ? shuffleTracks : handleNext}
 												alt='next'
 											>
 												<use xlinkHref='/img/icon/sprite.svg#icon-next' />
@@ -85,10 +128,10 @@ export const CreateAudioPlayer = ({
 												<use xlinkHref='/img/icon/sprite.svg#icon-repeat' />
 											</S.PlayerBtnRepeatSvg>
 										</S.PlayerBtnRepeat>
-										<S.PlayerBtnShuffle>
+										<S.PlayerBtnShuffle $isShuffle={isShuffle}>
 											<S.PlayerBtnShuffleSvg
 												onClick={() => {
-													alert('Еще не реализовано');
+													setIsShuffle(!isShuffle);
 												}}
 												alt='shuffle'
 											>

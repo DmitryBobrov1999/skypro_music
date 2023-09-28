@@ -4,17 +4,21 @@ import * as S from './PlaylistItem.styles';
 
 export const CreatePlaylistItem = ({
 	isLoading,
-	tracks,
 	openPlayer,
 	formatTime,
+	todos,
+	$stop,
+	setSelectedTrackId,
+	selectedTrackId,
 }) => {
-	return tracks.map(track => {
-		return (
+	return (
+		todos &&
+		todos.map(track => (
 			<S.PlaylistItem
 				key={track.id}
 				onClick={() => {
 					openPlayer(track);
-
+					setSelectedTrackId(track.id);
 				}}
 			>
 				<S.PlaylistTrack>
@@ -22,9 +26,13 @@ export const CreatePlaylistItem = ({
 						<>
 							<S.TrackTitle>
 								<S.TrackTitleImage>
-									<S.TrackTitleSvg alt='music'>
-										<use xlinkHref='img/icon/sprite.svg#icon-note' />
-									</S.TrackTitleSvg>
+									{selectedTrackId === track.id ? (
+										<S.PlayingDot $stop={$stop} />
+									) : (
+										<S.TrackTitleSvg alt='music'>
+											<use xlinkHref='img/icon/sprite.svg#icon-note' />
+										</S.TrackTitleSvg>
+									)}
 								</S.TrackTitleImage>
 								<S.TrackTitleText className='track__title-text'>
 									<S.TrackTitleLink>
@@ -55,6 +63,6 @@ export const CreatePlaylistItem = ({
 					)}
 				</S.PlaylistTrack>
 			</S.PlaylistItem>
-		);
-	});
+		))
+	);
 };

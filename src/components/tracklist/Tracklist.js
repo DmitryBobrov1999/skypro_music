@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CreatePlaylistItem } from '../playlistItem/PlaylistItem.js';
 import { playlistData } from '../playlistItem/PlaylistData.js';
 import { yearData } from './searchByButton/yearData.js';
@@ -8,15 +8,19 @@ import { SearchByYear } from './searchByButton/SearchByYear.js';
 import { SearchByGenre } from './searchByButton/SearchByGenre.js';
 import { useState } from 'react';
 import * as S from './Tracklist.styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchTodos, setCurrentTrack } from '../../redux/slice/todo.js';
 
 export const CreateTracklist = ({
 	isLoading,
-	tracks,
-	openPlayer,
-	addTodoError,
 	formatTime,
+	stop,
+	setSelectedTrackId,
+	selectedTrackId,
 }) => {
 	const [$visibleFilter, setVisibleFilter] = useState(null);
+
+	const dispatch = useDispatch();
 
 	const openFilter = filterName => {
 		setVisibleFilter(filterName);
@@ -25,6 +29,16 @@ export const CreateTracklist = ({
 	const closeAllFilters = () => {
 		setVisibleFilter(null);
 	};
+
+	const { todos, error } = useSelector(state => state.todos);
+
+	const openPlayer = currentPlayer => {
+		dispatch(setCurrentTrack(currentPlayer));
+	};
+
+	useEffect(() => {
+		dispatch(fetchTodos());
+	}, [dispatch]);
 
 	return (
 		<S.MainCenterBlock>
@@ -69,12 +83,19 @@ export const CreateTracklist = ({
 					</S.PlaylistTitleCol4>
 				</S.ContentTitle>
 				<S.ContentPlaylist>
-					<p style={{ color: 'red' }}>{addTodoError}</p>
+					{error && (
+						<p style={{ color: 'red' }}>
+							Не удалось загрузить плейлист, попробуйте позже: {error}
+						</p>
+					)}
 					<CreatePlaylistItem
+						todos={todos}
+						$stop={stop}
 						isLoading={isLoading}
-						tracks={tracks}
 						openPlayer={openPlayer}
 						formatTime={formatTime}
+						setSelectedTrackId={setSelectedTrackId}
+						selectedTrackId={selectedTrackId}
 					/>
 				</S.ContentPlaylist>
 			</S.CenterblockContent>
