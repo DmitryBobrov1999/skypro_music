@@ -6,77 +6,31 @@ import { CreateNavMenu } from '../../components/navMenu/NavMenu';
 import * as S from './MainPage.styles';
 
 import { ProgressBar } from '../../components/ProgressBar/ProgressBar';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchFavoriteTodos } from '../../redux/slice/favoriteTodo';
 
-export const Home = ({ isLoading }) => {
-	const [duration, setDuration] = useState(0);
+export const Home = ({
+	isLoading,
+	stop,
+	setSelectedTrackId,
+	selectedTrackId,
+	isPlaying,
+	audioRef,
+	progressBarRef,
+	duration,
+	timeProgress,
+	setTimeProgress,
+	handleProgressChange,
+	volume,
+	setVolume,
+	onLoadedMetadata,
+	loop,
+	setLoop,
+	currentPlayer,
+	todos,
+	error,
 
-	const [timeProgress, setTimeProgress] = useState(0);
-
-	const [loop, setLoop] = useState(false);
-
-	const [volume, setVolume] = useState(2);
-
-	const [stop, setStop] = useState(false);
-
-	const audioRef = useRef();
-
-	const progressBarRef = useRef();
-
-	const playAnimationRef = useRef();
-
-	const { isPlaying, currentPlayer, todos } = useSelector(state => state.todos);
-
-	const [selectedTrackId, setSelectedTrackId] = useState(null);
-
-	useEffect(() => {
-		if (audioRef && audioRef.current) {
-			audioRef.current.loop = loop;
-		}
-	}, [loop, audioRef]);
-
-	const repeat = useCallback(() => {
-		if (audioRef && audioRef.current) {
-			const currentTime = audioRef.current.currentTime;
-			setTimeProgress(currentTime);
-			progressBarRef.current.value = currentTime;
-			progressBarRef.current.style.setProperty(
-				'--range-progress',
-				`${(progressBarRef.current.value / duration) * 100}%`
-			);
-		}
-
-		playAnimationRef.current = requestAnimationFrame(repeat);
-	}, [audioRef, duration, progressBarRef, setTimeProgress]);
-
-	useEffect(() => {
-		if (isPlaying) {
-			audioRef?.current?.pause();
-			setStop(false);
-		} else {
-			audioRef?.current?.play();
-			setStop(true);
-		}
-		playAnimationRef.current = requestAnimationFrame(repeat);
-	}, [isPlaying, audioRef, repeat]);
-
-	useEffect(() => {
-		if (audioRef && audioRef?.current) {
-			audioRef.current.volume = volume / 100;
-		}
-	});
-
-	const handleProgressChange = () => {
-		audioRef.current.currentTime = progressBarRef.current.value;
-		setTimeProgress(audioRef.current.currentTime);
-	};
-
-	const onLoadedMetadata = () => {
-		const seconds = audioRef.current.duration;
-		setDuration(seconds);
-		progressBarRef.current.max = seconds;
-	};
-
+}) => {
 	const formatTime = time => {
 		if (time && !isNaN(time)) {
 			const minutes = Math.floor(time / 60);
@@ -87,6 +41,7 @@ export const Home = ({ isLoading }) => {
 		}
 		return '00:00';
 	};
+	const dispatch = useDispatch();
 
 	return (
 		<S.Wrapper>
@@ -97,8 +52,12 @@ export const Home = ({ isLoading }) => {
 						isLoading={isLoading}
 						formatTime={formatTime}
 						stop={stop}
+						todos={todos}
+						error={error}
 						setSelectedTrackId={setSelectedTrackId}
 						selectedTrackId={selectedTrackId}
+						currentPlayer={currentPlayer}
+
 					/>
 					<CreateSidebar isLoading={isLoading} />
 				</S.Main>

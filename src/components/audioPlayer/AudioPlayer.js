@@ -95,7 +95,7 @@ export const CreateAudioPlayer = ({
 								<S.BarPlayer>
 									<S.PlayerControls>
 										<S.PlayerBtnPrev
-											onClick={isShuffle ? shuffleTracks : handleNext}
+											onClick={isShuffle ? shuffleTracks : handleBack}
 										>
 											<S.PlayerBtnPrevSvg alt='prev'>
 												<use xlinkHref='/img/icon/sprite.svg#icon-prev' />

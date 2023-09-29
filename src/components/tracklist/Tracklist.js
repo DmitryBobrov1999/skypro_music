@@ -9,7 +9,7 @@ import { SearchByGenre } from './searchByButton/SearchByGenre.js';
 import { useState } from 'react';
 import * as S from './Tracklist.styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTodos, setCurrentTrack } from '../../redux/slice/todo.js';
+import {  setCurrentTrack } from '../../redux/slice/todo.js';
 
 export const CreateTracklist = ({
 	isLoading,
@@ -17,6 +17,10 @@ export const CreateTracklist = ({
 	stop,
 	setSelectedTrackId,
 	selectedTrackId,
+	todos,
+	error,
+	currentPlayer,
+
 }) => {
 	const [$visibleFilter, setVisibleFilter] = useState(null);
 
@@ -30,15 +34,9 @@ export const CreateTracklist = ({
 		setVisibleFilter(null);
 	};
 
-	const { todos, error } = useSelector(state => state.todos);
-
 	const openPlayer = currentPlayer => {
 		dispatch(setCurrentTrack(currentPlayer));
 	};
-
-	useEffect(() => {
-		dispatch(fetchTodos());
-	}, [dispatch]);
 
 	return (
 		<S.MainCenterBlock>
@@ -96,6 +94,8 @@ export const CreateTracklist = ({
 						formatTime={formatTime}
 						setSelectedTrackId={setSelectedTrackId}
 						selectedTrackId={selectedTrackId}
+						currentPlayer={currentPlayer}
+					
 					/>
 				</S.ContentPlaylist>
 			</S.CenterblockContent>

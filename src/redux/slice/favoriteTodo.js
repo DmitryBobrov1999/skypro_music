@@ -1,11 +1,17 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { token } from './token';
 
-export const fetchTodos = createAsyncThunk(
-	'fetchTodos',
+export const fetchFavoriteTodos = createAsyncThunk(
+	'fetchFavoriteTodos',
 	async (_, { rejectWithValue }) => {
 		try {
 			const response = await fetch(
-				'https://skypro-music-api.skyeng.tech/catalog/track/all/'
+				'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
 			);
 
 			if (!response.ok) {
@@ -24,23 +30,15 @@ export const fetchTodos = createAsyncThunk(
 	}
 );
 
-const todoSlice = createSlice({
-	name: 'todo',
+const favoriteTodoSlice = createSlice({
+	name: 'favoriteTodo',
 	initialState: {
-		todos: [],
+		favoriteTodos: [],
 		status: null,
 		error: null,
-		currentPlayer: null,
-		isPlaying: false,
 		likedId: false,
 	},
 	reducers: {
-		setCurrentTrack(state, action) {
-			state.currentPlayer = action.payload;
-		},
-		setIsPlaying(state) {
-			state.isPlaying = !state.isPlaying;
-		},
 		toggleLikedId: (state, action) => {
 			state.likedId = action.payload;
 			const trackId = state.likedId;
@@ -51,21 +49,20 @@ const todoSlice = createSlice({
 		},
 	},
 	extraReducers: builder => {
-		builder.addCase(fetchTodos.pending, state => {
+		builder.addCase(fetchFavoriteTodos.pending, state => {
 			state.status = 'loading';
 		});
-		builder.addCase(fetchTodos.fulfilled, (state, action) => {
+		builder.addCase(fetchFavoriteTodos.fulfilled, (state, action) => {
 			state.status = 'resolved';
-			state.todos = action.payload;
+			state.favoriteTodos = action.payload;
 		});
-		builder.addCase(fetchTodos.rejected, (state, action) => {
+		builder.addCase(fetchFavoriteTodos.rejected, (state, action) => {
 			state.status = 'rejected';
 			state.error = action.payload;
 		});
 	},
 });
 
-export const { setCurrentTrack, setIsPlaying, toggleLikedId } =
-	todoSlice.actions;
+export const { setCurrentTrack, setIsPlaying } = favoriteTodoSlice.actions;
 
-export default todoSlice.reducer;
+export default favoriteTodoSlice.reducer;
