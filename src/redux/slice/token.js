@@ -1,2 +1,18 @@
-export const token =
-	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1OTk4NTc4LCJpYXQiOjE2OTU5OTgyNzgsImp0aSI6IjhhZDI3OWQ0M2RhYzQ3NWJhYmQ5MjhiZmQ0OWQ1MGZiIiwidXNlcl9pZCI6MTIxNX0.JHeVzfclY3iomnaKFL6MvNH6hdbqlpTNBr2UgcwRHDY';
+export const token = async () => {
+	const response = await fetch(
+		'https://skypro-music-api.skyeng.tech/user/token/',
+		{
+			method: 'POST',
+			body: JSON.stringify({
+				email: 'bobrovdmitry01@mail.ru',
+				password: 'privet123',
+			}),
+			headers: {
+				'content-type': 'application/json',
+			},
+		}
+	);
+	const data = await response.json();
+
+	return data;
+};

@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAddFavoriteTrack } from '../../redux/slice/addFavoriteTrack.js';
-import { fetchDeleteFavoriteTrack } from '../../redux/slice/deleteFavoriteTrack.js';
+
 import { getOneTrackfetchTodos } from '../../redux/slice/getOneTrack.js';
-import { toggleLikedId } from '../../redux/slice/todo.js';
+
 import { PlaylistItemSkeleton } from '../SkeletonCard.js';
 import * as S from './PlaylistItem.styles';
 
@@ -15,22 +14,13 @@ export const CreatePlaylistItem = ({
 	$stop,
 	setSelectedTrackId,
 	selectedTrackId,
+	addTrackWithId,
+	deleteTrackWithId,
+	handleLikeClick,
 }) => {
 	const dispatch = useDispatch();
 
-	// const { favoriteTodos } = useSelector(state => state.favoriteTodos);
-
-	const addTrackWithId = trackId => {
-		dispatch(fetchAddFavoriteTrack(trackId));
-	};
-
-	const deleteTrackWithId = trackId => {
-		dispatch(fetchDeleteFavoriteTrack(trackId));
-	};
-
-	const handleLikeClick = trackId => {
-		dispatch(toggleLikedId(trackId));
-	};
+	const { favoriteTodos } = useSelector(state => state.favoriteTodos);
 
 	const getOneTrack = trackId => {
 		dispatch(getOneTrackfetchTodos(trackId));
@@ -72,7 +62,7 @@ export const CreatePlaylistItem = ({
 								<S.TrackAlbumLink>{track.album}</S.TrackAlbumLink>
 							</S.TrackAlbum>
 							<S.TrackTime className='track__time'>
-								{track.likedId ? (
+								{favoriteTodos.find(t => t.id === track.id) ? (
 									<S.TrackTimeSvgActive
 										onClick={() => {
 											handleLikeClick(track.id);

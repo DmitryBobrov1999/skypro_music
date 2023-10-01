@@ -8,7 +8,7 @@ import { SearchByYear } from './searchByButton/SearchByYear.js';
 import { SearchByGenre } from './searchByButton/SearchByGenre.js';
 import { useState } from 'react';
 import * as S from './Tracklist.styles';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {  setCurrentTrack } from '../../redux/slice/todo.js';
 
 export const CreateTracklist = ({
@@ -20,7 +20,9 @@ export const CreateTracklist = ({
 	todos,
 	error,
 	currentPlayer,
-
+	addTrackWithId,
+	deleteTrackWithId,
+	handleLikeClick,
 }) => {
 	const [$visibleFilter, setVisibleFilter] = useState(null);
 
@@ -95,7 +97,9 @@ export const CreateTracklist = ({
 						setSelectedTrackId={setSelectedTrackId}
 						selectedTrackId={selectedTrackId}
 						currentPlayer={currentPlayer}
-					
+						addTrackWithId={addTrackWithId}
+						deleteTrackWithId={deleteTrackWithId}
+						handleLikeClick={handleLikeClick}
 					/>
 				</S.ContentPlaylist>
 			</S.CenterblockContent>

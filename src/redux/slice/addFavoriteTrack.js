@@ -1,19 +1,22 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { useDispatch, useSelector } from 'react-redux';
+
 import { fetchFavoriteTodos } from './favoriteTodo';
-import { setTrackId } from './todo';
+
 import { token } from './token';
 
 export const fetchAddFavoriteTrack = createAsyncThunk(
 	'fetchAddFavoriteTrack',
 	async (trackId, { rejectWithValue, dispatch }) => {
+		const tokens = await token();
+
+		const { access: accessToken } = tokens;
 		try {
 			const response = await fetch(
 				`https://skypro-music-api.skyeng.tech/catalog/track/${trackId}/favorite/`,
 				{
 					method: 'POST',
 					headers: {
-						Authorization: `Bearer ${token}`,
+						Authorization: `Bearer ${accessToken}`,
 						'content-type': 'application/json',
 					},
 				}

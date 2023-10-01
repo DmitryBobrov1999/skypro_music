@@ -22,17 +22,27 @@ export const CreateAudioPlayer = ({
 	todos,
 	selectedTrackId,
 	setSelectedTrackId,
+	favoriteTodos,
 }) => {
 	const dispatch = useDispatch();
 
 	const [isShuffle, setIsShuffle] = useState(false);
 
 	const handleBack = () => {
-		if (selectedTrackId === todos[0].id) {
+		if (
+			selectedTrackId === todos[0].id ||
+			selectedTrackId === favoriteTodos[0].id
+		) {
 			dispatch(setCurrentTrack(todos[selectedTrackId - todos[0].id]));
+			dispatch(
+				setCurrentTrack(favoriteTodos[selectedTrackId - favoriteTodos[0].id])
+			);
 		} else {
 			setSelectedTrackId(prev => prev - 1);
 			dispatch(setCurrentTrack(todos[selectedTrackId - todos[0].id]));
+			dispatch(
+				setCurrentTrack(favoriteTodos[selectedTrackId - favoriteTodos[0].id])
+			);
 		}
 	};
 

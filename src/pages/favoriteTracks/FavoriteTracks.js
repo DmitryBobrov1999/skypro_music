@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { CreateAudioPlayer } from '../../components/audioPlayer/AudioPlayer';
 import { CreateSidebar } from '../../components/sidebar/Sidebar';
 import { CreateFavoriteTracklist } from '../../components/forFavoriteTracks/favoriteTracksTracklist'
@@ -7,7 +7,6 @@ import * as S from '../main/MainPage.styles'
 
 import { ProgressBar } from '../../components/ProgressBar/ProgressBar';
 
-import { CreateTracklist } from '../../components/tracklist/Tracklist';
 
 export const FavoriteTracks = ({
 	isLoading,
@@ -28,6 +27,9 @@ export const FavoriteTracks = ({
 	setLoop,
 	currentPlayer,
 	favoriteTodos,
+	handleLikeClick,
+	deleteTrackWithId,
+	addTrackWithId,
 }) => {
 	const formatTime = time => {
 		if (time && !isNaN(time)) {
@@ -53,6 +55,9 @@ export const FavoriteTracks = ({
 						setSelectedTrackId={setSelectedTrackId}
 						selectedTrackId={selectedTrackId}
 						favoriteTodos={favoriteTodos}
+						handleLikeClick={handleLikeClick}
+						deleteTrackWithId={deleteTrackWithId}
+						addTrackWithId={addTrackWithId}
 					/>
 					<CreateSidebar isLoading={isLoading} />
 				</S.Main>

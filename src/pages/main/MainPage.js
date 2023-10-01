@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { CreateAudioPlayer } from '../../components/audioPlayer/AudioPlayer';
 import { CreateSidebar } from '../../components/sidebar/Sidebar';
 import { CreateTracklist } from '../../components/tracklist/Tracklist';
@@ -6,8 +6,7 @@ import { CreateNavMenu } from '../../components/navMenu/NavMenu';
 import * as S from './MainPage.styles';
 
 import { ProgressBar } from '../../components/ProgressBar/ProgressBar';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchFavoriteTodos } from '../../redux/slice/favoriteTodo';
+
 
 export const Home = ({
 	isLoading,
@@ -29,7 +28,10 @@ export const Home = ({
 	currentPlayer,
 	todos,
 	error,
-
+	addTrackWithId,
+	deleteTrackWithId,
+	handleLikeClick,
+	favoriteTodos,
 }) => {
 	const formatTime = time => {
 		if (time && !isNaN(time)) {
@@ -41,7 +43,6 @@ export const Home = ({
 		}
 		return '00:00';
 	};
-	const dispatch = useDispatch();
 
 	return (
 		<S.Wrapper>
@@ -57,7 +58,9 @@ export const Home = ({
 						setSelectedTrackId={setSelectedTrackId}
 						selectedTrackId={selectedTrackId}
 						currentPlayer={currentPlayer}
-
+						addTrackWithId={addTrackWithId}
+						deleteTrackWithId={deleteTrackWithId}
+						handleLikeClick={handleLikeClick}
 					/>
 					<CreateSidebar isLoading={isLoading} />
 				</S.Main>
@@ -80,6 +83,7 @@ export const Home = ({
 					todos={todos}
 					setSelectedTrackId={setSelectedTrackId}
 					selectedTrackId={selectedTrackId}
+					favoriteTodos={favoriteTodos}
 				/>
 			</S.Container>
 		</S.Wrapper>

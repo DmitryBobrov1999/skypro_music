@@ -1,28 +1,32 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { token } from './token';
 
+
 export const fetchFavoriteTodos = createAsyncThunk(
 	'fetchFavoriteTodos',
 	async (_, { rejectWithValue }) => {
+		const tokens = await token();
+
+		const { access: accessToken } = tokens;
 		try {
 			const response = await fetch(
 				'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
 				{
 					headers: {
-						Authorization: `Bearer ${token}`,
+						Authorization: `Bearer ${accessToken}`,
 					},
 				}
 			);
-
+			
 			if (!response.ok) {
 				throw new Error(response.status);
 			}
 			const data = await response.json();
 			const todosWithLikedIds = data.map(track => ({
 				...track,
-				likedId: false,
+				likedId: true,
 			}));
-
+			
 			return todosWithLikedIds;
 		} catch (error) {
 			return rejectWithValue(error.message);
@@ -36,15 +40,18 @@ const favoriteTodoSlice = createSlice({
 		favoriteTodos: [],
 		status: null,
 		error: null,
-		likedId: false,
+		likedId: true,
 	},
 	reducers: {
 		toggleLikedId: (state, action) => {
 			state.likedId = action.payload;
 			const trackId = state.likedId;
-			const trackIndex = state.todos.findIndex(track => track.id === trackId);
+			const trackIndex = state.favoriteTodos.findIndex(
+				track => track.id === trackId
+			);
 			if (trackIndex !== -1) {
-				state.todos[trackIndex].likedId = !state.todos[trackIndex].likedId;
+				state.favoriteTodos[trackIndex].likedId =
+					!state.favoriteTodos[trackIndex].likedId;
 			}
 		},
 	},

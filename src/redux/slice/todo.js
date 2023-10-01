@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const fetchTodos = createAsyncThunk(
 	'fetchTodos',
 	async (_, { rejectWithValue }) => {
+		
 		try {
 			const response = await fetch(
 				'https://skypro-music-api.skyeng.tech/catalog/track/all/'

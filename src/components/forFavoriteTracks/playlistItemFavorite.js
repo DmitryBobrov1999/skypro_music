@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { PlaylistItemSkeleton } from '../SkeletonCard.js';
 import * as S from '../playlistItem/PlaylistItem.styles'
 
@@ -10,8 +10,12 @@ export const CreatePlaylistItemFavorite = ({
 	setSelectedTrackId,
 	selectedTrackId,
 	favoriteTodos,
+	handleLikeClick,
+	deleteTrackWithId,
+	addTrackWithId,
 }) => {
-	const [liked, setLiked] = useState(false);
+	
+
 	return (
 		favoriteTodos &&
 		favoriteTodos.map(favoriteTrack => (
@@ -48,13 +52,27 @@ export const CreatePlaylistItemFavorite = ({
 								<S.TrackAlbumLink>{favoriteTrack.album}</S.TrackAlbumLink>
 							</S.TrackAlbum>
 							<S.TrackTime className='track__time'>
-								<S.TrackTimeSvg
-									$liked={liked}
-									onClick={() => setLiked(!liked)}
-									alt='time'
-								>
-									<use xlinkHref='img/icon/sprite.svg#icon-like' />
-								</S.TrackTimeSvg>
+								{favoriteTodos.find(t => t.id) ? (
+									<S.TrackTimeSvgActive
+										onClick={() => {
+											handleLikeClick(favoriteTrack.id);
+											deleteTrackWithId(favoriteTrack.id);
+										}}
+										alt='likeActive'
+									>
+										<use xlinkHref='img/icon/sprite.svg#icon-like' />
+									</S.TrackTimeSvgActive>
+								) : (
+									<S.TrackTimeSvg
+										onClick={() => {
+											handleLikeClick(favoriteTrack.id);
+											addTrackWithId(favoriteTrack.id);
+										}}
+										alt='like'
+									>
+										<use xlinkHref='img/icon/sprite.svg#icon-like' />
+									</S.TrackTimeSvg>
+								)}
 								<S.TrackTimeText>
 									{formatTime(favoriteTrack.duration_in_seconds)}
 								</S.TrackTimeText>

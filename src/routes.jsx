@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchFavoriteTodos } from './redux/slice/favoriteTodo';
 import { fetchDeleteFavoriteTrack } from './redux/slice/deleteFavoriteTrack';
 import { fetchAddFavoriteTrack } from './redux/slice/addFavoriteTrack';
+import { token } from './redux/slice/token';
 
 export const NavMenuContext = createContext(null);
 
@@ -24,6 +25,8 @@ export const PersonalNameContext = createContext({
 	userName: null,
 	setUserName: () => {},
 });
+
+
 
 export const AppRoutes = () => {
 	const [userName, setUserName] = useState(localStorage.getItem('user'));
@@ -85,8 +88,6 @@ export const AppRoutes = () => {
 		localStorage.removeItem('user');
 	};
 
-	
-
 	useEffect(() => {
 		setTimeout(() => {
 			setIsLoading(true);
@@ -100,8 +101,6 @@ export const AppRoutes = () => {
 	useEffect(() => {
 		dispatch(fetchFavoriteTodos());
 	}, [dispatch]);
-
-	
 
 	const repeat = useCallback(() => {
 		if (audioRef && audioRef.current) {
@@ -127,6 +126,20 @@ export const AppRoutes = () => {
 		}
 		playAnimationRef.current = requestAnimationFrame(repeat);
 	}, [isPlaying, audioRef, repeat]);
+
+	const addTrackWithId = trackId => {
+		dispatch(fetchAddFavoriteTrack(trackId));
+	};
+
+	const deleteTrackWithId = trackId => {
+		dispatch(fetchDeleteFavoriteTrack(trackId));
+	};
+
+	const handleLikeClick = trackId => {
+		dispatch(toggleLikedId(trackId));
+	};
+
+	
 
 	return (
 		<PersonalNameContext.Provider value={value}>
@@ -171,7 +184,10 @@ export const AppRoutes = () => {
 									currentPlayer={currentPlayer}
 									todos={todos}
 									error={error}
-									
+									addTrackWithId={addTrackWithId}
+									deleteTrackWithId={deleteTrackWithId}
+									handleLikeClick={handleLikeClick}
+									favoriteTodos={favoriteTodos}
 								/>
 							</NavMenuContext.Provider>
 						</ProtectedRoute>
@@ -201,6 +217,9 @@ export const AppRoutes = () => {
 									setLoop={setLoop}
 									currentPlayer={currentPlayer}
 									favoriteTodos={favoriteTodos}
+									handleLikeClick={handleLikeClick}
+									deleteTrackWithId={deleteTrackWithId}
+									addTrackWithId={addTrackWithId}
 								/>
 							</NavMenuContext.Provider>
 						</ProtectedRoute>
