@@ -2,26 +2,19 @@ import React from 'react';
 import { CreatePlaylistItemFavorite } from './playlistItemFavorite.js';
 
 import * as S from '../../components/tracklist/Tracklist.styles';
-import { useDispatch } from 'react-redux';
-import { setCurrentTrack } from '../../redux/slice/todo.js';
+
 
 export const CreateFavoriteTracklist = ({
-	isLoading,
 	formatTime,
 	stop,
 	setSelectedTrackId,
 	selectedTrackId,
 	favoriteTodos,
-	handleLikeClick,
+	handleFavoriteLikeClick,
 	deleteTrackWithId,
 	addTrackWithId,
+	openPlayer,
 }) => {
-	const dispatch = useDispatch();
-
-	const openPlayer = currentPlayer => {
-		dispatch(setCurrentTrack(currentPlayer));
-	};
-
 	return (
 		<S.MainCenterBlock>
 			<S.CenterblockSearch>
@@ -46,13 +39,12 @@ export const CreateFavoriteTracklist = ({
 				<S.ContentPlaylist>
 					<CreatePlaylistItemFavorite
 						$stop={stop}
-						isLoading={isLoading}
 						openPlayer={openPlayer}
 						formatTime={formatTime}
 						setSelectedTrackId={setSelectedTrackId}
 						selectedTrackId={selectedTrackId}
 						favoriteTodos={favoriteTodos}
-						handleLikeClick={handleLikeClick}
+						handleFavoriteLikeClick={handleFavoriteLikeClick}
 						deleteTrackWithId={deleteTrackWithId}
 						addTrackWithId={addTrackWithId}
 					/>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { CreatePlaylistItem } from '../playlistItem/PlaylistItem.js';
 import { playlistData } from '../playlistItem/PlaylistData.js';
 import { yearData } from './searchByButton/yearData.js';
@@ -8,8 +8,6 @@ import { SearchByYear } from './searchByButton/SearchByYear.js';
 import { SearchByGenre } from './searchByButton/SearchByGenre.js';
 import { useState } from 'react';
 import * as S from './Tracklist.styles';
-import { useDispatch } from 'react-redux';
-import {  setCurrentTrack } from '../../redux/slice/todo.js';
 
 export const CreateTracklist = ({
 	isLoading,
@@ -19,14 +17,12 @@ export const CreateTracklist = ({
 	selectedTrackId,
 	todos,
 	error,
-	currentPlayer,
 	addTrackWithId,
 	deleteTrackWithId,
 	handleLikeClick,
+	openPlayer,
 }) => {
 	const [$visibleFilter, setVisibleFilter] = useState(null);
-
-	const dispatch = useDispatch();
 
 	const openFilter = filterName => {
 		setVisibleFilter(filterName);
@@ -34,10 +30,6 @@ export const CreateTracklist = ({
 
 	const closeAllFilters = () => {
 		setVisibleFilter(null);
-	};
-
-	const openPlayer = currentPlayer => {
-		dispatch(setCurrentTrack(currentPlayer));
 	};
 
 	return (
@@ -96,7 +88,6 @@ export const CreateTracklist = ({
 						formatTime={formatTime}
 						setSelectedTrackId={setSelectedTrackId}
 						selectedTrackId={selectedTrackId}
-						currentPlayer={currentPlayer}
 						addTrackWithId={addTrackWithId}
 						deleteTrackWithId={deleteTrackWithId}
 						handleLikeClick={handleLikeClick}

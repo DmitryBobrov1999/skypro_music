@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { fetchFavoriteTodos } from './favoriteTodo';
 
 export const fetchTodos = createAsyncThunk(
 	'fetchTodos',
@@ -13,12 +14,7 @@ export const fetchTodos = createAsyncThunk(
 				throw new Error(response.status);
 			}
 			const data = await response.json();
-			const todosWithLikedIds = data.map(track => ({
-				...track,
-				likedId: false,
-			}));
-
-			return todosWithLikedIds;
+			return data
 		} catch (error) {
 			return rejectWithValue(error.message);
 		}
@@ -29,6 +25,7 @@ const todoSlice = createSlice({
 	name: 'todo',
 	initialState: {
 		todos: [],
+		favoriteTodos: [],
 		status: null,
 		error: null,
 		currentPlayer: null,
@@ -42,12 +39,23 @@ const todoSlice = createSlice({
 		setIsPlaying(state) {
 			state.isPlaying = !state.isPlaying;
 		},
-		toggleLikedId: (state, action) => {
+		toggleLikedId(state, action) {
 			state.likedId = action.payload;
 			const trackId = state.likedId;
 			const trackIndex = state.todos.findIndex(track => track.id === trackId);
 			if (trackIndex !== -1) {
 				state.todos[trackIndex].likedId = !state.todos[trackIndex].likedId;
+			}
+		},
+		toggleFavoriteLikedId(state, action) {
+			state.likedId = action.payload;
+			const trackId = state.likedId;
+			const trackIndex = state.favoriteTodos.findIndex(
+				track => track.id === trackId
+			);
+			if (trackIndex !== -1) {
+				state.favoriteTodos[trackIndex].likedId =
+					!state.favoriteTodos[trackIndex].likedId;
 			}
 		},
 	},
@@ -63,10 +71,21 @@ const todoSlice = createSlice({
 			state.status = 'rejected';
 			state.error = action.payload;
 		});
+		builder.addCase(fetchFavoriteTodos.pending, state => {
+			state.status = 'loading';
+		});
+		builder.addCase(fetchFavoriteTodos.fulfilled, (state, action) => {
+			state.status = 'resolved';
+			state.favoriteTodos = action.payload;
+		});
+		builder.addCase(fetchFavoriteTodos.rejected, (state, action) => {
+			state.status = 'rejected';
+			state.error = action.payload;
+		});
 	},
 });
 
-export const { setCurrentTrack, setIsPlaying, toggleLikedId } =
+export const { setCurrentTrack, setIsPlaying, toggleLikedId, toggleFavoriteLikedId } =
 	todoSlice.actions;
 
 export default todoSlice.reducer;

@@ -6,18 +6,16 @@ import React, {
 	useEffect,
 	createContext,
 	useRef,
-	useCallback,
 } from 'react';
 import { NotFound } from './pages/not-found/NotFound';
 import { FavoriteTracks } from './pages/favoriteTracks/FavoriteTracks';
 import { Category } from './pages/category/Category';
 import { ProtectedRoute } from './components/protected-route/ProtectedRoute';
-import { fetchTodos, toggleLikedId } from './redux/slice/todo';
+import { fetchTodos, setCurrentTrack, toggleFavoriteLikedId, toggleLikedId } from './redux/slice/todo';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchFavoriteTodos } from './redux/slice/favoriteTodo';
 import { fetchDeleteFavoriteTrack } from './redux/slice/deleteFavoriteTrack';
 import { fetchAddFavoriteTrack } from './redux/slice/addFavoriteTrack';
-import { token } from './redux/slice/token';
 
 export const NavMenuContext = createContext(null);
 
@@ -26,8 +24,6 @@ export const PersonalNameContext = createContext({
 	setUserName: () => {},
 });
 
-
-
 export const AppRoutes = () => {
 	const [userName, setUserName] = useState(localStorage.getItem('user'));
 
@@ -35,57 +31,24 @@ export const AppRoutes = () => {
 
 	const audioRef = useRef();
 
-	const [timeProgress, setTimeProgress] = useState(0);
-
-	const progressBarRef = useRef();
-
-	const [duration, setDuration] = useState(0);
-
-	const [loop, setLoop] = useState(false);
-
-	const [volume, setVolume] = useState(2);
-
 	const [stop, setStop] = useState(false);
 
 	const [isLoading, setIsLoading] = useState(false);
 
 	const [selectedTrackId, setSelectedTrackId] = useState(null);
 
-	const playAnimationRef = useRef();
-
-	const { isPlaying, currentPlayer, todos, error } = useSelector(
-		state => state.todos
+	const { isPlaying, currentPlayer, todos, error, favoriteTodos } = useSelector(
+		state => state.trackList
 	);
-
-	const { favoriteTodos } = useSelector(state => state.favoriteTodos);
 
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		if (audioRef && audioRef.current) {
-			audioRef.current.loop = loop;
-		}
-	}, [loop, audioRef]);
-
-	useEffect(() => {
-		if (audioRef && audioRef?.current) {
-			audioRef.current.volume = volume / 100;
-		}
-	});
-
-	const handleProgressChange = () => {
-		audioRef.current.currentTime = progressBarRef.current.value;
-		setTimeProgress(audioRef.current.currentTime);
-	};
-
-	const onLoadedMetadata = () => {
-		const seconds = audioRef.current.duration;
-		setDuration(seconds);
-		progressBarRef.current.max = seconds;
-	};
-
 	const removeUser = () => {
 		localStorage.removeItem('user');
+	};
+
+	const openPlayer = track => {
+		dispatch(setCurrentTrack(track));
 	};
 
 	useEffect(() => {
@@ -102,30 +65,24 @@ export const AppRoutes = () => {
 		dispatch(fetchFavoriteTodos());
 	}, [dispatch]);
 
-	const repeat = useCallback(() => {
-		if (audioRef && audioRef.current) {
-			const currentTime = audioRef.current.currentTime;
-			setTimeProgress(currentTime);
-			progressBarRef.current.value = currentTime;
-			progressBarRef.current.style.setProperty(
-				'--range-progress',
-				`${(progressBarRef.current.value / duration) * 100}%`
-			);
+	const formatTime = time => {
+		if (time && !isNaN(time)) {
+			const minutes = Math.floor(time / 60);
+			const formatMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+			const seconds = Math.floor(time % 60);
+			const formatSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+			return `${formatMinutes}:${formatSeconds}`;
 		}
-
-		playAnimationRef.current = requestAnimationFrame(repeat);
-	}, [audioRef, duration, progressBarRef, setTimeProgress]);
+		return '00:00';
+	};
 
 	useEffect(() => {
 		if (isPlaying) {
-			audioRef?.current?.pause();
 			setStop(false);
 		} else {
-			audioRef?.current?.play();
 			setStop(true);
 		}
-		playAnimationRef.current = requestAnimationFrame(repeat);
-	}, [isPlaying, audioRef, repeat]);
+	}, [isPlaying, audioRef]);
 
 	const addTrackWithId = trackId => {
 		dispatch(fetchAddFavoriteTrack(trackId));
@@ -139,7 +96,9 @@ export const AppRoutes = () => {
 		dispatch(toggleLikedId(trackId));
 	};
 
-	
+	const handleFavoriteLikeClick = trackId => {
+		dispatch(toggleFavoriteLikedId(trackId));
+	}
 
 	return (
 		<PersonalNameContext.Provider value={value}>
@@ -169,18 +128,6 @@ export const AppRoutes = () => {
 									stop={stop}
 									setSelectedTrackId={setSelectedTrackId}
 									selectedTrackId={selectedTrackId}
-									isPlaying={isPlaying}
-									audioRef={audioRef}
-									progressBarRef={progressBarRef}
-									duration={duration}
-									timeProgress={timeProgress}
-									setTimeProgress={setTimeProgress}
-									handleProgressChange={handleProgressChange}
-									volume={volume}
-									setVolume={setVolume}
-									onLoadedMetadata={onLoadedMetadata}
-									loop={loop}
-									setLoop={setLoop}
 									currentPlayer={currentPlayer}
 									todos={todos}
 									error={error}
@@ -188,6 +135,8 @@ export const AppRoutes = () => {
 									deleteTrackWithId={deleteTrackWithId}
 									handleLikeClick={handleLikeClick}
 									favoriteTodos={favoriteTodos}
+									formatTime={formatTime}
+									openPlayer={openPlayer}
 								/>
 							</NavMenuContext.Provider>
 						</ProtectedRoute>
@@ -203,23 +152,13 @@ export const AppRoutes = () => {
 									stop={stop}
 									setSelectedTrackId={setSelectedTrackId}
 									selectedTrackId={selectedTrackId}
-									isPlaying={isPlaying}
-									audioRef={audioRef}
-									progressBarRef={progressBarRef}
-									duration={duration}
-									timeProgress={timeProgress}
-									setTimeProgress={setTimeProgress}
-									handleProgressChange={handleProgressChange}
-									volume={volume}
-									setVolume={setVolume}
-									onLoadedMetadata={onLoadedMetadata}
-									loop={loop}
-									setLoop={setLoop}
 									currentPlayer={currentPlayer}
 									favoriteTodos={favoriteTodos}
-									handleLikeClick={handleLikeClick}
+									handleFavoriteLikeClick={handleFavoriteLikeClick}
 									deleteTrackWithId={deleteTrackWithId}
 									addTrackWithId={addTrackWithId}
+									formatTime={formatTime}
+									openPlayer={openPlayer}
 								/>
 							</NavMenuContext.Provider>
 						</ProtectedRoute>

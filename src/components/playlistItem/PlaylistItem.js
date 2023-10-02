@@ -1,7 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { getOneTrackfetchTodos } from '../../redux/slice/getOneTrack.js';
+import { useSelector } from 'react-redux';
 
 import { PlaylistItemSkeleton } from '../SkeletonCard.js';
 import * as S from './PlaylistItem.styles';
@@ -18,13 +16,7 @@ export const CreatePlaylistItem = ({
 	deleteTrackWithId,
 	handleLikeClick,
 }) => {
-	const dispatch = useDispatch();
-
-	const { favoriteTodos } = useSelector(state => state.favoriteTodos);
-
-	const getOneTrack = trackId => {
-		dispatch(getOneTrackfetchTodos(trackId));
-	};
+	const { favoriteTodos } = useSelector(state => state.trackList);
 
 	return (
 		todos &&
@@ -48,6 +40,7 @@ export const CreatePlaylistItem = ({
 										onClick={() => {
 											openPlayer(track);
 											setSelectedTrackId(track.id);
+											
 										}}
 									>
 										{track.name}

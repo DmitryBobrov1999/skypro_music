@@ -1,49 +1,91 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+
+import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentTrack, setIsPlaying } from '../../redux/slice/todo';
 
 import * as S from './AudioPlayer.styles';
+import { ProgressBar } from '../ProgressBar/ProgressBar';
 
-export const CreateAudioPlayer = ({
-	isPlaying,
-	audioRef,
-	ProgressBar,
-	progressBarRef,
-	duration,
-	timeProgress,
-	handleProgressChange,
-	formatTime,
-	volume,
-	setVolume,
-	onLoadedMetadata,
-	loop,
-	setLoop,
-	currentPlayer,
-	todos,
-	selectedTrackId,
-	setSelectedTrackId,
-	favoriteTodos,
-}) => {
+export const CreateAudioPlayer = ({ formatTime }) => {
 	const dispatch = useDispatch();
 
 	const [isShuffle, setIsShuffle] = useState(false);
 
-	const handleBack = () => {
-		if (
-			selectedTrackId === todos[0].id ||
-			selectedTrackId === favoriteTodos[0].id
-		) {
-			dispatch(setCurrentTrack(todos[selectedTrackId - todos[0].id]));
-			dispatch(
-				setCurrentTrack(favoriteTodos[selectedTrackId - favoriteTodos[0].id])
+	const audioRef = useRef();
+
+	const [timeProgress, setTimeProgress] = useState(null);
+
+	const progressBarRef = useRef();
+
+	const [duration, setDuration] = useState(null);
+
+	const [loop, setLoop] = useState(false);
+
+	const [volume, setVolume] = useState(2);
+
+	const [selectedTrackId, setSelectedTrackId] = useState(null);
+
+	const playAnimationRef = useRef();
+
+	const { isPlaying, currentPlayer, todos, favoriteTodos } = useSelector(
+		state => state.trackList
+	);
+
+	useEffect(() => {
+		if (audioRef && audioRef.current) {
+			audioRef.current.loop = loop;
+		}
+	}, [loop, audioRef]);
+
+	useEffect(() => {
+		if (audioRef && audioRef?.current) {
+			audioRef.current.volume = volume / 100;
+		}
+	});
+
+	const handleProgressChange = () => {
+		audioRef.current.currentTime = progressBarRef.current.value;
+		setTimeProgress(audioRef.current.currentTime);
+	};
+
+	const onLoadedMetadata = () => {
+		const seconds = audioRef.current.duration;
+		setDuration(seconds);
+		progressBarRef.current.max = seconds;
+	};
+
+	const repeat = useCallback(() => {
+		if (audioRef && audioRef.current) {
+			const currentTime = audioRef.current.currentTime;
+			setTimeProgress(currentTime);
+			progressBarRef.current.value = currentTime;
+			progressBarRef.current.style.setProperty(
+				'--range-progress',
+				`${(progressBarRef.current.value / duration) * 100}%`
 			);
+		}
+
+		playAnimationRef.current = requestAnimationFrame(repeat);
+	}, [audioRef, duration, progressBarRef, setTimeProgress]);
+
+	useEffect(() => {
+		if (isPlaying) {
+			audioRef?.current?.pause();
+		} else {
+			audioRef?.current?.play();
+		}
+		playAnimationRef.current = requestAnimationFrame(repeat);
+	}, [isPlaying, audioRef, repeat]);
+
+	const handleBack = () => {
+		if (selectedTrackId === todos[0].id) {
+			dispatch(setCurrentTrack(todos[selectedTrackId - todos[0].id]));
 		} else {
 			setSelectedTrackId(prev => prev - 1);
 			dispatch(setCurrentTrack(todos[selectedTrackId - todos[0].id]));
-			dispatch(
-				setCurrentTrack(favoriteTodos[selectedTrackId - favoriteTodos[0].id])
-			);
 		}
+		
 	};
 
 	const handleNext = () => {
@@ -76,7 +118,7 @@ export const CreateAudioPlayer = ({
 		dispatch(setIsPlaying(isPlaying));
 	};
 
-	return (
+	return createPortal(
 		<>
 			{currentPlayer ? (
 				<>
@@ -205,6 +247,7 @@ export const CreateAudioPlayer = ({
 					</S.Bar>
 				</>
 			) : null}
-		</>
+		</>,
+		document.getElementById('portal')
 	);
 };
