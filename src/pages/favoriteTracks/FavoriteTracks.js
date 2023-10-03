@@ -37,10 +37,8 @@ export const FavoriteTracks = ({
 					<CreateSidebar isLoading={isLoading} />
 				</S.Main>
 				<CreateAudioPlayer
-					formatTime={formatTime}
-					favoriteTodos={favoriteTodos}
-					setSelectedTrackId={setSelectedTrackId}
 					selectedTrackId={selectedTrackId}
+					setSelectedTrackId={setSelectedTrackId}
 				/>
 				,
 			</S.Container>

@@ -7,7 +7,18 @@ import { setCurrentTrack, setIsPlaying } from '../../redux/slice/todo';
 import * as S from './AudioPlayer.styles';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 
-export const CreateAudioPlayer = ({ formatTime }) => {
+export const CreateAudioPlayer = ({ setSelectedTrackId, selectedTrackId }) => {
+	const formatTime = time => {
+		if (time && !isNaN(time)) {
+			const minutes = Math.floor(time / 60);
+			const formatMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+			const seconds = Math.floor(time % 60);
+			const formatSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+			return `${formatMinutes}:${formatSeconds}`;
+		}
+		return '00:00';
+	};
+
 	const dispatch = useDispatch();
 
 	const [isShuffle, setIsShuffle] = useState(false);
@@ -24,11 +35,9 @@ export const CreateAudioPlayer = ({ formatTime }) => {
 
 	const [volume, setVolume] = useState(2);
 
-	const [selectedTrackId, setSelectedTrackId] = useState(null);
-
 	const playAnimationRef = useRef();
 
-	const { isPlaying, currentPlayer, todos, favoriteTodos } = useSelector(
+	const { isPlaying, currentPlayer, todos } = useSelector(
 		state => state.trackList
 	);
 
@@ -83,9 +92,8 @@ export const CreateAudioPlayer = ({ formatTime }) => {
 			dispatch(setCurrentTrack(todos[selectedTrackId - todos[0].id]));
 		} else {
 			setSelectedTrackId(prev => prev - 1);
-			dispatch(setCurrentTrack(todos[selectedTrackId - todos[0].id]));
+			dispatch(setCurrentTrack(todos[selectedTrackId - todos[0].id - 1] ));
 		}
-		
 	};
 
 	const handleNext = () => {

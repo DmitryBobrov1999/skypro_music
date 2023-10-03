@@ -16,7 +16,6 @@ export const Home = ({
 	addTrackWithId,
 	deleteTrackWithId,
 	handleLikeClick,
-	favoriteTodos,
 	formatTime,
 	openPlayer={openPlayer}
 }) => {
@@ -42,11 +41,8 @@ export const Home = ({
 				</S.Main>
 
 				<CreateAudioPlayer
-					formatTime={formatTime}
-					todos={todos}
-					setSelectedTrackId={setSelectedTrackId}
 					selectedTrackId={selectedTrackId}
-					favoriteTodos={favoriteTodos}
+					setSelectedTrackId={setSelectedTrackId}
 				/>
 			</S.Container>
 		</S.Wrapper>

@@ -31,11 +31,13 @@ const todoSlice = createSlice({
 		currentPlayer: null,
 		isPlaying: false,
 		likedId: false,
+		
 	},
 	reducers: {
 		setCurrentTrack(state, action) {
 			state.currentPlayer = action.payload;
 		},
+		
 		setIsPlaying(state) {
 			state.isPlaying = !state.isPlaying;
 		},
