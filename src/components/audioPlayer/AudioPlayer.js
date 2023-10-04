@@ -100,9 +100,9 @@ export const CreateAudioPlayer = ({ setSelectedTrackId }) => {
 			dispatch(setCurrentTrack(favoriteTodos[0]));
 			setSelectedTrackId(favoriteTodos[0].id);
 		} else {
-			const prevTrack1 = favoriteTodos[favoriteTodosIndex - 1];
-			dispatch(setCurrentTrack(prevTrack1));
-			setSelectedTrackId(prevTrack1.id);
+			const prevTrack = favoriteTodos[favoriteTodosIndex - 1];
+			dispatch(setCurrentTrack(prevTrack));
+			setSelectedTrackId(prevTrack.id);
 		}
 	};
 
@@ -117,7 +117,10 @@ export const CreateAudioPlayer = ({ setSelectedTrackId }) => {
 			const nextTrack = todos[todosIndex + 1];
 			dispatch(setCurrentTrack(nextTrack));
 			setSelectedTrackId(nextTrack.id);
-		} else if (favoriteTodosIndex === favoriteTodos.length - 1 && isFavoriteList) {
+		} else if (
+			favoriteTodosIndex === favoriteTodos.length - 1 &&
+			isFavoriteList
+		) {
 			dispatch(setCurrentTrack(favoriteTodos[favoriteTodos.length - 1]));
 			setSelectedTrackId(favoriteTodos[favoriteTodos.length - 1].id);
 		} else {
@@ -129,18 +132,31 @@ export const CreateAudioPlayer = ({ setSelectedTrackId }) => {
 
 	const shuffleTracks = () => {
 		let prevNum;
-
+		
 		const randomNum = Math.floor(Math.random() * todos.length);
-		if (prevNum === randomNum) {
+		const randomFavNum = Math.floor(Math.random() * favoriteTodos.length);
+
+		if (prevNum === randomNum && !isFavoriteList) {
 			let newRandomNum = randomNum === 0 ? randomNum + 1 : randomNum - 1;
 			prevNum = newRandomNum;
 
-			setSelectedTrackId(newRandomNum + todos[0].id);
+			setSelectedTrackId(todos[newRandomNum].id);
 			dispatch(setCurrentTrack(todos[newRandomNum]));
-		} else {
+		} else if (prevNum !== randomNum && !isFavoriteList) {
 			prevNum = randomNum;
-			setSelectedTrackId(randomNum + todos[0].id);
+			setSelectedTrackId(todos[randomNum].id);
 			dispatch(setCurrentTrack(todos[randomNum]));
+		} else if (prevNum === randomFavNum && isFavoriteList) {
+			let newRandomNum =
+				randomFavNum === 0 ? randomFavNum + 1 : randomFavNum - 1;
+			prevNum = newRandomNum;
+
+			setSelectedTrackId(favoriteTodos[newRandomNum].id);
+			dispatch(setCurrentTrack(favoriteTodos[newRandomNum]));
+		} else {
+			prevNum = randomFavNum;
+			setSelectedTrackId(favoriteTodos[randomFavNum].id);
+			dispatch(setCurrentTrack(favoriteTodos[randomFavNum]));
 		}
 	};
 
