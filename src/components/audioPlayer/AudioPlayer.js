@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentTrack, setIsPlaying } from '../../redux/slice/todo';
@@ -7,7 +6,7 @@ import { setCurrentTrack, setIsPlaying } from '../../redux/slice/todo';
 import * as S from './AudioPlayer.styles';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 
-export const CreateAudioPlayer = ({ setSelectedTrackId, selectedTrackId }) => {
+export const CreateAudioPlayer = ({ setSelectedTrackId }) => {
 	const formatTime = time => {
 		if (time && !isNaN(time)) {
 			const minutes = Math.floor(time / 60);
@@ -29,17 +28,16 @@ export const CreateAudioPlayer = ({ setSelectedTrackId, selectedTrackId }) => {
 
 	const progressBarRef = useRef();
 
-	const [duration, setDuration] = useState(null);
-
 	const [loop, setLoop] = useState(false);
 
 	const [volume, setVolume] = useState(2);
 
+	const [duration, setDuration] = useState(null);
+
 	const playAnimationRef = useRef();
 
-	const { isPlaying, currentPlayer, todos } = useSelector(
-		state => state.trackList
-	);
+	const { isPlaying, todos, currentPlayer, favoriteTodos, isFavoriteList } =
+		useSelector(state => state.trackList);
 
 	useEffect(() => {
 		if (audioRef && audioRef.current) {
@@ -88,20 +86,44 @@ export const CreateAudioPlayer = ({ setSelectedTrackId, selectedTrackId }) => {
 	}, [isPlaying, audioRef, repeat]);
 
 	const handleBack = () => {
-		if (selectedTrackId === todos[0].id) {
-			dispatch(setCurrentTrack(todos[selectedTrackId - todos[0].id]));
+		const todosIndex = todos.indexOf(currentPlayer);
+		const favoriteTodosIndex = favoriteTodos.indexOf(currentPlayer);
+
+		if (todosIndex === 0 && !isFavoriteList) {
+			dispatch(setCurrentTrack(todos[0]));
+			setSelectedTrackId(todos[0].id);
+		} else if (todosIndex !== 0 && !isFavoriteList) {
+			const prevTrack = todos[todosIndex - 1];
+			dispatch(setCurrentTrack(prevTrack));
+			setSelectedTrackId(prevTrack.id);
+		} else if (favoriteTodosIndex === 0 && isFavoriteList) {
+			dispatch(setCurrentTrack(favoriteTodos[0]));
+			setSelectedTrackId(favoriteTodos[0].id);
 		} else {
-			setSelectedTrackId(prev => prev - 1);
-			dispatch(setCurrentTrack(todos[selectedTrackId - todos[0].id - 1] ));
+			const prevTrack1 = favoriteTodos[favoriteTodosIndex - 1];
+			dispatch(setCurrentTrack(prevTrack1));
+			setSelectedTrackId(prevTrack1.id);
 		}
 	};
 
 	const handleNext = () => {
-		if (selectedTrackId - todos[0].id + 1 >= todos.length) {
+		const todosIndex = todos.indexOf(currentPlayer);
+		const favoriteTodosIndex = favoriteTodos.indexOf(currentPlayer);
+
+		if (todosIndex === todos.length - 1 && !isFavoriteList) {
 			dispatch(setCurrentTrack(todos[todos.length - 1]));
+			setSelectedTrackId(todos[todos.length - 1].id);
+		} else if (favoriteTodos !== todos.length - 1 && !isFavoriteList) {
+			const nextTrack = todos[todosIndex + 1];
+			dispatch(setCurrentTrack(nextTrack));
+			setSelectedTrackId(nextTrack.id);
+		} else if (favoriteTodosIndex === favoriteTodos.length - 1 && isFavoriteList) {
+			dispatch(setCurrentTrack(favoriteTodos[favoriteTodos.length - 1]));
+			setSelectedTrackId(favoriteTodos[favoriteTodos.length - 1].id);
 		} else {
-			setSelectedTrackId(prev => prev + 1);
-			dispatch(setCurrentTrack(todos[selectedTrackId - todos[0].id + 1]));
+			const nextTrack = favoriteTodos[favoriteTodosIndex + 1];
+			dispatch(setCurrentTrack(nextTrack));
+			setSelectedTrackId(nextTrack.id);
 		}
 	};
 
@@ -126,7 +148,7 @@ export const CreateAudioPlayer = ({ setSelectedTrackId, selectedTrackId }) => {
 		dispatch(setIsPlaying(isPlaying));
 	};
 
-	return createPortal(
+	return (
 		<>
 			{currentPlayer ? (
 				<>
@@ -145,7 +167,6 @@ export const CreateAudioPlayer = ({ setSelectedTrackId, selectedTrackId }) => {
 						</S.TimeDiv>
 						<S.BarContent>
 							<ProgressBar
-								currentTime={timeProgress}
 								duration={duration}
 								progressBarRef={progressBarRef}
 								handleProgressChange={handleProgressChange}
@@ -255,7 +276,6 @@ export const CreateAudioPlayer = ({ setSelectedTrackId, selectedTrackId }) => {
 					</S.Bar>
 				</>
 			) : null}
-		</>,
-		document.getElementById('portal')
+		</>
 	);
 };

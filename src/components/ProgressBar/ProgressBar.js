@@ -4,6 +4,7 @@ export const ProgressBar = ({
 	duration,
 	progressBarRef,
 	handleProgressChange,
+
 }) => {
 	return (
 		<S.StyledProgressInput

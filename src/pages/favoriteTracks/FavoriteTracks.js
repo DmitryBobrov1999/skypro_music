@@ -1,5 +1,5 @@
 import React from 'react';
-import { CreateAudioPlayer } from '../../components/audioPlayer/AudioPlayer';
+
 import { CreateSidebar } from '../../components/sidebar/Sidebar';
 import { CreateFavoriteTracklist } from '../../components/forFavoriteTracks/favoriteTracksTracklist';
 import { CreateNavMenu } from '../../components/navMenu/NavMenu';
@@ -36,11 +36,6 @@ export const FavoriteTracks = ({
 					/>
 					<CreateSidebar isLoading={isLoading} />
 				</S.Main>
-				<CreateAudioPlayer
-					selectedTrackId={selectedTrackId}
-					setSelectedTrackId={setSelectedTrackId}
-				/>
-				,
 			</S.Container>
 		</S.Wrapper>
 	);

@@ -21,6 +21,7 @@ export const CreateTracklist = ({
 	deleteTrackWithId,
 	handleLikeClick,
 	openPlayer,
+	favoriteTodos,
 }) => {
 	const [$visibleFilter, setVisibleFilter] = useState(null);
 
@@ -91,6 +92,7 @@ export const CreateTracklist = ({
 						addTrackWithId={addTrackWithId}
 						deleteTrackWithId={deleteTrackWithId}
 						handleLikeClick={handleLikeClick}
+						favoriteTodos={favoriteTodos}
 					/>
 				</S.ContentPlaylist>
 			</S.CenterblockContent>

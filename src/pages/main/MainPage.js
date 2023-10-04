@@ -1,10 +1,9 @@
 import React from 'react';
-import { CreateAudioPlayer } from '../../components/audioPlayer/AudioPlayer';
+
 import { CreateSidebar } from '../../components/sidebar/Sidebar';
 import { CreateTracklist } from '../../components/tracklist/Tracklist';
 import { CreateNavMenu } from '../../components/navMenu/NavMenu';
 import * as S from './MainPage.styles';
-
 
 export const Home = ({
 	isLoading,
@@ -17,7 +16,8 @@ export const Home = ({
 	deleteTrackWithId,
 	handleLikeClick,
 	formatTime,
-	openPlayer={openPlayer}
+	openPlayer,
+	favoriteTodos,
 }) => {
 	return (
 		<S.Wrapper>
@@ -36,14 +36,10 @@ export const Home = ({
 						deleteTrackWithId={deleteTrackWithId}
 						handleLikeClick={handleLikeClick}
 						openPlayer={openPlayer}
+						favoriteTodos={favoriteTodos}
 					/>
 					<CreateSidebar isLoading={isLoading} />
 				</S.Main>
-
-				<CreateAudioPlayer
-					selectedTrackId={selectedTrackId}
-					setSelectedTrackId={setSelectedTrackId}
-				/>
 			</S.Container>
 		</S.Wrapper>
 	);

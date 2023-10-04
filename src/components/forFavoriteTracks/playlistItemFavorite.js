@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { setTrueIsFavoriteList } from '../../redux/slice/todo';
 
 import * as S from '../playlistItem/PlaylistItem.styles';
 
@@ -13,6 +15,9 @@ export const CreatePlaylistItemFavorite = ({
 	deleteTrackWithId,
 	addTrackWithId,
 }) => {
+
+	const dispatch = useDispatch();
+
 	return (
 		favoriteTodos &&
 		favoriteTodos.map(favoriteTrack => (
@@ -34,6 +39,7 @@ export const CreatePlaylistItemFavorite = ({
 									onClick={() => {
 										openPlayer(favoriteTrack);
 										setSelectedTrackId(favoriteTrack.id);
+										dispatch(setTrueIsFavoriteList());
 									}}
 								>
 									{favoriteTrack.name}

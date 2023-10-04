@@ -1,21 +1,22 @@
 import { Routes, Route } from 'react-router-dom';
 import { AuthPage } from './pages/auth/AuthPage';
 import { Home } from './pages/main/MainPage';
-import React, {
-	useState,
-	useEffect,
-	createContext,
-	useRef,
-} from 'react';
+import React, { useState, useEffect, createContext, useRef } from 'react';
 import { NotFound } from './pages/not-found/NotFound';
 import { FavoriteTracks } from './pages/favoriteTracks/FavoriteTracks';
 import { Category } from './pages/category/Category';
 import { ProtectedRoute } from './components/protected-route/ProtectedRoute';
-import { fetchTodos, setCurrentTrack, toggleFavoriteLikedId, toggleLikedId } from './redux/slice/todo';
+import {
+	fetchTodos,
+	setCurrentTrack,
+	toggleFavoriteLikedId,
+	toggleLikedId,
+} from './redux/slice/todo';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchFavoriteTodos } from './redux/slice/favoriteTodo';
 import { fetchDeleteFavoriteTrack } from './redux/slice/deleteFavoriteTrack';
 import { fetchAddFavoriteTrack } from './redux/slice/addFavoriteTrack';
+import { CreateAudioPlayer } from './components/audioPlayer/AudioPlayer';
 
 export const NavMenuContext = createContext(null);
 
@@ -37,9 +38,8 @@ export const AppRoutes = () => {
 
 	const [selectedTrackId, setSelectedTrackId] = useState(null);
 
-	const { isPlaying, currentPlayer, todos, error, favoriteTodos } = useSelector(
-		state => state.trackList
-	);
+	const { isPlaying, todos, error, favoriteTodos } =
+		useSelector(state => state.trackList);
 
 	const dispatch = useDispatch();
 
@@ -98,7 +98,7 @@ export const AppRoutes = () => {
 
 	const handleFavoriteLikeClick = trackId => {
 		dispatch(toggleFavoriteLikedId(trackId));
-	}
+	};
 
 	return (
 		<PersonalNameContext.Provider value={value}>
@@ -128,7 +128,6 @@ export const AppRoutes = () => {
 									stop={stop}
 									setSelectedTrackId={setSelectedTrackId}
 									selectedTrackId={selectedTrackId}
-									currentPlayer={currentPlayer}
 									todos={todos}
 									error={error}
 									addTrackWithId={addTrackWithId}
@@ -138,10 +137,16 @@ export const AppRoutes = () => {
 									formatTime={formatTime}
 									openPlayer={openPlayer}
 								/>
+								<CreateAudioPlayer
+									selectedTrackId={selectedTrackId}
+									setSelectedTrackId={setSelectedTrackId}
+								
+								/>
 							</NavMenuContext.Provider>
 						</ProtectedRoute>
 					}
 				/>
+
 				<Route
 					path='/favorite'
 					element={
@@ -152,7 +157,6 @@ export const AppRoutes = () => {
 									stop={stop}
 									setSelectedTrackId={setSelectedTrackId}
 									selectedTrackId={selectedTrackId}
-									currentPlayer={currentPlayer}
 									favoriteTodos={favoriteTodos}
 									handleFavoriteLikeClick={handleFavoriteLikeClick}
 									deleteTrackWithId={deleteTrackWithId}
@@ -160,10 +164,15 @@ export const AppRoutes = () => {
 									formatTime={formatTime}
 									openPlayer={openPlayer}
 								/>
+								<CreateAudioPlayer
+									selectedTrackId={selectedTrackId}
+									setSelectedTrackId={setSelectedTrackId}
+								/>
 							</NavMenuContext.Provider>
 						</ProtectedRoute>
 					}
 				/>
+
 				<Route
 					path='/category/:id'
 					element={

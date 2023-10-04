@@ -4,7 +4,6 @@ import { fetchFavoriteTodos } from './favoriteTodo';
 export const fetchTodos = createAsyncThunk(
 	'fetchTodos',
 	async (_, { rejectWithValue }) => {
-		
 		try {
 			const response = await fetch(
 				'https://skypro-music-api.skyeng.tech/catalog/track/all/'
@@ -14,7 +13,7 @@ export const fetchTodos = createAsyncThunk(
 				throw new Error(response.status);
 			}
 			const data = await response.json();
-			return data
+			return data;
 		} catch (error) {
 			return rejectWithValue(error.message);
 		}
@@ -31,13 +30,18 @@ const todoSlice = createSlice({
 		currentPlayer: null,
 		isPlaying: false,
 		likedId: false,
-		
+		isFavoriteList: null,
 	},
 	reducers: {
 		setCurrentTrack(state, action) {
 			state.currentPlayer = action.payload;
 		},
-		
+		setTrueIsFavoriteList(state) {
+			state.isFavoriteList = true;
+		},
+		setFalseIsFavoriteList(state) {
+			state.isFavoriteList = false;
+		},
 		setIsPlaying(state) {
 			state.isPlaying = !state.isPlaying;
 		},
@@ -87,7 +91,13 @@ const todoSlice = createSlice({
 	},
 });
 
-export const { setCurrentTrack, setIsPlaying, toggleLikedId, toggleFavoriteLikedId } =
-	todoSlice.actions;
+export const {
+	setCurrentTrack,
+	setIsPlaying,
+	toggleLikedId,
+	toggleFavoriteLikedId,
+	setTrueIsFavoriteList,
+	setFalseIsFavoriteList,
+} = todoSlice.actions;
 
 export default todoSlice.reducer;
