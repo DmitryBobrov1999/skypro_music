@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { setFalseIsFavoriteList } from '../../redux/slice/todo.js';
 
 import { PlaylistItemSkeleton } from '../SkeletonCard.js';
 import * as S from './PlaylistItem.styles';
-
+import { NavMenuContext } from '../../routes.jsx';
 export const CreatePlaylistItem = ({
 	isLoading,
 	openPlayer,
@@ -19,6 +20,19 @@ export const CreatePlaylistItem = ({
 	favoriteTodos,
 }) => {
 	const dispatch = useDispatch();
+
+	const { addError, delError } = useSelector(state => state.trackList);
+
+	const navigate = useNavigate();
+
+	const getNavMenuContext = useContext(NavMenuContext);
+
+	const checkForError = () => {
+		if (addError === 401 || delError === 401) {
+			getNavMenuContext();
+			navigate('/login');
+		}
+	};
 
 	return (
 		todos &&
@@ -62,6 +76,7 @@ export const CreatePlaylistItem = ({
 										onClick={() => {
 											handleLikeClick(track.id);
 											deleteTrackWithId(track.id);
+											checkForError()
 										}}
 										alt='likeActive'
 									>
@@ -72,6 +87,7 @@ export const CreatePlaylistItem = ({
 										onClick={() => {
 											handleLikeClick(track.id);
 											addTrackWithId(track.id);
+											checkForError()
 										}}
 										alt='like'
 									>

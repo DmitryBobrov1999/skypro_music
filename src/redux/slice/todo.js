@@ -1,4 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { fetchAddFavoriteTrack } from './addFavoriteTrack';
+import { fetchDeleteFavoriteTrack } from './deleteFavoriteTrack';
+
 import { fetchFavoriteTodos } from './favoriteTodo';
 
 export const fetchTodos = createAsyncThunk(
@@ -26,11 +29,15 @@ const todoSlice = createSlice({
 		todos: [],
 		favoriteTodos: [],
 		status: null,
-		error: null,
+
 		currentPlayer: null,
 		isPlaying: false,
 		likedId: false,
 		isFavoriteList: null,
+		error: null,
+		favError: null,
+		addError: null,
+		delError: null,
 	},
 	reducers: {
 		setCurrentTrack(state, action) {
@@ -86,7 +93,27 @@ const todoSlice = createSlice({
 		});
 		builder.addCase(fetchFavoriteTodos.rejected, (state, action) => {
 			state.status = 'rejected';
-			state.error = action.payload;
+			state.favError = action.payload;
+		});
+		builder.addCase(fetchAddFavoriteTrack.pending, state => {
+			state.status = 'loading';
+		});
+		builder.addCase(fetchAddFavoriteTrack.fulfilled, (state, action) => {
+			state.status = 'resolved';
+		});
+		builder.addCase(fetchAddFavoriteTrack.rejected, (state, action) => {
+			state.status = 'rejected';
+			state.addError = action.payload;
+		});
+		builder.addCase(fetchDeleteFavoriteTrack.pending, state => {
+			state.status = 'loading';
+		});
+		builder.addCase(fetchDeleteFavoriteTrack.fulfilled, (state, action) => {
+			state.status = 'resolved';
+		});
+		builder.addCase(fetchDeleteFavoriteTrack.rejected, (state, action) => {
+			state.status = 'rejected';
+			state.delError = action.payload;
 		});
 	},
 });

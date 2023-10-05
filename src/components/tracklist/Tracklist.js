@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { CreatePlaylistItem } from '../playlistItem/PlaylistItem.js';
 import { playlistData } from '../playlistItem/PlaylistData.js';
 import { yearData } from './searchByButton/yearData.js';
@@ -8,6 +8,8 @@ import { SearchByYear } from './searchByButton/SearchByYear.js';
 import { SearchByGenre } from './searchByButton/SearchByGenre.js';
 import { useState } from 'react';
 import * as S from './Tracklist.styles';
+import { useNavigate } from 'react-router-dom';
+import { NavMenuContext } from '../../routes.jsx';
 
 export const CreateTracklist = ({
 	isLoading,
@@ -25,6 +27,10 @@ export const CreateTracklist = ({
 }) => {
 	const [$visibleFilter, setVisibleFilter] = useState(null);
 
+	const navigate = useNavigate();
+
+	const getNavMenuContext = useContext(NavMenuContext);
+
 	const openFilter = filterName => {
 		setVisibleFilter(filterName);
 	};
@@ -32,6 +38,15 @@ export const CreateTracklist = ({
 	const closeAllFilters = () => {
 		setVisibleFilter(null);
 	};
+
+	
+
+	// useEffect(() => {
+	// 	if (error === 401) {
+	// 		getNavMenuContext();
+	// 		navigate('/login');
+	// 	}
+	// }, [error])
 
 	return (
 		<S.MainCenterBlock>

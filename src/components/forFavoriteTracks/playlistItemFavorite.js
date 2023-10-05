@@ -1,9 +1,10 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { setTrueIsFavoriteList } from '../../redux/slice/todo';
 
 import * as S from '../playlistItem/PlaylistItem.styles';
-
+import { NavMenuContext } from '../../routes';
 export const CreatePlaylistItemFavorite = ({
 	openPlayer,
 	formatTime,
@@ -15,9 +16,20 @@ export const CreatePlaylistItemFavorite = ({
 	deleteTrackWithId,
 	addTrackWithId,
 }) => {
-
 	const dispatch = useDispatch();
 
+	const getNavMenuContext = useContext(NavMenuContext);
+
+	const navigate = useNavigate();
+
+	const { delError } = useSelector(state => state.trackList);
+
+	const checkForError = () => {
+		if (delError === 401) {
+			getNavMenuContext();
+			navigate('/login');
+		}
+	};
 	return (
 		favoriteTodos &&
 		favoriteTodos.map(favoriteTrack => (
@@ -59,6 +71,7 @@ export const CreatePlaylistItemFavorite = ({
 									onClick={() => {
 										handleFavoriteLikeClick(favoriteTrack.id);
 										deleteTrackWithId(favoriteTrack.id);
+										checkForError()
 									}}
 									alt='likeActive'
 								>
@@ -69,6 +82,7 @@ export const CreatePlaylistItemFavorite = ({
 									onClick={() => {
 										handleFavoriteLikeClick(favoriteTrack.id);
 										addTrackWithId(favoriteTrack.id);
+									
 									}}
 									alt='like'
 								>

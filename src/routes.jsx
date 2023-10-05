@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { AuthPage } from './pages/auth/AuthPage';
 import { Home } from './pages/main/MainPage';
-import React, { useState, useEffect, createContext, useRef } from 'react';
+import React, { useState, useEffect, createContext, useRef, useContext } from 'react';
 import { NotFound } from './pages/not-found/NotFound';
 import { FavoriteTracks } from './pages/favoriteTracks/FavoriteTracks';
 import { Category } from './pages/category/Category';
@@ -38,8 +38,9 @@ export const AppRoutes = () => {
 
 	const [selectedTrackId, setSelectedTrackId] = useState(null);
 
-	const { isPlaying, todos, error, favoriteTodos } =
-		useSelector(state => state.trackList);
+	const { isPlaying, todos, error, favoriteTodos, favError } = useSelector(
+		state => state.trackList
+	);
 
 	const dispatch = useDispatch();
 
@@ -100,6 +101,8 @@ export const AppRoutes = () => {
 		dispatch(toggleFavoriteLikedId(trackId));
 	};
 
+	
+
 	return (
 		<PersonalNameContext.Provider value={value}>
 			<Routes>
@@ -136,6 +139,7 @@ export const AppRoutes = () => {
 									favoriteTodos={favoriteTodos}
 									formatTime={formatTime}
 									openPlayer={openPlayer}
+									favError={favError}
 								/>
 								<CreateAudioPlayer
 									selectedTrackId={selectedTrackId}
@@ -154,6 +158,7 @@ export const AppRoutes = () => {
 								<FavoriteTracks
 									isLoading={isLoading}
 									stop={stop}
+									error={error}
 									setSelectedTrackId={setSelectedTrackId}
 									selectedTrackId={selectedTrackId}
 									favoriteTodos={favoriteTodos}
@@ -162,6 +167,7 @@ export const AppRoutes = () => {
 									addTrackWithId={addTrackWithId}
 									formatTime={formatTime}
 									openPlayer={openPlayer}
+									favError={favError}
 								/>
 								<CreateAudioPlayer
 									selectedTrackId={selectedTrackId}
