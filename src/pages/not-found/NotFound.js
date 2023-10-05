@@ -1,5 +1,5 @@
 import * as S from './NotFound.styles';
-import { ErrorAudioPlayer } from '../../components/forError/ErrorAudioPlayer';
+
 import { ErrorSidebar } from '../../components/forError/ErrorSidebar';
 import { NavLink } from 'react-router-dom';
 import React from 'react';
@@ -40,7 +40,6 @@ export const NotFound = () => {
 					<ErrorSidebar />
 				</S.Main>
 
-				<ErrorAudioPlayer />
 			</S.Container>
 		</S.Wrapper>
 	);

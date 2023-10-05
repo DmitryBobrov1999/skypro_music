@@ -140,7 +140,6 @@ export const AppRoutes = () => {
 								<CreateAudioPlayer
 									selectedTrackId={selectedTrackId}
 									setSelectedTrackId={setSelectedTrackId}
-								
 								/>
 							</NavMenuContext.Provider>
 						</ProtectedRoute>
@@ -179,6 +178,10 @@ export const AppRoutes = () => {
 						<ProtectedRoute>
 							<NavMenuContext.Provider value={removeUser}>
 								<Category />
+								<CreateAudioPlayer
+									selectedTrackId={selectedTrackId}
+									setSelectedTrackId={setSelectedTrackId}
+								/>
 							</NavMenuContext.Provider>
 						</ProtectedRoute>
 					}
