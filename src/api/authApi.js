@@ -41,6 +41,7 @@ export const getAuth = async ({ email, password }) => {
 			},
 		}
 	);
+
 	const data = await response.json();
 	const status = response.status;
 	if (data.id) {

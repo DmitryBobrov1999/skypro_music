@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { CreatePlaylistItem } from '../playlistItem/PlaylistItem.js';
 import { playlistData } from '../playlistItem/PlaylistData.js';
 import { yearData } from './searchByButton/yearData.js';
@@ -8,8 +8,8 @@ import { SearchByYear } from './searchByButton/SearchByYear.js';
 import { SearchByGenre } from './searchByButton/SearchByGenre.js';
 import { useState } from 'react';
 import * as S from './Tracklist.styles';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchTodos, setCurrentTrack } from '../../redux/slice/todo.js';
+import { useNavigate } from 'react-router-dom';
+import { NavMenuContext } from '../../routes.jsx';
 
 export const CreateTracklist = ({
 	isLoading,
@@ -17,10 +17,19 @@ export const CreateTracklist = ({
 	stop,
 	setSelectedTrackId,
 	selectedTrackId,
+	todos,
+	error,
+	addTrackWithId,
+	deleteTrackWithId,
+	handleLikeClick,
+	openPlayer,
+	favoriteTodos,
 }) => {
 	const [$visibleFilter, setVisibleFilter] = useState(null);
 
-	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	const getNavMenuContext = useContext(NavMenuContext);
 
 	const openFilter = filterName => {
 		setVisibleFilter(filterName);
@@ -30,15 +39,14 @@ export const CreateTracklist = ({
 		setVisibleFilter(null);
 	};
 
-	const { todos, error } = useSelector(state => state.todos);
+	
 
-	const openPlayer = currentPlayer => {
-		dispatch(setCurrentTrack(currentPlayer));
-	};
-
-	useEffect(() => {
-		dispatch(fetchTodos());
-	}, [dispatch]);
+	// useEffect(() => {
+	// 	if (error === 401) {
+	// 		getNavMenuContext();
+	// 		navigate('/login');
+	// 	}
+	// }, [error])
 
 	return (
 		<S.MainCenterBlock>
@@ -96,6 +104,10 @@ export const CreateTracklist = ({
 						formatTime={formatTime}
 						setSelectedTrackId={setSelectedTrackId}
 						selectedTrackId={selectedTrackId}
+						addTrackWithId={addTrackWithId}
+						deleteTrackWithId={deleteTrackWithId}
+						handleLikeClick={handleLikeClick}
+						favoriteTodos={favoriteTodos}
 					/>
 				</S.ContentPlaylist>
 			</S.CenterblockContent>

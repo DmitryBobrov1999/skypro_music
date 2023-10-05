@@ -4,11 +4,11 @@ export const ProgressBar = ({
 	duration,
 	progressBarRef,
 	handleProgressChange,
+
 }) => {
 	return (
 		<S.StyledProgressInput
 			ref={progressBarRef}
-			defaultValue='0'
 			type='range'
 			min={0}
 			max={duration}

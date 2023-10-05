@@ -3,6 +3,6 @@ import todoReducer from './slice/todo.js'
 
 export const store = configureStore({
 	reducer: {
-		todos: todoReducer,
+		trackList: todoReducer,
 	},
-})
+});
