@@ -20,6 +20,7 @@ export const Home = ({
 	openPlayer,
 	favoriteTodos,
 	favError,
+	categoryTodos,
 }) => {
 	const navigate = useNavigate();
 
@@ -58,7 +59,7 @@ export const Home = ({
 						openPlayer={openPlayer}
 						favoriteTodos={favoriteTodos}
 					/>
-					<CreateSidebar isLoading={isLoading} />
+					<CreateSidebar isLoading={isLoading} categoryTodos={categoryTodos} />
 				</S.Main>
 			</S.Container>
 		</S.Wrapper>

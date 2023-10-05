@@ -1,10 +1,9 @@
 import React from 'react';
 import * as S from './SearchBy.styles';
+import { playlistData } from '../../playlistItem/PlaylistData'
 
 export const SearchByArtist = ({
-	playlistData,
 	$visibleFilter,
-
 	openFilter,
 	closeAllFilters
 }) => {

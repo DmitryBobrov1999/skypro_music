@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setFalseIsFavoriteList } from '../../redux/slice/todo.js';
-
+import { setFalseIsFavoriteList } from '../../redux/slice/todoSlice.js'; 
 import { PlaylistItemSkeleton } from '../SkeletonCard.js';
 import * as S from './PlaylistItem.styles';
 import { NavMenuContext } from '../../routes.jsx';
+
 export const CreatePlaylistItem = ({
 	isLoading,
 	openPlayer,

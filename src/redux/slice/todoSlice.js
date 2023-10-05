@@ -1,35 +1,17 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchAddFavoriteTrack } from './addFavoriteTrack';
-import { fetchDeleteFavoriteTrack } from './deleteFavoriteTrack';
-
-import { fetchFavoriteTodos } from './favoriteTodo';
-
-export const fetchTodos = createAsyncThunk(
-	'fetchTodos',
-	async (_, { rejectWithValue }) => {
-		try {
-			const response = await fetch(
-				'https://skypro-music-api.skyeng.tech/catalog/track/all/'
-			);
-
-			if (!response.ok) {
-				throw new Error(response.status);
-			}
-			const data = await response.json();
-			return data;
-		} catch (error) {
-			return rejectWithValue(error.message);
-		}
-	}
-);
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchAddFavoriteTrack } from '../../api/addFavoriteTrackApi';
+import { fetchDeleteFavoriteTrack } from '../../api/deleteFavoriteTrackApi';
+import { fetchFavoriteTodos } from '../../api/favoriteTodosApi';
+import { fetchTodos } from '../../api/todosApi';
+import { fetchCategoryTodos } from '../../api/categoryTodosApi';
 
 const todoSlice = createSlice({
 	name: 'todo',
 	initialState: {
 		todos: [],
 		favoriteTodos: [],
+		categoryTodos: [],
 		status: null,
-
 		currentPlayer: null,
 		isPlaying: false,
 		likedId: false,
@@ -38,6 +20,7 @@ const todoSlice = createSlice({
 		favError: null,
 		addError: null,
 		delError: null,
+		catError: null,
 	},
 	reducers: {
 		setCurrentTrack(state, action) {
@@ -98,7 +81,7 @@ const todoSlice = createSlice({
 		builder.addCase(fetchAddFavoriteTrack.pending, state => {
 			state.status = 'loading';
 		});
-		builder.addCase(fetchAddFavoriteTrack.fulfilled, (state, action) => {
+		builder.addCase(fetchAddFavoriteTrack.fulfilled, (state) => {
 			state.status = 'resolved';
 		});
 		builder.addCase(fetchAddFavoriteTrack.rejected, (state, action) => {
@@ -108,12 +91,23 @@ const todoSlice = createSlice({
 		builder.addCase(fetchDeleteFavoriteTrack.pending, state => {
 			state.status = 'loading';
 		});
-		builder.addCase(fetchDeleteFavoriteTrack.fulfilled, (state, action) => {
+		builder.addCase(fetchDeleteFavoriteTrack.fulfilled, (state) => {
 			state.status = 'resolved';
 		});
 		builder.addCase(fetchDeleteFavoriteTrack.rejected, (state, action) => {
 			state.status = 'rejected';
 			state.delError = action.payload;
+		});
+		builder.addCase(fetchCategoryTodos.pending, state => {
+			state.status = 'loading';
+		});
+		builder.addCase(fetchCategoryTodos.fulfilled, (state, action) => {
+			state.status = 'resolved';
+			state.categoryTodos = action.payload;
+		});
+		builder.addCase(fetchCategoryTodos.rejected, (state, action) => {
+			state.status = 'rejected';
+			state.catError = action.payload;
 		});
 	},
 });

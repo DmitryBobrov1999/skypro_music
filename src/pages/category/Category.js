@@ -5,12 +5,15 @@ import { ErrorSidebar } from '../../components/forError/ErrorSidebar';
 import { categoryMock } from './CategoryMock';
 import { CategoryPlaylistItem } from '../../components/playlistItem/CategoryPlaylistitem';
 import { CreateNavMenu } from '../../components/navMenu/NavMenu';
-import { playlistData } from '../../components/playlistItem/PlaylistData';
 
-export const Category = () => {
+export const Category = ({ categoryTodos }) => {
 	const params = useParams();
 
 	const track = categoryMock.find(track => track.id === Number(params.id));
+
+	const someId = categoryTodos.find(id => id.id === Number(params.id));
+
+	console.log(someId);
 
 	return (
 		<S.Wrapper>
@@ -39,15 +42,16 @@ export const Category = () => {
 								</S.PlaylistTitleCol4>
 							</S.ContentTitle>
 							<S.ContentPlaylist>
-								<CategoryPlaylistItem playlistData={playlistData} />
+								<CategoryPlaylistItem
+									someId={someId}
+									categoryTodos={categoryTodos}
+								/>
 							</S.ContentPlaylist>
 						</S.CenterblockContent>
 					</S.MainCenterBlock>
 
 					<ErrorSidebar />
 				</S.Main>
-
-			
 			</S.Container>
 		</S.Wrapper>
 	);

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentTrack, setIsPlaying } from '../../redux/slice/todo';
+import { setCurrentTrack, setIsPlaying } from '../../redux/slice/todoSlice'
 
 import * as S from './AudioPlayer.styles';
 import { ProgressBar } from '../ProgressBar/ProgressBar';

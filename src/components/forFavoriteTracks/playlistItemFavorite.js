@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setTrueIsFavoriteList } from '../../redux/slice/todo';
+import { setTrueIsFavoriteList } from '../../redux/slice/todoSlice'; 
 
 import * as S from '../playlistItem/PlaylistItem.styles';
 import { NavMenuContext } from '../../routes';

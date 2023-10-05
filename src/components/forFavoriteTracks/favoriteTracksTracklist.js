@@ -1,9 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { CreatePlaylistItemFavorite } from './playlistItemFavorite.js';
 
 import * as S from '../../components/tracklist/Tracklist.styles';
-import { NavMenuContext } from '../../routes.jsx';
-import { useNavigate } from 'react-router-dom';
+
 
 export const CreateFavoriteTracklist = ({
 	formatTime,
@@ -15,7 +14,6 @@ export const CreateFavoriteTracklist = ({
 	deleteTrackWithId,
 	addTrackWithId,
 	openPlayer,
-	error,
 }) => {
 	
 
