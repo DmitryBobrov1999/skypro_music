@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 
 import { CreateSidebar } from '../../components/sidebar/Sidebar';
-import { CreateFavoriteTracklist } from '../../components/forFavoriteTracks/favoriteTracksTracklist';
+import { CreateFavoriteTracklist } from '../../components/forFavoriteTracks/FavoriteTracksTracklist';
 import { CreateNavMenu } from '../../components/navMenu/NavMenu';
 import * as S from '../main/MainPage.styles';
 import { useNavigate } from 'react-router-dom';

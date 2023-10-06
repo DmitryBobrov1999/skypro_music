@@ -27,7 +27,7 @@ export const CreateSidebar = ({ isLoading, categoryTodos }) => {
 			</S.SidebarPersonal>
 			<S.SidebarBlock>
 				<S.SidebarList>
-					{categoryTodos.map(categoryTodo => (
+					{categoryTodos && categoryTodos.map(categoryTodo => (
 						<S.SidebarItem key={categoryTodo.id}>
 							<S.SidebarLink>
 								{isLoading ? (

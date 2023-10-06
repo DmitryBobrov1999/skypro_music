@@ -43,6 +43,17 @@ const todoSlice = createSlice({
 				state.todos[trackIndex].likedId = !state.todos[trackIndex].likedId;
 			}
 		},
+		toggleCategoryLikedId(state, action) {
+			state.likedId = action.payload;
+			const trackId = state.likedId;
+			const trackIndex = state.categoryTodos.findIndex(
+				track => track.id === trackId
+			);
+			if (trackIndex !== -1) {
+				state.categoryTodos[trackIndex].likedId =
+					!state.categoryTodos[trackIndex].likedId;
+			}
+		},
 		toggleFavoriteLikedId(state, action) {
 			state.likedId = action.payload;
 			const trackId = state.likedId;
@@ -78,26 +89,6 @@ const todoSlice = createSlice({
 			state.status = 'rejected';
 			state.favError = action.payload;
 		});
-		builder.addCase(fetchAddFavoriteTrack.pending, state => {
-			state.status = 'loading';
-		});
-		builder.addCase(fetchAddFavoriteTrack.fulfilled, (state) => {
-			state.status = 'resolved';
-		});
-		builder.addCase(fetchAddFavoriteTrack.rejected, (state, action) => {
-			state.status = 'rejected';
-			state.addError = action.payload;
-		});
-		builder.addCase(fetchDeleteFavoriteTrack.pending, state => {
-			state.status = 'loading';
-		});
-		builder.addCase(fetchDeleteFavoriteTrack.fulfilled, (state) => {
-			state.status = 'resolved';
-		});
-		builder.addCase(fetchDeleteFavoriteTrack.rejected, (state, action) => {
-			state.status = 'rejected';
-			state.delError = action.payload;
-		});
 		builder.addCase(fetchCategoryTodos.pending, state => {
 			state.status = 'loading';
 		});
@@ -109,6 +100,27 @@ const todoSlice = createSlice({
 			state.status = 'rejected';
 			state.catError = action.payload;
 		});
+		builder.addCase(fetchAddFavoriteTrack.pending, state => {
+			state.status = 'loading';
+		});
+		builder.addCase(fetchAddFavoriteTrack.fulfilled, state => {
+			state.status = 'resolved';
+		});
+		builder.addCase(fetchAddFavoriteTrack.rejected, (state, action) => {
+			state.status = 'rejected';
+			state.addError = action.payload;
+		});
+		builder.addCase(fetchDeleteFavoriteTrack.pending, state => {
+			state.status = 'loading';
+		});
+		builder.addCase(fetchDeleteFavoriteTrack.fulfilled, state => {
+			state.status = 'resolved';
+		});
+		builder.addCase(fetchDeleteFavoriteTrack.rejected, (state, action) => {
+			state.status = 'rejected';
+			state.delError = action.payload;
+		});
+		
 	},
 });
 
@@ -116,6 +128,7 @@ export const {
 	setCurrentTrack,
 	setIsPlaying,
 	toggleLikedId,
+	toggleCategoryLikedId,
 	toggleFavoriteLikedId,
 	setTrueIsFavoriteList,
 	setFalseIsFavoriteList,

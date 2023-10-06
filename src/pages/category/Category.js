@@ -1,54 +1,42 @@
-import { useParams } from 'react-router-dom';
-import * as S from '../not-found/NotFound.styles';
+import * as S from '../main/MainPage.styles';
 import React from 'react';
 import { ErrorSidebar } from '../../components/forError/ErrorSidebar';
-import { categoryMock } from './CategoryMock';
-import { CategoryPlaylistItem } from '../../components/playlistItem/CategoryPlaylistitem';
+import { CreateCategoryTracklist } from '../../components/Category/CategoryTracklist';
+
 import { CreateNavMenu } from '../../components/navMenu/NavMenu';
 
-export const Category = ({ categoryTodos }) => {
-	const params = useParams();
+export const Category = ({
+	categoryTodos,
+	formatTime,
+	openPlayer,
+	setSelectedTrackId,
+	selectedTrackId,
+	stop,
+	favoriteTodos,
+	deleteTrackWithId,
+	addTrackWithId,
+	handleCategoryLikeClick,
 
-	const track = categoryMock.find(track => track.id === Number(params.id));
-
-	const someId = categoryTodos.find(id => id.id === Number(params.id));
-
-	console.log(someId);
-
+}) => {
 	return (
 		<S.Wrapper>
 			<S.Container>
 				<S.Main>
 					<CreateNavMenu />
 
-					<S.MainCenterBlock>
-						<S.CenterblockSearch>
-							<S.SearchSvg>
-								<use xlinkHref='/img/icon/sprite.svg#icon-search' />
-							</S.SearchSvg>
-							<S.SearchText type='search' placeholder='Поиск' name='search' />
-						</S.CenterblockSearch>
-						<S.CenterblockH2>{track.category}</S.CenterblockH2>
-
-						<S.CenterblockContent>
-							<S.ContentTitle>
-								<S.PlaylistTitleCol1>Трек</S.PlaylistTitleCol1>
-								<S.PlaylistTitleCol2>ИСПОЛНИТЕЛЬ</S.PlaylistTitleCol2>
-								<S.PlaylistTitleCol3>АЛЬБОМ</S.PlaylistTitleCol3>
-								<S.PlaylistTitleCol4>
-									<S.PlaylistTitleSvg alt='time'>
-										<use xlinkHref='/img/icon/sprite.svg#icon-watch' />
-									</S.PlaylistTitleSvg>
-								</S.PlaylistTitleCol4>
-							</S.ContentTitle>
-							<S.ContentPlaylist>
-								<CategoryPlaylistItem
-									someId={someId}
-									categoryTodos={categoryTodos}
-								/>
-							</S.ContentPlaylist>
-						</S.CenterblockContent>
-					</S.MainCenterBlock>
+					<CreateCategoryTracklist
+						categoryTodos={categoryTodos}
+						formatTime={formatTime}
+						openPlayer={openPlayer}
+						setSelectedTrackId={setSelectedTrackId}
+						selectedTrackId={selectedTrackId}
+						stop={stop}
+						favoriteTodos={favoriteTodos}
+						deleteTrackWithId={deleteTrackWithId}
+						addTrackWithId={addTrackWithId}
+						handleCategoryLikeClick={handleCategoryLikeClick}
+					
+					/>
 
 					<ErrorSidebar />
 				</S.Main>

@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useParams } from 'react-router-dom';
 import { AuthPage } from './pages/auth/AuthPage';
 import { Home } from './pages/main/MainPage';
 import React, { useState, useEffect, createContext, useRef } from 'react';
@@ -8,6 +8,7 @@ import { Category } from './pages/category/Category';
 import { ProtectedRoute } from './components/protected-route/ProtectedRoute';
 import {
 	setCurrentTrack,
+	toggleCategoryLikedId,
 	toggleFavoriteLikedId,
 	toggleLikedId,
 } from './redux/slice/todoSlice';
@@ -18,6 +19,7 @@ import { fetchDeleteFavoriteTrack } from './api/deleteFavoriteTrackApi';
 import { fetchAddFavoriteTrack } from './api/addFavoriteTrackApi';
 import { CreateAudioPlayer } from './components/audioPlayer/AudioPlayer';
 import { fetchCategoryTodos } from './api/categoryTodosApi';
+import { categoryMock } from './pages/category/CategoryMock';
 
 export const NavMenuContext = createContext(null);
 
@@ -39,9 +41,8 @@ export const AppRoutes = () => {
 
 	const [selectedTrackId, setSelectedTrackId] = useState(null);
 
-	const { isPlaying, todos, error, favoriteTodos, favError, categoryTodos } = useSelector(
-		state => state.trackList
-	);
+	const { isPlaying, todos, error, favoriteTodos, favError, categoryTodos } =
+		useSelector(state => state.trackList);
 
 	const dispatch = useDispatch();
 
@@ -105,6 +106,14 @@ export const AppRoutes = () => {
 	const handleFavoriteLikeClick = trackId => {
 		dispatch(toggleFavoriteLikedId(trackId));
 	};
+
+	const handleCategoryLikeClick = trackId => {
+		dispatch(toggleCategoryLikedId(trackId));
+	};
+
+
+
+	
 
 	return (
 		<PersonalNameContext.Provider value={value}>
@@ -187,7 +196,19 @@ export const AppRoutes = () => {
 					element={
 						<ProtectedRoute>
 							<NavMenuContext.Provider value={removeUser}>
-								<Category categoryTodos={categoryTodos} />
+								<Category
+									categoryTodos={categoryTodos}
+									formatTime={formatTime}
+									openPlayer={openPlayer}
+									setSelectedTrackId={setSelectedTrackId}
+									selectedTrackId={selectedTrackId}
+									stop={stop}
+									favoriteTodos={favoriteTodos}
+									deleteTrackWithId={deleteTrackWithId}
+									addTrackWithId={addTrackWithId}
+									handleCategoryLikeClick={handleCategoryLikeClick}
+
+								/>
 								<CreateAudioPlayer
 									selectedTrackId={selectedTrackId}
 									setSelectedTrackId={setSelectedTrackId}

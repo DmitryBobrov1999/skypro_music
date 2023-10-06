@@ -36,8 +36,14 @@ export const CreateAudioPlayer = ({ setSelectedTrackId }) => {
 
 	const playAnimationRef = useRef();
 
-	const { isPlaying, todos, currentPlayer, favoriteTodos, isFavoriteList } =
-		useSelector(state => state.trackList);
+	const {
+		isPlaying,
+		todos,
+		currentPlayer,
+		favoriteTodos,
+		isFavoriteList,
+		categoryTodos,
+	} = useSelector(state => state.trackList);
 
 	useEffect(() => {
 		if (audioRef && audioRef.current) {
@@ -88,6 +94,7 @@ export const CreateAudioPlayer = ({ setSelectedTrackId }) => {
 	const handleBack = () => {
 		const todosIndex = todos.indexOf(currentPlayer);
 		const favoriteTodosIndex = favoriteTodos.indexOf(currentPlayer);
+		const categoryTodosIndex = categoryTodos.indexOf(currentPlayer);
 
 		if (todosIndex === 0 && !isFavoriteList) {
 			dispatch(setCurrentTrack(todos[0]));
@@ -99,8 +106,15 @@ export const CreateAudioPlayer = ({ setSelectedTrackId }) => {
 		} else if (favoriteTodosIndex === 0 && isFavoriteList) {
 			dispatch(setCurrentTrack(favoriteTodos[0]));
 			setSelectedTrackId(favoriteTodos[0].id);
-		} else {
+		} else if (favoriteTodosIndex !== 0 && isFavoriteList) {
 			const prevTrack = favoriteTodos[favoriteTodosIndex - 1];
+			dispatch(setCurrentTrack(prevTrack));
+			setSelectedTrackId(prevTrack.id);
+		} else if (categoryTodosIndex === 0 && !isFavoriteList) {
+			dispatch(setCurrentTrack(categoryTodos[0]));
+			setSelectedTrackId(categoryTodos[0].id);
+		} else {
+			const prevTrack = categoryTodos[categoryTodosIndex - 1];
 			dispatch(setCurrentTrack(prevTrack));
 			setSelectedTrackId(prevTrack.id);
 		}
@@ -109,6 +123,7 @@ export const CreateAudioPlayer = ({ setSelectedTrackId }) => {
 	const handleNext = () => {
 		const todosIndex = todos.indexOf(currentPlayer);
 		const favoriteTodosIndex = favoriteTodos.indexOf(currentPlayer);
+		const categoryTodosIndex = categoryTodos.indexOf(currentPlayer);
 
 		if (todosIndex === todos.length - 1 && !isFavoriteList) {
 			dispatch(setCurrentTrack(todos[todos.length - 1]));
@@ -123,8 +138,15 @@ export const CreateAudioPlayer = ({ setSelectedTrackId }) => {
 		) {
 			dispatch(setCurrentTrack(favoriteTodos[favoriteTodos.length - 1]));
 			setSelectedTrackId(favoriteTodos[favoriteTodos.length - 1].id);
-		} else {
+		} else if (favoriteTodosIndex !== favoriteTodos.length - 1 && isFavoriteList) {
 			const nextTrack = favoriteTodos[favoriteTodosIndex + 1];
+			dispatch(setCurrentTrack(nextTrack));
+			setSelectedTrackId(nextTrack.id);
+		} else if (categoryTodosIndex === categoryTodos.length - 1 && isFavoriteList) {
+			dispatch(setCurrentTrack(categoryTodos[categoryTodos.length - 1]));
+			setSelectedTrackId(categoryTodos[categoryTodos.length - 1].id);
+		} else {
+			const nextTrack = categoryTodos[categoryTodosIndex + 1];
 			dispatch(setCurrentTrack(nextTrack));
 			setSelectedTrackId(nextTrack.id);
 		}

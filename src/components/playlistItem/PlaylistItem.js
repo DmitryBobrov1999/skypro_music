@@ -51,7 +51,7 @@ export const CreatePlaylistItem = ({
 										</S.TrackTitleSvg>
 									)}
 								</S.TrackTitleImage>
-								<S.TrackTitleText className='track__title-text'>
+								<S.TrackTitleText >
 									<S.TrackTitleLink
 										onClick={() => {
 											openPlayer(track);
@@ -70,7 +70,7 @@ export const CreatePlaylistItem = ({
 							<S.TrackAlbum>
 								<S.TrackAlbumLink>{track.album}</S.TrackAlbumLink>
 							</S.TrackAlbum>
-							<S.TrackTime className='track__time'>
+							<S.TrackTime>
 								{favoriteTodos.find(t => t.id === track.id) ? (
 									<S.TrackTimeSvgActive
 										onClick={() => {

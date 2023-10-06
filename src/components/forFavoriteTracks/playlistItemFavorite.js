@@ -5,6 +5,7 @@ import { setTrueIsFavoriteList } from '../../redux/slice/todoSlice';
 
 import * as S from '../playlistItem/PlaylistItem.styles';
 import { NavMenuContext } from '../../routes';
+
 export const CreatePlaylistItemFavorite = ({
 	openPlayer,
 	formatTime,
@@ -35,7 +36,7 @@ export const CreatePlaylistItemFavorite = ({
 		favoriteTodos.map(favoriteTrack => (
 			<S.PlaylistItem key={favoriteTrack.id}>
 				<S.PlaylistTrack>
-					<>
+					
 						<S.TrackTitle>
 							<S.TrackTitleImage>
 								{selectedTrackId === favoriteTrack.id ? (
@@ -46,7 +47,7 @@ export const CreatePlaylistItemFavorite = ({
 									</S.TrackTitleSvg>
 								)}
 							</S.TrackTitleImage>
-							<S.TrackTitleText className='track__title-text'>
+							<S.TrackTitleText >
 								<S.TrackTitleLink
 									onClick={() => {
 										openPlayer(favoriteTrack);
@@ -65,7 +66,7 @@ export const CreatePlaylistItemFavorite = ({
 						<S.TrackAlbum>
 							<S.TrackAlbumLink>{favoriteTrack.album}</S.TrackAlbumLink>
 						</S.TrackAlbum>
-						<S.TrackTime className='track__time'>
+						<S.TrackTime >
 							{favoriteTodos.find(t => t.id) ? (
 								<S.TrackTimeSvgActive
 									onClick={() => {
@@ -93,7 +94,7 @@ export const CreatePlaylistItemFavorite = ({
 								{formatTime(favoriteTrack.duration_in_seconds)}
 							</S.TrackTimeText>
 						</S.TrackTime>
-					</>
+					
 				</S.PlaylistTrack>
 			</S.PlaylistItem>
 		))

@@ -1,28 +1,38 @@
 import React from 'react';
-import { CreatePlaylistItemFavorite } from './PlaylistItemFavorite.js';
-
+import { CreatePlaylistItemCategory } from './PlaylistItemCategory';
+import { categoryMock } from '../../pages/category/CategoryMock';
 import * as S from '../tracklist/Tracklist.styles';
+import { useParams } from 'react-router-dom';
 
-export const CreateFavoriteTracklist = ({
+export const CreateCategoryTracklist = ({
+	categoryTodos,
 	formatTime,
-	stop,
+	openPlayer,
 	setSelectedTrackId,
 	selectedTrackId,
+	stop,
 	favoriteTodos,
-	handleFavoriteLikeClick,
 	deleteTrackWithId,
 	addTrackWithId,
-	openPlayer,
+	handleCategoryLikeClick,
 }) => {
+	const params = useParams();
+
+	const track = categoryMock.find(track => track.id === Number(params.id));
+
+	const categoryTodo = categoryTodos.find(id => id.id === Number(params.id));
+
+	
+
 	return (
 		<S.MainCenterBlock>
 			<S.CenterblockSearch>
 				<S.SearchSvg>
-					<use xlinkHref='img/icon/sprite.svg#icon-search' />
+					<use xlinkHref='/img/icon/sprite.svg#icon-search' />
 				</S.SearchSvg>
 				<S.SearchText type='search' placeholder='Поиск' name='search' />
 			</S.CenterblockSearch>
-			<S.CenterblockH2>Мои треки</S.CenterblockH2>
+			<S.CenterblockH2>{track.category}</S.CenterblockH2>
 
 			<S.CenterblockContent>
 				<S.ContentTitle>
@@ -31,21 +41,22 @@ export const CreateFavoriteTracklist = ({
 					<S.PlaylistTitleCol3>АЛЬБОМ</S.PlaylistTitleCol3>
 					<S.PlaylistTitleCol4>
 						<S.PlaylistTitleSvg alt='time'>
-							<use xlinkHref='img/icon/sprite.svg#icon-watch' />
+							<use xlinkHref='/img/icon/sprite.svg#icon-watch' />
 						</S.PlaylistTitleSvg>
 					</S.PlaylistTitleCol4>
 				</S.ContentTitle>
 				<S.ContentCategoryPlaylist>
-					<CreatePlaylistItemFavorite
-						$stop={stop}
-						openPlayer={openPlayer}
+					<CreatePlaylistItemCategory
 						formatTime={formatTime}
+						categoryTodo={categoryTodo}
+						openPlayer={openPlayer}
 						setSelectedTrackId={setSelectedTrackId}
 						selectedTrackId={selectedTrackId}
+						stop={stop}
 						favoriteTodos={favoriteTodos}
-						handleFavoriteLikeClick={handleFavoriteLikeClick}
 						deleteTrackWithId={deleteTrackWithId}
 						addTrackWithId={addTrackWithId}
+						handleCategoryLikeClick={handleCategoryLikeClick}
 					/>
 				</S.ContentCategoryPlaylist>
 			</S.CenterblockContent>
