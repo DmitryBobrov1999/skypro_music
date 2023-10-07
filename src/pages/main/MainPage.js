@@ -25,6 +25,8 @@ export const Home = ({
 	setTodosValue,
 	catError,
 	setRealTodos,
+	toggleFilterByRock,
+
 }) => {
 	const navigate = useNavigate();
 
@@ -72,6 +74,8 @@ export const Home = ({
 						filteredTodos={filteredTodos}
 						setTodosValue={setTodosValue}
 						setRealTodos={setRealTodos}
+						toggleFilterByRock={toggleFilterByRock}
+
 					/>
 					<CreateSidebar isLoading={isLoading} categoryTodos={categoryTodos} />
 				</S.Main>

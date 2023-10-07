@@ -8,7 +8,8 @@ import { SearchByYear } from './searchByButton/SearchByYear.js';
 import { SearchByGenre } from './searchByButton/SearchByGenre.js';
 import { useState } from 'react';
 import * as S from './Tracklist.styles';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setTodosValue } from '../../redux/slice/todoSlice.js';
 
 
 export const CreateTracklist = ({
@@ -25,20 +26,19 @@ export const CreateTracklist = ({
 	openPlayer,
 	favoriteTodos,
 	filteredTodos,
-	setTodosValue,
 	setRealTodos,
+	toggleFilterByRock,
+
 }) => {
 	const [$visibleFilter, setVisibleFilter] = useState(null);
 
 	const openFilter = filterName => {
 		setVisibleFilter(filterName);
 	};
-
+	const dispatch = useDispatch();
 	const closeAllFilters = () => {
 		setVisibleFilter(null);
 	};
-
-	const { todosValue } = useSelector(state => state.trackList);
 
 	return (
 		<S.MainCenterBlock>
@@ -51,7 +51,9 @@ export const CreateTracklist = ({
 					type='search'
 					placeholder='Поиск'
 					name='search'
-					onChange={event => setTodosValue(event.target.value)}
+					onChange={event => {
+						dispatch(setTodosValue(event.target.value));
+					}}
 				/>
 			</S.CenterblockSearch>
 			<S.CenterblockH2>Треки</S.CenterblockH2>
@@ -73,6 +75,9 @@ export const CreateTracklist = ({
 					$visibleFilter={$visibleFilter === 'year'}
 				/>
 				<SearchByGenre
+					toggleFilterByRock={toggleFilterByRock}
+					filteredTodos={filteredTodos}
+					todos={todos}
 					openFilter={openFilter}
 					closeAllFilters={closeAllFilters}
 					genreData={genreData}

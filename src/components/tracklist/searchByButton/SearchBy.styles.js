@@ -52,9 +52,7 @@ export const ByText = styled.p`
 		color: #b672ff;
 		text-decoration: underline;
 	}
-	[data-index='default'] {
-		color: ${props => (props.$sortYearDefault ? '#b672ff' : '#ffffff')};
-	}
+	
 `;
 
 export const ByPar = styled.p`

@@ -49,9 +49,10 @@ export const AppRoutes = () => {
 		favError,
 		categoryTodos,
 		catError,
+		todosValue,
 	} = useSelector(state => state.trackList);
 
-	const [todosValue, setTodosValue] = useState('');
+
 
 	const [favTodosValue, setFavTodosValue] = useState('');
 
@@ -171,8 +172,8 @@ export const AppRoutes = () => {
 									favError={favError}
 									categoryTodos={categoryTodos}
 									filteredTodos={filteredTodos}
-									setTodosValue={setTodosValue}
 									catError={catError}
+
 								/>
 								<CreateAudioPlayer
 									selectedTrackId={selectedTrackId}

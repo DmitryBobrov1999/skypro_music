@@ -24,6 +24,9 @@ const todoSlice = createSlice({
 		sortYearNew: false,
 		sortYearOld: false,
 		sortYearDefault: false,
+		// selectedRockGenre: false,
+		// selectedClassicGenre: false,
+		todosValue: '',
 	},
 	reducers: {
 		setCurrentTrack(state, action) {
@@ -38,6 +41,39 @@ const todoSlice = createSlice({
 		setIsPlaying(state) {
 			state.isPlaying = !state.isPlaying;
 		},
+
+		setTodosValue(state, action) {
+			state.todosValue = action.payload;
+		},
+		setTodos(state, action) {
+			state.todos = action.payload
+		},
+		// sortBySearch(state) {
+		// 	state.todos = state.todos.filter(track => {
+		// 		return track.name
+		// 			.toLowerCase()
+		// 			.includes(state.todosValue.toLowerCase());
+		// 	});
+			
+			
+		// },
+
+		// sortByRockGenre(state) {
+		// 	// state.selectedClassicGenre = false;
+		// 	state.selectedRockGenre = true;
+		// 	if (state.selectedRockGenre) {
+		// 		state.todos = state.todos.filter(track => track.genre === 'Рок музыка');
+		// 	}
+		// },
+		// sortByClassicGenre(state) {
+		// 	// state.selectedRockGenre = false;
+		// 	state.selectedClassicGenre = true;
+		// 	if (state.selectedClassicGenre) {
+		// 		state.todos = state.todos.filter(
+		// 			track => track.genre === 'Классическая музыка'
+		// 		);
+		// 	}
+		// },
 		sortStartFromTheNew(state) {
 			state.sortYearOld = false;
 			state.sortYearNew = true;
@@ -54,7 +90,6 @@ const todoSlice = createSlice({
 				state.todos.sort((a, b) => (a.release_date < b.release_date ? -1 : 1));
 			}
 		},
-
 		sortStartFromDefault(state) {
 			state.sortYearNew = false;
 			state.sortYearOld = false;
@@ -63,6 +98,7 @@ const todoSlice = createSlice({
 
 		toggleLikedId(state, action) {
 			state.likedId = action.payload;
+
 			const trackId = state.likedId;
 			const trackIndex = state.todos.findIndex(track => track.id === trackId);
 			if (trackIndex !== -1) {
@@ -160,6 +196,8 @@ export const {
 	sortStartFromTheNew,
 	sortStartFromTheOld,
 	sortStartFromDefault,
+	setTodos,
+	setTodosValue,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;

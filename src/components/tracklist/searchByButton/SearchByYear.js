@@ -40,6 +40,8 @@ export const SearchByYear = ({
 		dispatch(fetchTodos());
 	};
 
+	
+
 	return (
 		<>
 			<S.FilterButton onClick={toggleYear} $visibleFilter={$visibleFilter}>
@@ -48,20 +50,28 @@ export const SearchByYear = ({
 			<S.ByYearMegaBlock $visibleFilter={$visibleFilter}>
 				<S.ByYearBlock>
 					<S.ByText
-						data-index='default'
-						$sortYearDefault={sortYearDefault}
+						style={{
+							color: `${sortYearDefault ? '#b672ff' : '#ffffff'}`,
+							textDecoration: `${sortYearDefault ? 'underline' : 'none'}`,
+						}}
 						onClick={handleSortStartFromDefault}
 					>
 						По умолчанию
 					</S.ByText>
 					<S.ByText
-						$sortYearNew={sortYearNew}
+						style={{
+							color: `${sortYearNew ? '#b672ff' : '#ffffff'}`,
+							textDecoration: `${sortYearNew ? 'underline' : 'none'}`,
+						}}
 						onClick={handleSortStartFromTheNew}
 					>
 						Сначала новые
 					</S.ByText>
 					<S.ByText
-						$sortYearOld={sortYearOld}
+						style={{
+							color: `${sortYearOld ? '#b672ff' : '#ffffff'}`,
+							textDecoration: `${sortYearOld ? 'underline' : 'none'}`,
+						}}
 						onClick={handleSortStartFromTheOld}
 					>
 						Сначала старые
