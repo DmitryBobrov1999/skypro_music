@@ -22,8 +22,6 @@ export const CreateCategoryTracklist = ({
 
 	const categoryTodo = categoryTodos.find(id => id.id === Number(params.id));
 
-	
-
 	return (
 		<S.MainCenterBlock>
 			<S.CenterblockSearch>

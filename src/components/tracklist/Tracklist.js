@@ -8,6 +8,7 @@ import { SearchByYear } from './searchByButton/SearchByYear.js';
 import { SearchByGenre } from './searchByButton/SearchByGenre.js';
 import { useState } from 'react';
 import * as S from './Tracklist.styles';
+import { useSelector } from 'react-redux';
 
 
 export const CreateTracklist = ({
@@ -23,6 +24,9 @@ export const CreateTracklist = ({
 	handleLikeClick,
 	openPlayer,
 	favoriteTodos,
+	filteredTodos,
+	setTodosValue,
+	setRealTodos,
 }) => {
 	const [$visibleFilter, setVisibleFilter] = useState(null);
 
@@ -34,13 +38,21 @@ export const CreateTracklist = ({
 		setVisibleFilter(null);
 	};
 
+	const { todosValue } = useSelector(state => state.trackList);
+
 	return (
 		<S.MainCenterBlock>
 			<S.CenterblockSearch>
 				<S.SearchSvg>
 					<use xlinkHref='img/icon/sprite.svg#icon-search' />
 				</S.SearchSvg>
-				<S.SearchText type='search' placeholder='Поиск' name='search' />
+
+				<S.SearchText
+					type='search'
+					placeholder='Поиск'
+					name='search'
+					onChange={event => setTodosValue(event.target.value)}
+				/>
 			</S.CenterblockSearch>
 			<S.CenterblockH2>Треки</S.CenterblockH2>
 			<S.CenterblockFilter>
@@ -52,6 +64,9 @@ export const CreateTracklist = ({
 					$visibleFilter={$visibleFilter === 'artist'}
 				/>
 				<SearchByYear
+					todos={todos}
+					setRealTodos={setRealTodos}
+					filteredTodos={filteredTodos}
 					openFilter={openFilter}
 					closeAllFilters={closeAllFilters}
 					yearData={yearData}
@@ -83,6 +98,7 @@ export const CreateTracklist = ({
 					)}
 					<CreatePlaylistItem
 						todos={todos}
+						filteredTodos={filteredTodos}
 						$stop={stop}
 						isLoading={isLoading}
 						openPlayer={openPlayer}

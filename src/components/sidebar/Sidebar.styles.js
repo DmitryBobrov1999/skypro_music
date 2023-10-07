@@ -69,3 +69,9 @@ export const SidebarLink = styled.div`width: 100%;
 export const SidebarImg = styled.img`width: 100%;
 	height: auto;`
 
+export const LogoutSvg = styled.svg`
+	width: 43px;
+	height: 43px;
+`;
+
+

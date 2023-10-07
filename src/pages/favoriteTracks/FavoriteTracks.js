@@ -19,6 +19,9 @@ export const FavoriteTracks = ({
 	openPlayer,
 	error,
 	favError,
+	filteredFavoriteTodos,
+	setFavTodosValue,
+	catError,
 }) => {
 	const navigate = useNavigate();
 
@@ -38,6 +41,13 @@ export const FavoriteTracks = ({
 		}
 	}, [favError]);
 
+	useEffect(() => {
+		if (catError === 401) {
+			getNavMenuContext();
+			navigate('/login');
+		}
+	}, [catError]);
+
 	return (
 		<S.Wrapper>
 			<S.Container>
@@ -55,6 +65,8 @@ export const FavoriteTracks = ({
 						addTrackWithId={addTrackWithId}
 						openPlayer={openPlayer}
 						error={error}
+						filteredFavoriteTodos={filteredFavoriteTodos}
+						setFavTodosValue={setFavTodosValue}
 					/>
 					<CreateSidebar isLoading={isLoading} />
 				</S.Main>

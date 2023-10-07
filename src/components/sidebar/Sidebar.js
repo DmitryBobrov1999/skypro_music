@@ -19,9 +19,9 @@ export const CreateSidebar = ({ isLoading, categoryTodos }) => {
 
 				<S.SidebarIcon onClick={getNavMenuContext}>
 					<NavLink to='/login'>
-						<svg alt='logout'>
+						<S.LogoutSvg alt='logout'>
 							<use xlinkHref='/img/icon/sprite.svg#logout' />
-						</svg>
+						</S.LogoutSvg>
 					</NavLink>
 				</S.SidebarIcon>
 			</S.SidebarPersonal>

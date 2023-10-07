@@ -13,6 +13,8 @@ export const CreateFavoriteTracklist = ({
 	deleteTrackWithId,
 	addTrackWithId,
 	openPlayer,
+	filteredFavoriteTodos,
+	setFavTodosValue,
 }) => {
 	return (
 		<S.MainCenterBlock>
@@ -20,7 +22,12 @@ export const CreateFavoriteTracklist = ({
 				<S.SearchSvg>
 					<use xlinkHref='img/icon/sprite.svg#icon-search' />
 				</S.SearchSvg>
-				<S.SearchText type='search' placeholder='Поиск' name='search' />
+				<S.SearchText
+					type='search'
+					placeholder='Поиск'
+					name='search'
+					onChange={event => setFavTodosValue(event.target.value)}
+				/>
 			</S.CenterblockSearch>
 			<S.CenterblockH2>Мои треки</S.CenterblockH2>
 
@@ -42,6 +49,7 @@ export const CreateFavoriteTracklist = ({
 						formatTime={formatTime}
 						setSelectedTrackId={setSelectedTrackId}
 						selectedTrackId={selectedTrackId}
+						filteredFavoriteTodos={filteredFavoriteTodos}
 						favoriteTodos={favoriteTodos}
 						handleFavoriteLikeClick={handleFavoriteLikeClick}
 						deleteTrackWithId={deleteTrackWithId}

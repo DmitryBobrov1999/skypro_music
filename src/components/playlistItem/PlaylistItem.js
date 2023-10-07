@@ -10,7 +10,6 @@ export const CreatePlaylistItem = ({
 	isLoading,
 	openPlayer,
 	formatTime,
-	todos,
 	$stop,
 	setSelectedTrackId,
 	selectedTrackId,
@@ -18,6 +17,7 @@ export const CreatePlaylistItem = ({
 	deleteTrackWithId,
 	handleLikeClick,
 	favoriteTodos,
+	filteredTodos,
 }) => {
 	const dispatch = useDispatch();
 
@@ -35,8 +35,8 @@ export const CreatePlaylistItem = ({
 	};
 
 	return (
-		todos &&
-		todos.map(track => (
+		filteredTodos &&
+		filteredTodos.map(track => (
 			<S.PlaylistItem key={track.id}>
 				<S.PlaylistTrack>
 					{isLoading ? (
@@ -51,7 +51,7 @@ export const CreatePlaylistItem = ({
 										</S.TrackTitleSvg>
 									)}
 								</S.TrackTitleImage>
-								<S.TrackTitleText >
+								<S.TrackTitleText>
 									<S.TrackTitleLink
 										onClick={() => {
 											openPlayer(track);
@@ -76,7 +76,7 @@ export const CreatePlaylistItem = ({
 										onClick={() => {
 											handleLikeClick(track.id);
 											deleteTrackWithId(track.id);
-											checkForError()
+											checkForError();
 										}}
 										alt='likeActive'
 									>
@@ -87,7 +87,7 @@ export const CreatePlaylistItem = ({
 										onClick={() => {
 											handleLikeClick(track.id);
 											addTrackWithId(track.id);
-											checkForError()
+											checkForError();
 										}}
 										alt='like'
 									>

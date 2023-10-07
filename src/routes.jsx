@@ -1,4 +1,4 @@
-import { Routes, Route, useParams } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AuthPage } from './pages/auth/AuthPage';
 import { Home } from './pages/main/MainPage';
 import React, { useState, useEffect, createContext, useRef } from 'react';
@@ -19,7 +19,7 @@ import { fetchDeleteFavoriteTrack } from './api/deleteFavoriteTrackApi';
 import { fetchAddFavoriteTrack } from './api/addFavoriteTrackApi';
 import { CreateAudioPlayer } from './components/audioPlayer/AudioPlayer';
 import { fetchCategoryTodos } from './api/categoryTodosApi';
-import { categoryMock } from './pages/category/CategoryMock';
+
 
 export const NavMenuContext = createContext(null);
 
@@ -41,8 +41,19 @@ export const AppRoutes = () => {
 
 	const [selectedTrackId, setSelectedTrackId] = useState(null);
 
-	const { isPlaying, todos, error, favoriteTodos, favError, categoryTodos } =
-		useSelector(state => state.trackList);
+	const {
+		isPlaying,
+		todos,
+		error,
+		favoriteTodos,
+		favError,
+		categoryTodos,
+		catError,
+	} = useSelector(state => state.trackList);
+
+	const [todosValue, setTodosValue] = useState('');
+
+	const [favTodosValue, setFavTodosValue] = useState('');
 
 	const dispatch = useDispatch();
 
@@ -111,7 +122,13 @@ export const AppRoutes = () => {
 		dispatch(toggleCategoryLikedId(trackId));
 	};
 
+	const filteredTodos = todos.filter(track => {
+		return track.name.toLowerCase().includes(todosValue.toLowerCase());
+	});
 
+	const filteredFavoriteTodos = favoriteTodos.filter(track => {
+		return track.name.toLowerCase().includes(favTodosValue.toLowerCase());
+	});
 
 	
 
@@ -153,10 +170,15 @@ export const AppRoutes = () => {
 									openPlayer={openPlayer}
 									favError={favError}
 									categoryTodos={categoryTodos}
+									filteredTodos={filteredTodos}
+									setTodosValue={setTodosValue}
+									catError={catError}
 								/>
 								<CreateAudioPlayer
 									selectedTrackId={selectedTrackId}
 									setSelectedTrackId={setSelectedTrackId}
+									filteredTodos={filteredTodos}
+									filteredFavoriteTodos={filteredFavoriteTodos}
 								/>
 							</NavMenuContext.Provider>
 						</ProtectedRoute>
@@ -181,10 +203,15 @@ export const AppRoutes = () => {
 									formatTime={formatTime}
 									openPlayer={openPlayer}
 									favError={favError}
+									filteredFavoriteTodos={filteredFavoriteTodos}
+									setFavTodosValue={setFavTodosValue}
+									catError={catError}
 								/>
 								<CreateAudioPlayer
 									selectedTrackId={selectedTrackId}
 									setSelectedTrackId={setSelectedTrackId}
+									// filteredTodos={filteredTodos}
+									filteredFavoriteTodos={filteredFavoriteTodos}
 								/>
 							</NavMenuContext.Provider>
 						</ProtectedRoute>
@@ -207,11 +234,15 @@ export const AppRoutes = () => {
 									deleteTrackWithId={deleteTrackWithId}
 									addTrackWithId={addTrackWithId}
 									handleCategoryLikeClick={handleCategoryLikeClick}
-
+									favError={favError}
+									catError={catError}
+									error={error}
 								/>
 								<CreateAudioPlayer
 									selectedTrackId={selectedTrackId}
 									setSelectedTrackId={setSelectedTrackId}
+									// filteredTodos={filteredTodos}
+									filteredFavoriteTodos={filteredFavoriteTodos}
 								/>
 							</NavMenuContext.Provider>
 						</ProtectedRoute>

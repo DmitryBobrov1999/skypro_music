@@ -21,6 +21,10 @@ export const Home = ({
 	favoriteTodos,
 	favError,
 	categoryTodos,
+	filteredTodos,
+	setTodosValue,
+	catError,
+	setRealTodos,
 }) => {
 	const navigate = useNavigate();
 
@@ -40,6 +44,13 @@ export const Home = ({
 		}
 	}, [favError]);
 
+	useEffect(() => {
+		if (catError === 401) {
+			getNavMenuContext();
+			navigate('/login');
+		}
+	}, [catError]);
+
 	return (
 		<S.Wrapper>
 			<S.Container>
@@ -58,6 +69,9 @@ export const Home = ({
 						handleLikeClick={handleLikeClick}
 						openPlayer={openPlayer}
 						favoriteTodos={favoriteTodos}
+						filteredTodos={filteredTodos}
+						setTodosValue={setTodosValue}
+						setRealTodos={setRealTodos}
 					/>
 					<CreateSidebar isLoading={isLoading} categoryTodos={categoryTodos} />
 				</S.Main>

@@ -26,7 +26,15 @@ export const SearchByGenre = ({
 				Жанру
 			</S.FilterButton>
 			<S.ByGenreMegaBlock $visibleFilter={$visibleFilter}>
-				<S.byArtistBlock>{genreList}</S.byArtistBlock>
+				<S.byArtistBlock>
+					{/* <S.ByText>Рок</S.ByText>
+					<S.ByText>Хип-хоп</S.ByText>
+					<S.ByText>Поп-музыка</S.ByText>
+					<S.ByText>Техно</S.ByText>
+					<S.ByText>Инди</S.ByText>
+					<S.ByText>Метал</S.ByText>
+					<S.ByText>Классическая музыка</S.ByText> */}
+				</S.byArtistBlock>
 			</S.ByGenreMegaBlock>
 		</>
 	);

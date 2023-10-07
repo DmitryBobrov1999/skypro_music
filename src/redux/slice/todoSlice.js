@@ -21,6 +21,9 @@ const todoSlice = createSlice({
 		addError: null,
 		delError: null,
 		catError: null,
+		sortYearNew: false,
+		sortYearOld: false,
+		sortYearDefault: false,
 	},
 	reducers: {
 		setCurrentTrack(state, action) {
@@ -35,6 +38,29 @@ const todoSlice = createSlice({
 		setIsPlaying(state) {
 			state.isPlaying = !state.isPlaying;
 		},
+		sortStartFromTheNew(state) {
+			state.sortYearOld = false;
+			state.sortYearNew = true;
+			state.sortYearDefault = false;
+			if (state.sortYearNew) {
+				state.todos.sort((a, b) => (a.release_date > b.release_date ? -1 : 1));
+			}
+		},
+		sortStartFromTheOld(state) {
+			state.sortYearNew = false;
+			state.sortYearOld = true;
+			state.sortYearDefault = false;
+			if (state.sortYearOld) {
+				state.todos.sort((a, b) => (a.release_date < b.release_date ? -1 : 1));
+			}
+		},
+
+		sortStartFromDefault(state) {
+			state.sortYearNew = false;
+			state.sortYearOld = false;
+			state.sortYearDefault = true;
+		},
+
 		toggleLikedId(state, action) {
 			state.likedId = action.payload;
 			const trackId = state.likedId;
@@ -120,7 +146,6 @@ const todoSlice = createSlice({
 			state.status = 'rejected';
 			state.delError = action.payload;
 		});
-		
 	},
 });
 
@@ -132,6 +157,9 @@ export const {
 	toggleFavoriteLikedId,
 	setTrueIsFavoriteList,
 	setFalseIsFavoriteList,
+	sortStartFromTheNew,
+	sortStartFromTheOld,
+	sortStartFromDefault,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;
