@@ -1,9 +1,7 @@
 import React, { useContext } from 'react';
 import { useState } from 'react';
 import * as S from './BurgerBlock.styles';
-import { NavMenuContext } from '../../../routes'; 
-import { useDispatch } from 'react-redux';
-import { fetchTodos } from '../../../api/todosApi';
+import { NavMenuContext } from '../../../routes';
 
 export const BurgerBlock = () => {
 	const [visible, setVisible] = useState(true);
@@ -11,8 +9,6 @@ export const BurgerBlock = () => {
 	const toggleVisibility = () => setVisible(!visible);
 
 	const getNavMenuContext = useContext(NavMenuContext);
-
-	const dispatch = useDispatch()
 
 	return (
 		<>
@@ -27,7 +23,7 @@ export const BurgerBlock = () => {
 						<S.MenuLink to='/'>Главное</S.MenuLink>
 					</S.MenuItem>
 					<S.MenuItem>
-						<S.MenuLink  to='/favorite'>Мой плейлист</S.MenuLink>
+						<S.MenuLink to='/favorite'>Мой плейлист</S.MenuLink>
 					</S.MenuItem>
 					<S.MenuItem onClick={getNavMenuContext}>
 						<S.MenuLink to='/login'>Выйти</S.MenuLink>

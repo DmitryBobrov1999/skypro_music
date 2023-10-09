@@ -173,13 +173,16 @@ export const AppRoutes = () => {
 									categoryTodos={categoryTodos}
 									filteredTodos={filteredTodos}
 									catError={catError}
-
 								/>
 								<CreateAudioPlayer
 									selectedTrackId={selectedTrackId}
 									setSelectedTrackId={setSelectedTrackId}
 									filteredTodos={filteredTodos}
 									filteredFavoriteTodos={filteredFavoriteTodos}
+									handleLikeClick={handleLikeClick}
+									addTrackWithId={addTrackWithId}
+									deleteTrackWithId={deleteTrackWithId}
+									favoriteTodos={favoriteTodos}
 								/>
 							</NavMenuContext.Provider>
 						</ProtectedRoute>
@@ -213,6 +216,10 @@ export const AppRoutes = () => {
 									setSelectedTrackId={setSelectedTrackId}
 									// filteredTodos={filteredTodos}
 									filteredFavoriteTodos={filteredFavoriteTodos}
+									handleLikeClick={handleLikeClick}
+									addTrackWithId={addTrackWithId}
+									deleteTrackWithId={deleteTrackWithId}
+									favoriteTodos={favoriteTodos}
 								/>
 							</NavMenuContext.Provider>
 						</ProtectedRoute>
@@ -244,6 +251,10 @@ export const AppRoutes = () => {
 									setSelectedTrackId={setSelectedTrackId}
 									// filteredTodos={filteredTodos}
 									filteredFavoriteTodos={filteredFavoriteTodos}
+									handleLikeClick={handleLikeClick}
+									addTrackWithId={addTrackWithId}
+									deleteTrackWithId={deleteTrackWithId}
+									favoriteTodos={favoriteTodos}
 								/>
 							</NavMenuContext.Provider>
 						</ProtectedRoute>

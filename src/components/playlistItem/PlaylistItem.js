@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setFalseIsFavoriteList, sortBySearch } from '../../redux/slice/todoSlice.js'; 
+import { setFalseIsFavoriteList } from '../../redux/slice/todoSlice.js';
 import { PlaylistItemSkeleton } from '../SkeletonCard.js';
 import * as S from './PlaylistItem.styles';
 import { NavMenuContext } from '../../routes.jsx';
@@ -21,15 +21,11 @@ export const CreatePlaylistItem = ({
 }) => {
 	const dispatch = useDispatch();
 
-	
-
 	const { addError, delError } = useSelector(state => state.trackList);
 
 	const navigate = useNavigate();
 
 	const getNavMenuContext = useContext(NavMenuContext);
-
-
 
 	const checkForError = () => {
 		if (addError === 401 || delError === 401) {
@@ -37,8 +33,6 @@ export const CreatePlaylistItem = ({
 			navigate('/login');
 		}
 	};
-
-
 
 	return (
 		filteredTodos &&

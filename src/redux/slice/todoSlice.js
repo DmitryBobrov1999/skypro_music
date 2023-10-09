@@ -46,34 +46,9 @@ const todoSlice = createSlice({
 			state.todosValue = action.payload;
 		},
 		setTodos(state, action) {
-			state.todos = action.payload
+			state.todos = action.payload;
 		},
-		// sortBySearch(state) {
-		// 	state.todos = state.todos.filter(track => {
-		// 		return track.name
-		// 			.toLowerCase()
-		// 			.includes(state.todosValue.toLowerCase());
-		// 	});
-			
-			
-		// },
-
-		// sortByRockGenre(state) {
-		// 	// state.selectedClassicGenre = false;
-		// 	state.selectedRockGenre = true;
-		// 	if (state.selectedRockGenre) {
-		// 		state.todos = state.todos.filter(track => track.genre === 'Рок музыка');
-		// 	}
-		// },
-		// sortByClassicGenre(state) {
-		// 	// state.selectedRockGenre = false;
-		// 	state.selectedClassicGenre = true;
-		// 	if (state.selectedClassicGenre) {
-		// 		state.todos = state.todos.filter(
-		// 			track => track.genre === 'Классическая музыка'
-		// 		);
-		// 	}
-		// },
+		
 		sortStartFromTheNew(state) {
 			state.sortYearOld = false;
 			state.sortYearNew = true;
@@ -103,6 +78,16 @@ const todoSlice = createSlice({
 			const trackIndex = state.todos.findIndex(track => track.id === trackId);
 			if (trackIndex !== -1) {
 				state.todos[trackIndex].likedId = !state.todos[trackIndex].likedId;
+			}
+		},
+
+		toggleAudioplayerLikeId(state, action) {
+			state.likedId = action.payload;
+
+			const trackId = state.likedId;
+			const trackIndex = state.todos.findIndex(track => track.id === trackId);
+			if (trackIndex !== -1) {
+				state.todos[trackIndex].likedId = true;
 			}
 		},
 		toggleCategoryLikedId(state, action) {
@@ -198,6 +183,7 @@ export const {
 	sortStartFromDefault,
 	setTodos,
 	setTodosValue,
+	toggleAudioplayerLikeId,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;

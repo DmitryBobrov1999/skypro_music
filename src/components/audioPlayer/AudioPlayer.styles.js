@@ -364,6 +364,18 @@ export const TrackPlayLikeSvg = styled.svg`
 	}
 `;
 
+export const TrackPlayLikeActiveSvg = styled.svg`
+	width: 14px;
+	height: 12px;
+	fill: #b672ff;
+	stroke: #b672ff;
+	&:hover {
+		fill: '';
+		stroke: '';
+		cursor: pointer;
+	}
+`;
+
 export const TrackPlayDislikeSvg = styled.svg`
 	width: 14.34px;
 	height: 13px;

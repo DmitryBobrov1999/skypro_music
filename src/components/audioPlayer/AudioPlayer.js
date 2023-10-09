@@ -1,7 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentTrack, setIsPlaying } from '../../redux/slice/todoSlice'
+import {
+	setCurrentTrack,
+	setIsPlaying,
+	toggleAudioplayerLikeId,
+} from '../../redux/slice/todoSlice';
 
 import * as S from './AudioPlayer.styles';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
@@ -10,6 +14,10 @@ export const CreateAudioPlayer = ({
 	setSelectedTrackId,
 	filteredTodos,
 	filteredFavoriteTodos,
+	handleLikeClick,
+	addTrackWithId,
+	deleteTrackWithId,
+	favoriteTodos,
 }) => {
 	const formatTime = time => {
 		if (time && !isNaN(time)) {
@@ -40,12 +48,8 @@ export const CreateAudioPlayer = ({
 
 	const playAnimationRef = useRef();
 
-	const {
-		isPlaying,
-		currentPlayer,
-		isFavoriteList,
-		categoryTodos,
-	} = useSelector(state => state.trackList);
+	const { isPlaying, currentPlayer, isFavoriteList, categoryTodos } =
+		useSelector(state => state.trackList);
 
 	useEffect(() => {
 		if (audioRef && audioRef.current) {
@@ -130,7 +134,10 @@ export const CreateAudioPlayer = ({
 		if (todosIndex === filteredTodos.length - 1 && !isFavoriteList) {
 			dispatch(setCurrentTrack(filteredTodos[filteredTodos.length - 1]));
 			setSelectedTrackId(filteredTodos[filteredTodos.length - 1].id);
-		} else if (filteredFavoriteTodos !== filteredTodos.length - 1 && !isFavoriteList) {
+		} else if (
+			filteredFavoriteTodos !== filteredTodos.length - 1 &&
+			!isFavoriteList
+		) {
 			const nextTrack = filteredTodos[todosIndex + 1];
 			dispatch(setCurrentTrack(nextTrack));
 			setSelectedTrackId(nextTrack.id);
@@ -198,6 +205,10 @@ export const CreateAudioPlayer = ({
 
 	const toSetIsPlaying = () => {
 		dispatch(setIsPlaying(isPlaying));
+	};
+
+	const handleAudioplayerLikeId = trackId => {
+		dispatch(toggleAudioplayerLikeId(trackId));
 	};
 
 	return (
@@ -292,10 +303,23 @@ export const CreateAudioPlayer = ({
 										</S.TrackPlayContain>
 										<S.TrackPlayLikeDis>
 											<S.TrackPlayLike>
-												<S.TrackPlayLikeSvg alt='like'>
-													<use xlinkHref='/img/icon/sprite.svg#icon-like' />
-												</S.TrackPlayLikeSvg>
+												{favoriteTodos.find(t => t.id === currentPlayer.id) ? (
+													<S.TrackPlayLikeActiveSvg alt='likeActive'>
+														<use xlinkHref='/img/icon/sprite.svg#icon-like' />
+													</S.TrackPlayLikeActiveSvg>
+												) : (
+													<S.TrackPlayLikeSvg
+														onClick={() => {
+															handleAudioplayerLikeId(currentPlayer.id);
+															addTrackWithId(currentPlayer.id);
+														}}
+														alt='like'
+													>
+														<use xlinkHref='/img/icon/sprite.svg#icon-like' />
+													</S.TrackPlayLikeSvg>
+												)}
 											</S.TrackPlayLike>
+
 											<S.TrackPlayDislike>
 												<S.TrackPlayDislikeSvg alt='dislike'>
 													<use xlinkHref='/img/icon/sprite.svg#icon-dislike' />
