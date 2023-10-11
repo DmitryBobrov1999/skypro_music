@@ -44,7 +44,7 @@ export const SearchByYear = ({
 
 	return (
 		<>
-			<S.FilterButton onClick={toggleYear} $visibleFilter={$visibleFilter}>
+			<S.FilterButton style={{width: '144px'}} onClick={toggleYear} $visibleFilter={$visibleFilter}>
 				Году выпуска
 			</S.FilterButton>
 			<S.ByYearMegaBlock $visibleFilter={$visibleFilter}>

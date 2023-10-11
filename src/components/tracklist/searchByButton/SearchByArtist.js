@@ -22,7 +22,7 @@ export const SearchByArtist = ({
 
 	return (
 		<>
-			<S.FilterButton onClick={toggleArtist} $visibleFilter={$visibleFilter}>
+			<S.FilterButton style={{width: '144px'}} onClick={toggleArtist} $visibleFilter={$visibleFilter}>
 				Исполнителю
 			</S.FilterButton>
 			<S.byArtistMegaBlock $visibleFilter={$visibleFilter}>

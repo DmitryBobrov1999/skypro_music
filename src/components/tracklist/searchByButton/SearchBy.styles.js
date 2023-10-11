@@ -52,7 +52,6 @@ export const ByText = styled.p`
 		color: #b672ff;
 		text-decoration: underline;
 	}
-	
 `;
 
 export const ByPar = styled.p`
@@ -109,4 +108,26 @@ export const ByGenreMegaBlock = styled.div`
 	position: absolute;
 	top: 49px;
 	left: 392px;
+`;
+
+export const GenreIcon = styled.img`
+	visibility: ${props => (props.$visibleFilter ? 'visible' : 'hidden')};
+	width: 26px;
+	height: 25.5px;
+	position: absolute;
+	bottom: 21.5px;
+	left: 473px;
+`;
+
+export const GenreNumber = styled.p`
+	visibility: ${props => (props.$visibleFilter ? 'visible' : 'hidden')};
+	position: absolute;
+	left: 482px;
+	bottom: 28px;
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 13px;
+	letter-spacing: 0px;
+	text-align: left;
+	color: #ffffff;
 `;

@@ -24,11 +24,28 @@ const todoSlice = createSlice({
 		sortYearNew: false,
 		sortYearOld: false,
 		sortYearDefault: false,
-		// selectedRockGenre: false,
-		// selectedClassicGenre: false,
 		todosValue: '',
+		selectedGenre: [],
+		selectedArtist: [],
 	},
 	reducers: {
+		addArtist: (state, action) => {
+			state.selectedArtist.push(action.payload);
+		},
+		removeArtist: (state, action) => {
+			state.selectedArtist = state.selectedArtist.filter(
+				artist => artist !== action.payload
+			);
+		},
+		addGenre: (state, action) => {
+			state.selectedGenre.push(action.payload);
+		},
+		removeGenre: (state, action) => {
+			state.selectedGenre = state.selectedGenre.filter(
+				genre => genre !== action.payload
+			);
+		},
+
 		setCurrentTrack(state, action) {
 			state.currentPlayer = action.payload;
 		},
@@ -48,7 +65,7 @@ const todoSlice = createSlice({
 		setTodos(state, action) {
 			state.todos = action.payload;
 		},
-		
+
 		sortStartFromTheNew(state) {
 			state.sortYearOld = false;
 			state.sortYearNew = true;
@@ -184,6 +201,8 @@ export const {
 	setTodos,
 	setTodosValue,
 	toggleAudioplayerLikeId,
+	addGenre,
+	removeGenre,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;

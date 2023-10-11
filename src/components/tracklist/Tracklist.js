@@ -28,7 +28,7 @@ export const CreateTracklist = ({
 	filteredTodos,
 	setRealTodos,
 	toggleFilterByRock,
-
+	filteredGenres,
 }) => {
 	const [$visibleFilter, setVisibleFilter] = useState(null);
 
@@ -114,6 +114,7 @@ export const CreateTracklist = ({
 						deleteTrackWithId={deleteTrackWithId}
 						handleLikeClick={handleLikeClick}
 						favoriteTodos={favoriteTodos}
+						filteredGenres={filteredGenres}
 					/>
 				</S.ContentPlaylist>
 			</S.CenterblockContent>

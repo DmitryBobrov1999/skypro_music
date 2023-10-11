@@ -18,6 +18,7 @@ export const CreatePlaylistItem = ({
 	handleLikeClick,
 	favoriteTodos,
 	filteredTodos,
+	filteredGenres,
 }) => {
 	const dispatch = useDispatch();
 
@@ -35,8 +36,8 @@ export const CreatePlaylistItem = ({
 	};
 
 	return (
-		filteredTodos &&
-		filteredTodos.map(track => (
+		filteredGenres &&
+		filteredGenres.map(track => (
 			<S.PlaylistItem key={track.id}>
 				<S.PlaylistTrack>
 					{isLoading ? (

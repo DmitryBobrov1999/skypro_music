@@ -1,35 +1,29 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchTodos } from '../../../api/todosApi';
+import { useDispatch, useSelector } from 'react-redux';
+
 import {
-	setTodos,
-	sortByClassicGenre,
-	sortByRockGenre,
+	addGenre,
+	removeGenre,
+	setGenre,
 } from '../../../redux/slice/todoSlice';
 import * as S from './SearchBy.styles';
 
 export const SearchByGenre = ({
-	genreData,
 	$visibleFilter,
 	openFilter,
 	closeAllFilters,
 	todos,
 	filteredTodos,
-	// toggleFilterByRock,
 }) => {
 	const dispatch = useDispatch();
 
-	const [genre, setGenre] = useState(null);
+	const [numberOfGenres, setNumberOfGenres] = useState(8);
 
-	const toggleFilterByClassic = () => {
-		dispatch(
-			setTodos(todos.filter(track => track.genre === 'Классическая музыка'))
-		);
-	};
+	const [colorForClassic, setColorForClassic] = useState(false)
 
-	const toggleFilterByRock = () => {
-		dispatch(setTodos(todos.filter(track => track.genre === 'Рок музыка')));
-	};
+	const [colorForElectronic, setColorForElectronic] = useState(false)
+
+	const [colorForRock, setColorForRock] = useState(false);
 
 	const toggleGenre = () => {
 		if ($visibleFilter) {
@@ -40,24 +34,72 @@ export const SearchByGenre = ({
 		}
 	};
 
+	const { selectedGenre } = useSelector(state => state.trackList);
+
+	const handleGenreClick = genre => {
+		if (selectedGenre.includes(genre)) {
+			dispatch(removeGenre(genre));
+			setNumberOfGenres(numberOfGenres + 1);
+		} else {
+			dispatch(addGenre(genre));
+			setNumberOfGenres(numberOfGenres - 1);
+		}
+	};
+
 	return (
 		<>
-			<S.FilterButton onClick={toggleGenre} $visibleFilter={$visibleFilter}>
+			<S.FilterButton
+				style={{ marginRight: '-10px', width: '91px' }}
+				onClick={toggleGenre}
+				$visibleFilter={$visibleFilter}
+			>
 				Жанру
 			</S.FilterButton>
+			<S.GenreIcon
+				$visibleFilter={$visibleFilter}
+				src='img/icon/genreIcon.png'
+			></S.GenreIcon>
+			<S.GenreNumber $visibleFilter={$visibleFilter}>
+				{numberOfGenres}
+			</S.GenreNumber>
 			<S.ByGenreMegaBlock $visibleFilter={$visibleFilter}>
 				<S.byArtistBlock>
 					<S.ByText
+						style={{
+							color: `${colorForClassic ? '#b672ff' : '#ffffff'}`,
+							textDecoration: `${colorForClassic ? 'underline' : 'none'}`,
+						}}
 						onClick={() => {
-							toggleFilterByClassic();
+							handleGenreClick('Классическая музыка');
+							setColorForClassic(!colorForClassic);
 						}}
 					>
 						Классическая музыка
 					</S.ByText>
-					<S.ByText>Электронная музыка</S.ByText>
-					<S.ByText onClick={() => {
-						toggleFilterByRock()
-					}}>Рок</S.ByText>
+					<S.ByText
+						style={{
+							color: `${colorForElectronic ? '#b672ff' : '#ffffff'}`,
+							textDecoration: `${colorForElectronic ? 'underline' : 'none'}`,
+						}}
+						onClick={() => {
+							handleGenreClick('Электронная музыка');
+							setColorForElectronic(!colorForElectronic);
+						}}
+					>
+						Электронная музыка
+					</S.ByText>
+					<S.ByText
+						style={{
+							color: `${colorForRock ? '#b672ff' : '#ffffff'}`,
+							textDecoration: `${colorForRock ? 'underline' : 'none'}`,
+						}}
+						onClick={() => {
+							handleGenreClick('Рок музыка');
+							setColorForRock(!colorForRock);
+						}}
+					>
+						Рок
+					</S.ByText>
 					<S.ByText>Хип-хоп</S.ByText>
 					<S.ByText>Поп-музыка</S.ByText>
 					<S.ByText>Техно</S.ByText>

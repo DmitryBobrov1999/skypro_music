@@ -131,7 +131,11 @@ export const AppRoutes = () => {
 		return track.name.toLowerCase().includes(favTodosValue.toLowerCase());
 	});
 
-	
+	const { selectedGenre } = useSelector(state => state.trackList);
+
+const filteredGenres = selectedGenre.length
+	? filteredTodos.filter(track => selectedGenre.includes(track.genre))
+	: filteredTodos;
 
 	return (
 		<PersonalNameContext.Provider value={value}>
@@ -173,6 +177,7 @@ export const AppRoutes = () => {
 									categoryTodos={categoryTodos}
 									filteredTodos={filteredTodos}
 									catError={catError}
+									filteredGenres={filteredGenres}
 								/>
 								<CreateAudioPlayer
 									selectedTrackId={selectedTrackId}

@@ -94,6 +94,7 @@ export const FilterTitle = styled.div`
 	font-size: 16px;
 	line-height: 24px;
 	margin-right: 15px;
+	width: 77px;
 `;
 
 export const ContentTitle = styled.div`
