@@ -1,5 +1,5 @@
 import React from 'react';
-import { CreatePlaylistItemFavorite } from './PlaylistItemFavorite.js';
+import { CreatePlaylistItemFavorite } from './PlaylistFavorite.js';
 
 import * as S from '../tracklist/Tracklist.styles';
 
