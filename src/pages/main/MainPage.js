@@ -27,6 +27,7 @@ export const Home = ({
 	setRealTodos,
 	toggleFilterByRock,
 	filteredGenres,
+	filteredArtists,
 }) => {
 	const navigate = useNavigate();
 
@@ -76,6 +77,7 @@ export const Home = ({
 						setRealTodos={setRealTodos}
 						toggleFilterByRock={toggleFilterByRock}
 						filteredGenres={filteredGenres}
+						filteredArtists={filteredArtists}
 					/>
 					<CreateSidebar isLoading={isLoading} categoryTodos={categoryTodos} />
 				</S.Main>

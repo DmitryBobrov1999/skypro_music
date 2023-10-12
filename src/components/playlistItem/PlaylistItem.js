@@ -19,6 +19,7 @@ export const CreatePlaylistItem = ({
 	favoriteTodos,
 	filteredTodos,
 	filteredGenres,
+	filteredArtists,
 }) => {
 	const dispatch = useDispatch();
 
@@ -36,8 +37,8 @@ export const CreatePlaylistItem = ({
 	};
 
 	return (
-		filteredGenres &&
-		filteredGenres.map(track => (
+		filteredArtists &&
+		filteredArtists.map(track => (
 			<S.PlaylistItem key={track.id}>
 				<S.PlaylistTrack>
 					{isLoading ? (

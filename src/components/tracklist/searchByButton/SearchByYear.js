@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTodos } from '../../../api/todosApi';
 import {
@@ -23,6 +23,8 @@ export const SearchByYear = ({
 		}
 	};
 
+	const [numberOfYears, setNumberOfYears] = useState(2);
+
 	const { sortYearOld, sortYearNew, sortYearDefault } = useSelector(
 		state => state.trackList
 	);
@@ -44,9 +46,20 @@ export const SearchByYear = ({
 
 	return (
 		<>
-			<S.FilterButton style={{width: '144px'}} onClick={toggleYear} $visibleFilter={$visibleFilter}>
+			<S.FilterButton
+				style={{ width: '144px' }}
+				onClick={toggleYear}
+				$visibleFilter={$visibleFilter}
+			>
 				Году выпуска
 			</S.FilterButton>
+			<S.YearIcon
+				$visibleFilter={$visibleFilter}
+				src='img/icon/yearIcon.png'
+			></S.YearIcon>
+			<S.YearNumber $visibleFilter={$visibleFilter}>
+				{numberOfYears}
+			</S.YearNumber>
 			<S.ByYearMegaBlock $visibleFilter={$visibleFilter}>
 				<S.ByYearBlock>
 					<S.ByText

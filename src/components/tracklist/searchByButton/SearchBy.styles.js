@@ -131,3 +131,47 @@ export const GenreNumber = styled.p`
 	text-align: left;
 	color: #ffffff;
 `;
+
+export const YearIcon = styled.img`
+	visibility: ${props => (props.$visibleFilter ? 'visible' : 'hidden')};
+	width: 26px;
+	height: 25.5px;
+	position: absolute;
+	bottom: 21.5px;
+	left: 372px;
+`;
+
+export const YearNumber = styled.p`
+	visibility: ${props => (props.$visibleFilter ? 'visible' : 'hidden')};
+	position: absolute;
+	left: 381px;
+	bottom: 28px;
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 13px;
+	letter-spacing: 0px;
+	text-align: left;
+	color: #ffffff;
+`;
+
+export const ArtistIcon = styled.img`
+	visibility: ${props => (props.$visibleFilter ? 'visible' : 'hidden')};
+	width: 26px;
+	height: 25.5px;
+	position: absolute;
+	bottom: 21.5px;
+	left: 218px;
+`;
+
+export const ArtistNumber = styled.p`
+	visibility: ${props => (props.$visibleFilter ? 'visible' : 'hidden')};
+	position: absolute;
+	left: 224px;
+	bottom: 28px;
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 13px;
+	letter-spacing: 0px;
+	text-align: left;
+	color: #ffffff;
+`;

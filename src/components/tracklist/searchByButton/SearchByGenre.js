@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
 	addGenre,
 	removeGenre,
-	setGenre,
 } from '../../../redux/slice/todoSlice';
 import * as S from './SearchBy.styles';
 
@@ -17,13 +16,10 @@ export const SearchByGenre = ({
 }) => {
 	const dispatch = useDispatch();
 
-	const [numberOfGenres, setNumberOfGenres] = useState(8);
+	const [numberOfGenres, setNumberOfGenres] = useState(null);
 
-	const [colorForClassic, setColorForClassic] = useState(false)
 
-	const [colorForElectronic, setColorForElectronic] = useState(false)
-
-	const [colorForRock, setColorForRock] = useState(false);
+	const { selectedGenre } = useSelector(state => state.trackList);
 
 	const toggleGenre = () => {
 		if ($visibleFilter) {
@@ -34,17 +30,59 @@ export const SearchByGenre = ({
 		}
 	};
 
-	const { selectedGenre } = useSelector(state => state.trackList);
+	
 
-	const handleGenreClick = genre => {
+	// const handleGenreClick = genre => {
+	// 	if (selectedGenre.includes(genre)) {
+	// 		dispatch(removeGenre(genre));
+	// 		setNumberOfGenres(numberOfGenres + 1);
+	// 	} else {
+	// 		dispatch(addGenre(genre));
+	// 		setNumberOfGenres(numberOfGenres - 1);
+	// 	}
+	// };
+
+	const memoizedGenreList = useMemo(() => {
+		let genreList = [];
+		return genreList;
+	}, [todos]);
+
+	useEffect(() => {
+		setNumberOfGenres(memoizedGenreList.length);
+	}, [memoizedGenreList]);
+
+	todos.forEach(track => {
+		if (!memoizedGenreList.includes(track.genre)) {
+			memoizedGenreList.push(track.genre);
+		}
+	});
+
+	const handleGenreClick = (genre, event) => {
 		if (selectedGenre.includes(genre)) {
 			dispatch(removeGenre(genre));
+			event.target.style.color = '#ffffff';
+			event.target.style.textDecoration = 'none';
 			setNumberOfGenres(numberOfGenres + 1);
 		} else {
 			dispatch(addGenre(genre));
+			event.target.style.color = '#b672ff';
+			event.target.style.textDecoration = 'underline';
 			setNumberOfGenres(numberOfGenres - 1);
 		}
 	};
+
+	const filteredGenreList = memoizedGenreList.map(track => {
+		return (
+			<S.ByPar
+				onClick={event => {
+					handleGenreClick(track, event);
+				}}
+				key={track}
+			>
+				{track}
+			</S.ByPar>
+		);
+	});
 
 	return (
 		<>
@@ -64,7 +102,8 @@ export const SearchByGenre = ({
 			</S.GenreNumber>
 			<S.ByGenreMegaBlock $visibleFilter={$visibleFilter}>
 				<S.byArtistBlock>
-					<S.ByText
+					{filteredGenreList}
+					{/* <S.ByText
 						style={{
 							color: `${colorForClassic ? '#b672ff' : '#ffffff'}`,
 							textDecoration: `${colorForClassic ? 'underline' : 'none'}`,
@@ -104,7 +143,7 @@ export const SearchByGenre = ({
 					<S.ByText>Поп-музыка</S.ByText>
 					<S.ByText>Техно</S.ByText>
 					<S.ByText>Инди</S.ByText>
-					<S.ByText>Метал</S.ByText>
+					<S.ByText>Метал</S.ByText> */}
 				</S.byArtistBlock>
 			</S.ByGenreMegaBlock>
 		</>

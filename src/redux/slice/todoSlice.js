@@ -23,7 +23,7 @@ const todoSlice = createSlice({
 		catError: null,
 		sortYearNew: false,
 		sortYearOld: false,
-		sortYearDefault: false,
+		sortYearDefault: true,
 		todosValue: '',
 		selectedGenre: [],
 		selectedArtist: [],
@@ -203,6 +203,8 @@ export const {
 	toggleAudioplayerLikeId,
 	addGenre,
 	removeGenre,
+	addArtist,
+	removeArtist,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;

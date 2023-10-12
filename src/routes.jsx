@@ -20,7 +20,6 @@ import { fetchAddFavoriteTrack } from './api/addFavoriteTrackApi';
 import { CreateAudioPlayer } from './components/audioPlayer/AudioPlayer';
 import { fetchCategoryTodos } from './api/categoryTodosApi';
 
-
 export const NavMenuContext = createContext(null);
 
 export const PersonalNameContext = createContext({
@@ -50,9 +49,9 @@ export const AppRoutes = () => {
 		categoryTodos,
 		catError,
 		todosValue,
+		selectedGenre,
+		selectedArtist,
 	} = useSelector(state => state.trackList);
-
-
 
 	const [favTodosValue, setFavTodosValue] = useState('');
 
@@ -131,11 +130,13 @@ export const AppRoutes = () => {
 		return track.name.toLowerCase().includes(favTodosValue.toLowerCase());
 	});
 
-	const { selectedGenre } = useSelector(state => state.trackList);
+	const filteredGenres = selectedGenre.length
+		? todos.filter(track => selectedGenre.includes(track.genre))
+		: filteredTodos;
 
-const filteredGenres = selectedGenre.length
-	? filteredTodos.filter(track => selectedGenre.includes(track.genre))
-	: filteredTodos;
+	const filteredArtists = selectedArtist.length
+		? filteredGenres.filter(track => selectedArtist.includes(track.author))
+		: filteredGenres;
 
 	return (
 		<PersonalNameContext.Provider value={value}>
@@ -178,6 +179,7 @@ const filteredGenres = selectedGenre.length
 									filteredTodos={filteredTodos}
 									catError={catError}
 									filteredGenres={filteredGenres}
+									filteredArtists={filteredArtists}
 								/>
 								<CreateAudioPlayer
 									selectedTrackId={selectedTrackId}
