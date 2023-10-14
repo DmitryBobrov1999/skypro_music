@@ -21,8 +21,8 @@ export const Category = ({
 	error,
 	favError,
 	catError,
+	
 }) => {
-
 	const navigate = useNavigate();
 
 	const getNavMenuContext = useContext(NavMenuContext);
@@ -65,6 +65,7 @@ export const Category = ({
 						deleteTrackWithId={deleteTrackWithId}
 						addTrackWithId={addTrackWithId}
 						handleCategoryLikeClick={handleCategoryLikeClick}
+					
 					/>
 
 					<ErrorSidebar />

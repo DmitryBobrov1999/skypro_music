@@ -21,13 +21,11 @@ export const Home = ({
 	favoriteTodos,
 	favError,
 	categoryTodos,
-	filteredTodos,
 	setTodosValue,
 	catError,
 	setRealTodos,
-	toggleFilterByRock,
-	filteredGenres,
-	filteredArtists,
+
+	filteredAll,
 }) => {
 	const navigate = useNavigate();
 
@@ -72,12 +70,9 @@ export const Home = ({
 						handleLikeClick={handleLikeClick}
 						openPlayer={openPlayer}
 						favoriteTodos={favoriteTodos}
-						filteredTodos={filteredTodos}
 						setTodosValue={setTodosValue}
 						setRealTodos={setRealTodos}
-						toggleFilterByRock={toggleFilterByRock}
-						filteredGenres={filteredGenres}
-						filteredArtists={filteredArtists}
+						filteredAll={filteredAll}
 					/>
 					<CreateSidebar isLoading={isLoading} categoryTodos={categoryTodos} />
 				</S.Main>

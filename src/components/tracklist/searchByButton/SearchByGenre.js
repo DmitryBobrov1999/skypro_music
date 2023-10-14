@@ -12,7 +12,6 @@ export const SearchByGenre = ({
 	openFilter,
 	closeAllFilters,
 	todos,
-	filteredTodos,
 }) => {
 	const dispatch = useDispatch();
 
@@ -30,17 +29,6 @@ export const SearchByGenre = ({
 		}
 	};
 
-	
-
-	// const handleGenreClick = genre => {
-	// 	if (selectedGenre.includes(genre)) {
-	// 		dispatch(removeGenre(genre));
-	// 		setNumberOfGenres(numberOfGenres + 1);
-	// 	} else {
-	// 		dispatch(addGenre(genre));
-	// 		setNumberOfGenres(numberOfGenres - 1);
-	// 	}
-	// };
 
 	const memoizedGenreList = useMemo(() => {
 		let genreList = [];

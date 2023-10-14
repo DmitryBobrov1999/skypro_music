@@ -27,9 +27,9 @@ export const CreateTracklist = ({
 	favoriteTodos,
 	filteredTodos,
 	setRealTodos,
-	toggleFilterByRock,
-	filteredGenres,
-	filteredArtists,
+
+
+	filteredAll,
 }) => {
 	const [$visibleFilter, setVisibleFilter] = useState(null);
 
@@ -77,7 +77,7 @@ export const CreateTracklist = ({
 					$visibleFilter={$visibleFilter === 'year'}
 				/>
 				<SearchByGenre
-					toggleFilterByRock={toggleFilterByRock}
+			
 					filteredTodos={filteredTodos}
 					todos={todos}
 					openFilter={openFilter}
@@ -115,9 +115,8 @@ export const CreateTracklist = ({
 						addTrackWithId={addTrackWithId}
 						deleteTrackWithId={deleteTrackWithId}
 						handleLikeClick={handleLikeClick}
+						filteredAll={filteredAll}
 						favoriteTodos={favoriteTodos}
-						filteredGenres={filteredGenres}
-						filteredArtists={filteredArtists}
 					/>
 				</S.ContentPlaylist>
 			</S.CenterblockContent>

@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {  useEffect, useMemo, useState } from 'react';
 import * as S from './SearchBy.styles';
-import { playlistData } from '../../playlistItem/PlaylistData';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { addArtist, removeArtist } from '../../../redux/slice/todoSlice';
 

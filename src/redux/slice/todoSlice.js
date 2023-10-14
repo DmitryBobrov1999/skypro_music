@@ -49,11 +49,14 @@ const todoSlice = createSlice({
 		setCurrentTrack(state, action) {
 			state.currentPlayer = action.payload;
 		},
-		setTrueIsFavoriteList(state) {
-			state.isFavoriteList = true;
+		setOneIsFavoriteList(state) {
+			state.isFavoriteList = 1;
 		},
-		setFalseIsFavoriteList(state) {
-			state.isFavoriteList = false;
+		setTwoIsFavoriteList(state) {
+			state.isFavoriteList = 2;
+		},
+		setThreeIsFavoriteList(state) {
+			state.isFavoriteList = 3
 		},
 		setIsPlaying(state) {
 			state.isPlaying = !state.isPlaying;
@@ -193,8 +196,9 @@ export const {
 	toggleLikedId,
 	toggleCategoryLikedId,
 	toggleFavoriteLikedId,
-	setTrueIsFavoriteList,
-	setFalseIsFavoriteList,
+	setOneIsFavoriteList,
+	setTwoIsFavoriteList,
+	setThreeIsFavoriteList,
 	sortStartFromTheNew,
 	sortStartFromTheOld,
 	sortStartFromDefault,

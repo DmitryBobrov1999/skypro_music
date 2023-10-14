@@ -9,15 +9,14 @@ import {
 
 import * as S from './AudioPlayer.styles';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
+import { useParams } from 'react-router-dom';
 
 export const CreateAudioPlayer = ({
 	setSelectedTrackId,
-	filteredTodos,
 	filteredFavoriteTodos,
-	handleLikeClick,
 	addTrackWithId,
-	deleteTrackWithId,
-	favoriteTodos,
+	filteredAll,
+	categoryTodos,
 }) => {
 	const formatTime = time => {
 		if (time && !isNaN(time)) {
@@ -48,8 +47,9 @@ export const CreateAudioPlayer = ({
 
 	const playAnimationRef = useRef();
 
-	const { isPlaying, currentPlayer, isFavoriteList, categoryTodos } =
-		useSelector(state => state.trackList);
+	const { isPlaying, currentPlayer, isFavoriteList } = useSelector(
+		state => state.trackList
+	);
 
 	useEffect(() => {
 		if (audioRef && audioRef.current) {
@@ -97,53 +97,61 @@ export const CreateAudioPlayer = ({
 		playAnimationRef.current = requestAnimationFrame(repeat);
 	}, [isPlaying, audioRef, repeat]);
 
-	const handleBack = () => {
-		const todosIndex = filteredTodos.indexOf(currentPlayer);
-		const favoriteTodosIndex = filteredFavoriteTodos.indexOf(currentPlayer);
-		const categoryTodosIndex = categoryTodos.indexOf(currentPlayer);
+	const params = useParams();
 
-		if (todosIndex === 0 && !isFavoriteList) {
-			dispatch(setCurrentTrack(filteredTodos[0]));
-			setSelectedTrackId(filteredTodos[0].id);
-		} else if (todosIndex !== 0 && !isFavoriteList) {
-			const prevTrack = filteredTodos[todosIndex - 1];
+	const categoryTodo = categoryTodos.find(
+		items => items.id === Number(params.id)
+	);
+
+	const arrayItems = categoryTodo && categoryTodo.items;
+
+	const handleBack = () => {
+		const todosIndex = filteredAll.indexOf(currentPlayer);
+		const favoriteTodosIndex = filteredFavoriteTodos.indexOf(currentPlayer);
+		const categoryTodosIndex = arrayItems.indexOf(currentPlayer);
+		
+		if (todosIndex === 0 && isFavoriteList === 1) {
+			dispatch(setCurrentTrack(filteredAll[0]));
+			setSelectedTrackId(filteredAll[0].id);
+		} else if (todosIndex !== 0 && isFavoriteList === 1) {
+			const prevTrack = filteredAll[todosIndex - 1];
 			dispatch(setCurrentTrack(prevTrack));
 			setSelectedTrackId(prevTrack.id);
-		} else if (favoriteTodosIndex === 0 && isFavoriteList) {
+		} else if (favoriteTodosIndex === 0 && isFavoriteList === 2) {
 			dispatch(setCurrentTrack(filteredFavoriteTodos[0]));
 			setSelectedTrackId(filteredFavoriteTodos[0].id);
-		} else if (favoriteTodosIndex !== 0 && isFavoriteList) {
+		} else if (favoriteTodosIndex !== 0 && isFavoriteList === 2) {
 			const prevTrack = filteredFavoriteTodos[favoriteTodosIndex - 1];
 			dispatch(setCurrentTrack(prevTrack));
 			setSelectedTrackId(prevTrack.id);
-		} else if (categoryTodosIndex === 0 && !isFavoriteList) {
-			dispatch(setCurrentTrack(categoryTodos[0]));
-			setSelectedTrackId(categoryTodos[0].id);
+		} else if (categoryTodosIndex === 0 && isFavoriteList === 3) {
+			dispatch(setCurrentTrack(arrayItems[0]));
+			setSelectedTrackId(arrayItems[0].id);
 		} else {
-			const prevTrack = categoryTodos[categoryTodosIndex - 1];
+			const prevTrack = arrayItems[categoryTodosIndex - 1];
 			dispatch(setCurrentTrack(prevTrack));
 			setSelectedTrackId(prevTrack.id);
 		}
 	};
 
 	const handleNext = () => {
-		const todosIndex = filteredTodos.indexOf(currentPlayer);
+		const todosIndex = filteredAll.indexOf(currentPlayer);
 		const favoriteTodosIndex = filteredFavoriteTodos.indexOf(currentPlayer);
-		const categoryTodosIndex = categoryTodos.indexOf(currentPlayer);
+		const categoryTodosIndex = arrayItems.indexOf(currentPlayer);
 
-		if (todosIndex === filteredTodos.length - 1 && !isFavoriteList) {
-			dispatch(setCurrentTrack(filteredTodos[filteredTodos.length - 1]));
-			setSelectedTrackId(filteredTodos[filteredTodos.length - 1].id);
+		if (todosIndex === filteredAll.length - 1 && isFavoriteList === 1) {
+			dispatch(setCurrentTrack(filteredAll[filteredAll.length - 1]));
+			setSelectedTrackId(filteredAll[filteredAll.length - 1].id);
 		} else if (
-			filteredFavoriteTodos !== filteredTodos.length - 1 &&
-			!isFavoriteList
+			filteredFavoriteTodos !== filteredAll.length - 1 &&
+			isFavoriteList === 1
 		) {
-			const nextTrack = filteredTodos[todosIndex + 1];
+			const nextTrack = filteredAll[todosIndex + 1];
 			dispatch(setCurrentTrack(nextTrack));
 			setSelectedTrackId(nextTrack.id);
 		} else if (
 			favoriteTodosIndex === filteredFavoriteTodos.length - 1 &&
-			isFavoriteList
+			isFavoriteList === 2
 		) {
 			dispatch(
 				setCurrentTrack(filteredFavoriteTodos[filteredFavoriteTodos.length - 1])
@@ -153,19 +161,19 @@ export const CreateAudioPlayer = ({
 			);
 		} else if (
 			favoriteTodosIndex !== filteredFavoriteTodos.length - 1 &&
-			isFavoriteList
+			isFavoriteList === 2
 		) {
 			const nextTrack = filteredFavoriteTodos[favoriteTodosIndex + 1];
 			dispatch(setCurrentTrack(nextTrack));
 			setSelectedTrackId(nextTrack.id);
 		} else if (
-			categoryTodosIndex === categoryTodos.length - 1 &&
-			isFavoriteList
+			categoryTodosIndex === arrayItems.length - 1 &&
+			isFavoriteList === 3
 		) {
-			dispatch(setCurrentTrack(categoryTodos[categoryTodos.length - 1]));
-			setSelectedTrackId(categoryTodos[categoryTodos.length - 1].id);
+			dispatch(setCurrentTrack(arrayItems[arrayItems.length - 1]));
+			setSelectedTrackId(arrayItems[arrayItems.length - 1].id);
 		} else {
-			const nextTrack = categoryTodos[categoryTodosIndex + 1];
+			const nextTrack = arrayItems[categoryTodosIndex + 1];
 			dispatch(setCurrentTrack(nextTrack));
 			setSelectedTrackId(nextTrack.id);
 		}
@@ -174,7 +182,7 @@ export const CreateAudioPlayer = ({
 	const shuffleTracks = () => {
 		let prevNum;
 
-		const randomNum = Math.floor(Math.random() * filteredTodos.length);
+		const randomNum = Math.floor(Math.random() * filteredAll.length);
 		const randomFavNum = Math.floor(
 			Math.random() * filteredFavoriteTodos.length
 		);
@@ -183,12 +191,12 @@ export const CreateAudioPlayer = ({
 			let newRandomNum = randomNum === 0 ? randomNum + 1 : randomNum - 1;
 			prevNum = newRandomNum;
 
-			setSelectedTrackId(filteredTodos[newRandomNum].id);
-			dispatch(setCurrentTrack(filteredTodos[newRandomNum]));
+			setSelectedTrackId(filteredAll[newRandomNum].id);
+			dispatch(setCurrentTrack(filteredAll[newRandomNum]));
 		} else if (prevNum !== randomNum && !isFavoriteList) {
 			prevNum = randomNum;
-			setSelectedTrackId(filteredTodos[randomNum].id);
-			dispatch(setCurrentTrack(filteredTodos[randomNum]));
+			setSelectedTrackId(filteredAll[randomNum].id);
+			dispatch(setCurrentTrack(filteredAll[randomNum]));
 		} else if (prevNum === randomFavNum && isFavoriteList) {
 			let newRandomNum =
 				randomFavNum === 0 ? randomFavNum + 1 : randomFavNum - 1;
@@ -303,7 +311,9 @@ export const CreateAudioPlayer = ({
 										</S.TrackPlayContain>
 										<S.TrackPlayLikeDis>
 											<S.TrackPlayLike>
-												{favoriteTodos.find(t => t.id === currentPlayer.id) ? (
+												{filteredFavoriteTodos.find(
+													t => t.id === currentPlayer.id
+												) ? (
 													<S.TrackPlayLikeActiveSvg alt='likeActive'>
 														<use xlinkHref='/img/icon/sprite.svg#icon-like' />
 													</S.TrackPlayLikeActiveSvg>

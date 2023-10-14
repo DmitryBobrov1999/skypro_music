@@ -15,6 +15,7 @@ export const CreateCategoryTracklist = ({
 	deleteTrackWithId,
 	addTrackWithId,
 	handleCategoryLikeClick,
+
 }) => {
 	const params = useParams();
 

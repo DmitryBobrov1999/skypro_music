@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useParams } from 'react-router-dom';
 import { AuthPage } from './pages/auth/AuthPage';
 import { Home } from './pages/main/MainPage';
 import React, { useState, useEffect, createContext, useRef } from 'react';
@@ -134,9 +134,11 @@ export const AppRoutes = () => {
 		? todos.filter(track => selectedGenre.includes(track.genre))
 		: filteredTodos;
 
-	const filteredArtists = selectedArtist.length
+	const filteredAll = selectedArtist.length
 		? filteredGenres.filter(track => selectedArtist.includes(track.author))
 		: filteredGenres;
+
+		
 
 	return (
 		<PersonalNameContext.Provider value={value}>
@@ -176,20 +178,15 @@ export const AppRoutes = () => {
 									openPlayer={openPlayer}
 									favError={favError}
 									categoryTodos={categoryTodos}
-									filteredTodos={filteredTodos}
 									catError={catError}
-									filteredGenres={filteredGenres}
-									filteredArtists={filteredArtists}
+									filteredAll={filteredAll}
 								/>
 								<CreateAudioPlayer
-									selectedTrackId={selectedTrackId}
 									setSelectedTrackId={setSelectedTrackId}
-									filteredTodos={filteredTodos}
 									filteredFavoriteTodos={filteredFavoriteTodos}
-									handleLikeClick={handleLikeClick}
 									addTrackWithId={addTrackWithId}
-									deleteTrackWithId={deleteTrackWithId}
-									favoriteTodos={favoriteTodos}
+									filteredAll={filteredAll}
+									categoryTodos={categoryTodos}
 								/>
 							</NavMenuContext.Provider>
 						</ProtectedRoute>
@@ -219,14 +216,11 @@ export const AppRoutes = () => {
 									catError={catError}
 								/>
 								<CreateAudioPlayer
-									selectedTrackId={selectedTrackId}
 									setSelectedTrackId={setSelectedTrackId}
-									// filteredTodos={filteredTodos}
 									filteredFavoriteTodos={filteredFavoriteTodos}
-									handleLikeClick={handleLikeClick}
 									addTrackWithId={addTrackWithId}
-									deleteTrackWithId={deleteTrackWithId}
-									favoriteTodos={favoriteTodos}
+									filteredAll={filteredAll}
+									categoryTodos={categoryTodos}
 								/>
 							</NavMenuContext.Provider>
 						</ProtectedRoute>
@@ -254,14 +248,11 @@ export const AppRoutes = () => {
 									error={error}
 								/>
 								<CreateAudioPlayer
-									selectedTrackId={selectedTrackId}
 									setSelectedTrackId={setSelectedTrackId}
-									// filteredTodos={filteredTodos}
 									filteredFavoriteTodos={filteredFavoriteTodos}
-									handleLikeClick={handleLikeClick}
 									addTrackWithId={addTrackWithId}
-									deleteTrackWithId={deleteTrackWithId}
-									favoriteTodos={favoriteTodos}
+									filteredAll={filteredAll}
+									categoryTodos={categoryTodos}
 								/>
 							</NavMenuContext.Provider>
 						</ProtectedRoute>

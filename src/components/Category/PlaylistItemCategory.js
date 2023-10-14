@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setFalseIsFavoriteList } from '../../redux/slice/todoSlice';
+import {
+	setThreeIsFavoriteList
+} from '../../redux/slice/todoSlice';
 import * as S from '../playlistItem/PlaylistItem.styles';
 import { NavMenuContext } from '../../routes';
 
@@ -54,7 +56,7 @@ export const CreatePlaylistItemCategory = ({
 								onClick={() => {
 									openPlayer(categoryTrack);
 									setSelectedTrackId(categoryTrack.id);
-									dispatch(setFalseIsFavoriteList());
+									dispatch(setThreeIsFavoriteList());
 								}}
 							>
 								{categoryTrack.name}

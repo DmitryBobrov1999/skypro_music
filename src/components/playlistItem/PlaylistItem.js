@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setFalseIsFavoriteList } from '../../redux/slice/todoSlice.js';
+import { setOneIsFavoriteList } from '../../redux/slice/todoSlice.js';
 import { PlaylistItemSkeleton } from '../SkeletonCard.js';
 import * as S from './PlaylistItem.styles';
 import { NavMenuContext } from '../../routes.jsx';
@@ -17,9 +17,7 @@ export const CreatePlaylistItem = ({
 	deleteTrackWithId,
 	handleLikeClick,
 	favoriteTodos,
-	filteredTodos,
-	filteredGenres,
-	filteredArtists,
+	filteredAll,
 }) => {
 	const dispatch = useDispatch();
 
@@ -37,8 +35,8 @@ export const CreatePlaylistItem = ({
 	};
 
 	return (
-		filteredArtists &&
-		filteredArtists.map(track => (
+		filteredAll &&
+		filteredAll.map(track => (
 			<S.PlaylistItem key={track.id}>
 				<S.PlaylistTrack>
 					{isLoading ? (
@@ -58,7 +56,7 @@ export const CreatePlaylistItem = ({
 										onClick={() => {
 											openPlayer(track);
 											setSelectedTrackId(track.id);
-											dispatch(setFalseIsFavoriteList());
+											dispatch(setOneIsFavoriteList());
 										}}
 									>
 										{track.name}
