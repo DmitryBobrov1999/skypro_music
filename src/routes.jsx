@@ -185,6 +185,7 @@ export const AppRoutes = () => {
 									setSelectedTrackId={setSelectedTrackId}
 									filteredFavoriteTodos={filteredFavoriteTodos}
 									addTrackWithId={addTrackWithId}
+									deleteTrackWithId={deleteTrackWithId}
 									filteredAll={filteredAll}
 									categoryTodos={categoryTodos}
 								/>
@@ -219,6 +220,7 @@ export const AppRoutes = () => {
 									setSelectedTrackId={setSelectedTrackId}
 									filteredFavoriteTodos={filteredFavoriteTodos}
 									addTrackWithId={addTrackWithId}
+									deleteTrackWithId={deleteTrackWithId}
 									filteredAll={filteredAll}
 									categoryTodos={categoryTodos}
 								/>
@@ -251,6 +253,7 @@ export const AppRoutes = () => {
 									setSelectedTrackId={setSelectedTrackId}
 									filteredFavoriteTodos={filteredFavoriteTodos}
 									addTrackWithId={addTrackWithId}
+									deleteTrackWithId={deleteTrackWithId}
 									filteredAll={filteredAll}
 									categoryTodos={categoryTodos}
 								/>

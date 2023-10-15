@@ -5,6 +5,7 @@ import {
 	setCurrentTrack,
 	setIsPlaying,
 	toggleAudioplayerLikeId,
+	toggleLikedId,
 } from '../../redux/slice/todoSlice';
 
 import * as S from './AudioPlayer.styles';
@@ -15,6 +16,7 @@ export const CreateAudioPlayer = ({
 	setSelectedTrackId,
 	filteredFavoriteTodos,
 	addTrackWithId,
+	deleteTrackWithId,
 	filteredAll,
 	categoryTodos,
 }) => {
@@ -109,7 +111,7 @@ export const CreateAudioPlayer = ({
 		const todosIndex = filteredAll.indexOf(currentPlayer);
 		const favoriteTodosIndex = filteredFavoriteTodos.indexOf(currentPlayer);
 		const categoryTodosIndex = arrayItems.indexOf(currentPlayer);
-		
+
 		if (todosIndex === 0 && isFavoriteList === 1) {
 			dispatch(setCurrentTrack(filteredAll[0]));
 			setSelectedTrackId(filteredAll[0].id);
@@ -320,7 +322,7 @@ export const CreateAudioPlayer = ({
 												) : (
 													<S.TrackPlayLikeSvg
 														onClick={() => {
-															handleAudioplayerLikeId(currentPlayer.id);
+															toggleLikedId(currentPlayer.id);
 															addTrackWithId(currentPlayer.id);
 														}}
 														alt='like'
@@ -331,9 +333,23 @@ export const CreateAudioPlayer = ({
 											</S.TrackPlayLike>
 
 											<S.TrackPlayDislike>
-												<S.TrackPlayDislikeSvg alt='dislike'>
-													<use xlinkHref='/img/icon/sprite.svg#icon-dislike' />
-												</S.TrackPlayDislikeSvg>
+												{filteredFavoriteTodos.find(
+													t => t.id === currentPlayer.id
+												) ? (
+													<S.TrackPlayDislikeSvg
+														onClick={() => {
+															toggleLikedId(currentPlayer.id);
+															deleteTrackWithId(currentPlayer.id);
+														}}
+														alt='dislike'
+													>
+														<use xlinkHref='/img/icon/sprite.svg#icon-dislike' />
+													</S.TrackPlayDislikeSvg>
+												) : (
+													<S.TrackPlayDislikeActiveSvg alt='dislikeActive'>
+														<use xlinkHref='/img/icon/sprite.svg#icon-dislike' />
+													</S.TrackPlayDislikeActiveSvg>
+												)}
 											</S.TrackPlayDislike>
 										</S.TrackPlayLikeDis>
 									</S.PlayerTrackPlay>

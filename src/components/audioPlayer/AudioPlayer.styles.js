@@ -316,18 +316,6 @@ export const TrackPlayLikeDis = styled.div`
 export const TrackPlayLike = styled.div`
 	padding: 5px;
 	&:hover svg {
-		fill: transparent;
-		stroke: #acacac;
-		cursor: pointer;
-	}
-	&:active svg {
-		fill: transparent;
-		stroke: #ffffff;
-		cursor: pointer;
-	}
-	&:active {
-		fill: #696969;
-		stroke: #ffffff;
 		cursor: pointer;
 	}
 `;
@@ -336,18 +324,6 @@ export const TrackPlayDislike = styled.div`
 	padding: 5px;
 	margin-left: 28.5px;
 	&:hover svg {
-		fill: transparent;
-		stroke: #acacac;
-		cursor: pointer;
-	}
-	&:active svg {
-		fill: transparent;
-		stroke: #ffffff;
-		cursor: pointer;
-	}
-	&:active {
-		fill: #696969;
-		stroke: #ffffff;
 		cursor: pointer;
 	}
 `;
@@ -357,9 +333,10 @@ export const TrackPlayLikeSvg = styled.svg`
 	height: 12px;
 	fill: transparent;
 	stroke: #696969;
-	&:active {
-		fill: #696969;
-		stroke: #ffffff;
+	
+	&:hover {
+		fill: transparent;
+		stroke: #acacac;
 		cursor: pointer;
 	}
 `;
@@ -370,8 +347,6 @@ export const TrackPlayLikeActiveSvg = styled.svg`
 	fill: #b672ff;
 	stroke: #b672ff;
 	&:hover {
-		fill: '';
-		stroke: '';
 		cursor: pointer;
 	}
 `;
@@ -381,9 +356,20 @@ export const TrackPlayDislikeSvg = styled.svg`
 	height: 13px;
 	fill: transparent;
 	stroke: #696969;
-	&:active {
-		fill: #696969;
-		stroke: #ffffff;
+
+	&:hover {
+		fill: transparent;
+		stroke: #acacac;
+		cursor: pointer;
+	}
+`;
+
+export const TrackPlayDislikeActiveSvg = styled.svg`
+	width: 14.34px;
+	height: 13px;
+	fill: #696969;
+	stroke: #ffffff;
+	&:hover {
 		cursor: pointer;
 	}
 `;
