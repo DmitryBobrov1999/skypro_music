@@ -1,4 +1,4 @@
-import { Routes, Route, useParams } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AuthPage } from './pages/auth/AuthPage';
 import { Home } from './pages/main/MainPage';
 import React, { useState, useEffect, createContext, useRef } from 'react';
@@ -131,14 +131,12 @@ export const AppRoutes = () => {
 	});
 
 	const filteredGenres = selectedGenre.length
-		? todos.filter(track => selectedGenre.includes(track.genre))
+		? filteredTodos.filter(track => selectedGenre.includes(track.genre))
 		: filteredTodos;
 
 	const filteredAll = selectedArtist.length
 		? filteredGenres.filter(track => selectedArtist.includes(track.author))
 		: filteredGenres;
-
-		
 
 	return (
 		<PersonalNameContext.Provider value={value}>

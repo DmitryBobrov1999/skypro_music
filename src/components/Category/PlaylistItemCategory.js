@@ -1,14 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
+	setCategoryTodo,
 	setThreeIsFavoriteList
 } from '../../redux/slice/todoSlice';
 import * as S from '../playlistItem/PlaylistItem.styles';
 import { NavMenuContext } from '../../routes';
 
 export const CreatePlaylistItemCategory = ({
-	categoryTodo,
+	// categoryTodo,
 	formatTime,
 	openPlayer,
 	setSelectedTrackId,
@@ -18,10 +19,13 @@ export const CreatePlaylistItemCategory = ({
 	deleteTrackWithId,
 	addTrackWithId,
 	handleCategoryLikeClick,
+	filteredCategoryTodos,
 }) => {
 	const dispatch = useDispatch();
 
-	const { addError, delError } = useSelector(state => state.trackList);
+	const { addError, delError, categoryValue } = useSelector(
+		state => state.trackList
+	);
 
 	const navigate = useNavigate();
 
@@ -33,12 +37,14 @@ export const CreatePlaylistItemCategory = ({
 			navigate('/login');
 		}
 	};
-	
-	const arrayItems = categoryTodo && categoryTodo.items
+
+	useEffect(() => {
+		dispatch(setCategoryTodo(filteredCategoryTodos));
+	}, [categoryValue]);
 
 	return (
-		arrayItems &&
-		arrayItems.map(categoryTrack => (
+		filteredCategoryTodos &&
+		filteredCategoryTodos.map(categoryTrack => (
 			<S.PlaylistItem key={categoryTrack.id}>
 				<S.PlaylistTrack>
 					<S.TrackTitle>

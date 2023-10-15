@@ -11,6 +11,7 @@ const todoSlice = createSlice({
 		todos: [],
 		favoriteTodos: [],
 		categoryTodos: [],
+		categoryTodo: [],
 		status: null,
 		currentPlayer: null,
 		isPlaying: false,
@@ -25,10 +26,14 @@ const todoSlice = createSlice({
 		sortYearOld: false,
 		sortYearDefault: true,
 		todosValue: '',
+		categoryValue: '',
 		selectedGenre: [],
 		selectedArtist: [],
 	},
 	reducers: {
+		setCategoryTodo(state, action) {
+			state.categoryTodo = action.payload
+		},
 		addArtist: (state, action) => {
 			state.selectedArtist.push(action.payload);
 		},
@@ -64,6 +69,10 @@ const todoSlice = createSlice({
 
 		setTodosValue(state, action) {
 			state.todosValue = action.payload;
+		},
+
+		setCategoryValue(state, action) {
+			state.categoryValue = action.payload
 		},
 		setTodos(state, action) {
 			state.todos = action.payload;
@@ -101,15 +110,6 @@ const todoSlice = createSlice({
 			}
 		},
 
-		toggleAudioplayerLikeId(state, action) {
-			state.likedId = action.payload;
-
-			const trackId = state.likedId;
-			const trackIndex = state.todos.findIndex(track => track.id === trackId);
-			if (trackIndex !== -1) {
-				state.todos[trackIndex].likedId = true;
-			}
-		},
 		toggleCategoryLikedId(state, action) {
 			state.likedId = action.payload;
 			const trackId = state.likedId;
@@ -204,11 +204,12 @@ export const {
 	sortStartFromDefault,
 	setTodos,
 	setTodosValue,
-	toggleAudioplayerLikeId,
 	addGenre,
 	removeGenre,
 	addArtist,
 	removeArtist,
+	setCategoryTodo,
+	setCategoryValue,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;

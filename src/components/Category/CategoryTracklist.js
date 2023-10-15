@@ -3,6 +3,8 @@ import { CreatePlaylistItemCategory } from './PlaylistItemCategory';
 import { categoryMock } from '../../pages/category/CategoryMock';
 import * as S from '../tracklist/Tracklist.styles';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCategoryValue } from '../../redux/slice/todoSlice';
 
 export const CreateCategoryTracklist = ({
 	categoryTodos,
@@ -15,13 +17,24 @@ export const CreateCategoryTracklist = ({
 	deleteTrackWithId,
 	addTrackWithId,
 	handleCategoryLikeClick,
-
 }) => {
+	const dispatch = useDispatch();
+
 	const params = useParams();
+
+	const {
+		categoryValue
+	} = useSelector(state => state.trackList);
 
 	const track = categoryMock.find(track => track.id === Number(params.id));
 
 	const categoryTodo = categoryTodos.find(id => id.id === Number(params.id));
+
+	const categoryItems = categoryTodo && categoryTodo?.items;
+
+	const filteredCategoryTodos = categoryItems?.filter(track => {
+		return track.name.toLowerCase().includes(categoryValue.toLowerCase());
+	});
 
 	return (
 		<S.MainCenterBlock>
@@ -29,7 +42,14 @@ export const CreateCategoryTracklist = ({
 				<S.SearchSvg>
 					<use xlinkHref='/img/icon/sprite.svg#icon-search' />
 				</S.SearchSvg>
-				<S.SearchText type='search' placeholder='Поиск' name='search' />
+				<S.SearchText
+					type='search'
+					placeholder='Поиск'
+					name='search'
+					onChange={event => {
+						dispatch(setCategoryValue(event.target.value));
+					}}
+				/>
 			</S.CenterblockSearch>
 			<S.CenterblockH2>{track.category}</S.CenterblockH2>
 
@@ -47,7 +67,8 @@ export const CreateCategoryTracklist = ({
 				<S.ContentCategoryPlaylist>
 					<CreatePlaylistItemCategory
 						formatTime={formatTime}
-						categoryTodo={categoryTodo}
+						filteredCategoryTodos={filteredCategoryTodos}
+						// categoryTodo={categoryTodo}
 						openPlayer={openPlayer}
 						setSelectedTrackId={setSelectedTrackId}
 						selectedTrackId={selectedTrackId}
