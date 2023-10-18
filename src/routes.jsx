@@ -1,22 +1,24 @@
 import { Routes, Route } from 'react-router-dom';
 import { AuthPage } from './pages/auth/AuthPage';
 import { Home } from './pages/main/MainPage';
-import React, { useState, useEffect, createContext, useRef, useContext } from 'react';
+import React, { useState, useEffect, createContext, useRef } from 'react';
 import { NotFound } from './pages/not-found/NotFound';
 import { FavoriteTracks } from './pages/favoriteTracks/FavoriteTracks';
 import { Category } from './pages/category/Category';
 import { ProtectedRoute } from './components/protected-route/ProtectedRoute';
 import {
-	fetchTodos,
 	setCurrentTrack,
+	toggleCategoryLikedId,
 	toggleFavoriteLikedId,
 	toggleLikedId,
-} from './redux/slice/todo';
+} from './redux/slice/todoSlice';
+import { fetchTodos } from './api/todosApi';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchFavoriteTodos } from './redux/slice/favoriteTodo';
-import { fetchDeleteFavoriteTrack } from './redux/slice/deleteFavoriteTrack';
-import { fetchAddFavoriteTrack } from './redux/slice/addFavoriteTrack';
+import { fetchFavoriteTodos } from './api/favoriteTodosApi';
+import { fetchDeleteFavoriteTrack } from './api/deleteFavoriteTrackApi';
+import { fetchAddFavoriteTrack } from './api/addFavoriteTrackApi';
 import { CreateAudioPlayer } from './components/audioPlayer/AudioPlayer';
+import { fetchCategoryTodos } from './api/categoryTodosApi';
 
 export const NavMenuContext = createContext(null);
 
@@ -38,9 +40,20 @@ export const AppRoutes = () => {
 
 	const [selectedTrackId, setSelectedTrackId] = useState(null);
 
-	const { isPlaying, todos, error, favoriteTodos, favError } = useSelector(
-		state => state.trackList
-	);
+	const {
+		isPlaying,
+		todos,
+		error,
+		favoriteTodos,
+		favError,
+		categoryTodos,
+		catError,
+		todosValue,
+		selectedGenre,
+		selectedArtist,
+	} = useSelector(state => state.trackList);
+
+	const [favTodosValue, setFavTodosValue] = useState('');
 
 	const dispatch = useDispatch();
 
@@ -64,6 +77,10 @@ export const AppRoutes = () => {
 
 	useEffect(() => {
 		dispatch(fetchFavoriteTodos());
+	}, [dispatch]);
+
+	useEffect(() => {
+		dispatch(fetchCategoryTodos());
 	}, [dispatch]);
 
 	const formatTime = time => {
@@ -101,7 +118,25 @@ export const AppRoutes = () => {
 		dispatch(toggleFavoriteLikedId(trackId));
 	};
 
-	
+	const handleCategoryLikeClick = trackId => {
+		dispatch(toggleCategoryLikedId(trackId));
+	};
+
+	const filteredTodos = todos.filter(track => {
+		return track.name.toLowerCase().includes(todosValue.toLowerCase());
+	});
+
+	const filteredFavoriteTodos = favoriteTodos.filter(track => {
+		return track.name.toLowerCase().includes(favTodosValue.toLowerCase());
+	});
+
+	const filteredGenres = selectedGenre.length
+		? filteredTodos.filter(track => selectedGenre.includes(track.genre))
+		: filteredTodos;
+
+	const filteredAll = selectedArtist.length
+		? filteredGenres.filter(track => selectedArtist.includes(track.author))
+		: filteredGenres;
 
 	return (
 		<PersonalNameContext.Provider value={value}>
@@ -140,10 +175,17 @@ export const AppRoutes = () => {
 									formatTime={formatTime}
 									openPlayer={openPlayer}
 									favError={favError}
+									categoryTodos={categoryTodos}
+									catError={catError}
+									filteredAll={filteredAll}
 								/>
 								<CreateAudioPlayer
-									selectedTrackId={selectedTrackId}
 									setSelectedTrackId={setSelectedTrackId}
+									filteredFavoriteTodos={filteredFavoriteTodos}
+									addTrackWithId={addTrackWithId}
+									deleteTrackWithId={deleteTrackWithId}
+									filteredAll={filteredAll}
+									categoryTodos={categoryTodos}
 								/>
 							</NavMenuContext.Provider>
 						</ProtectedRoute>
@@ -168,10 +210,17 @@ export const AppRoutes = () => {
 									formatTime={formatTime}
 									openPlayer={openPlayer}
 									favError={favError}
+									filteredFavoriteTodos={filteredFavoriteTodos}
+									setFavTodosValue={setFavTodosValue}
+									catError={catError}
 								/>
 								<CreateAudioPlayer
-									selectedTrackId={selectedTrackId}
 									setSelectedTrackId={setSelectedTrackId}
+									filteredFavoriteTodos={filteredFavoriteTodos}
+									addTrackWithId={addTrackWithId}
+									deleteTrackWithId={deleteTrackWithId}
+									filteredAll={filteredAll}
+									categoryTodos={categoryTodos}
 								/>
 							</NavMenuContext.Provider>
 						</ProtectedRoute>
@@ -183,10 +232,28 @@ export const AppRoutes = () => {
 					element={
 						<ProtectedRoute>
 							<NavMenuContext.Provider value={removeUser}>
-								<Category />
-								<CreateAudioPlayer
-									selectedTrackId={selectedTrackId}
+								<Category
+									categoryTodos={categoryTodos}
+									formatTime={formatTime}
+									openPlayer={openPlayer}
 									setSelectedTrackId={setSelectedTrackId}
+									selectedTrackId={selectedTrackId}
+									stop={stop}
+									favoriteTodos={favoriteTodos}
+									deleteTrackWithId={deleteTrackWithId}
+									addTrackWithId={addTrackWithId}
+									handleCategoryLikeClick={handleCategoryLikeClick}
+									favError={favError}
+									catError={catError}
+									error={error}
+								/>
+								<CreateAudioPlayer
+									setSelectedTrackId={setSelectedTrackId}
+									filteredFavoriteTodos={filteredFavoriteTodos}
+									addTrackWithId={addTrackWithId}
+									deleteTrackWithId={deleteTrackWithId}
+									filteredAll={filteredAll}
+									categoryTodos={categoryTodos}
 								/>
 							</NavMenuContext.Provider>
 						</ProtectedRoute>

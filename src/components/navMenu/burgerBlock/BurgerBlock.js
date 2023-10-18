@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useState } from 'react';
 import * as S from './BurgerBlock.styles';
-import { NavMenuContext } from '../../../routes'; 
+import { NavMenuContext } from '../../../routes';
 
 export const BurgerBlock = () => {
 	const [visible, setVisible] = useState(true);

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { token } from './token';
+import { token } from './tokenApi'; 
+import { baseURL } from './todosApi';
 
 export const fetchFavoriteTodos = createAsyncThunk(
 	'fetchFavoriteTodos',
@@ -8,14 +9,11 @@ export const fetchFavoriteTodos = createAsyncThunk(
 
 		const { access: accessToken } = tokens;
 		try {
-			const response = await fetch(
-				'https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/',
-				{
-					headers: {
-						Authorization: `Bearer ${accessToken}`,
-					},
-				}
-			);
+			const response = await fetch(`${baseURL}/catalog/track/favorite/all/`, {
+				headers: {
+					Authorization: `Bearer ${accessToken}`,
+				},
+			});
 
 			if (!response.ok) {
 				throw new Error(response.status);

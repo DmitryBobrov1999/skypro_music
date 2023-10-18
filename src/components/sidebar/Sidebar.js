@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import { SidebarSkeleton } from '../SkeletonCard.js';
 import * as S from './Sidebar.styles';
 import { NavLink } from 'react-router-dom';
-import { categoryMock } from '../../pages/category/CategoryMock.js';
+
 import { PersonalNameContext } from '../../routes.jsx'; 
 import { NavMenuContext } from '../../routes.jsx';
 
-export const CreateSidebar = ({ isLoading }) => {
+export const CreateSidebar = ({ isLoading, categoryTodos }) => {
 	const { userName } = useContext(PersonalNameContext);
 
 	const getNavMenuContext = useContext(NavMenuContext);
@@ -19,20 +19,20 @@ export const CreateSidebar = ({ isLoading }) => {
 
 				<S.SidebarIcon onClick={getNavMenuContext}>
 					<NavLink to='/login'>
-						<svg alt='logout'>
+						<S.LogoutSvg alt='logout'>
 							<use xlinkHref='/img/icon/sprite.svg#logout' />
-						</svg>
+						</S.LogoutSvg>
 					</NavLink>
 				</S.SidebarIcon>
 			</S.SidebarPersonal>
 			<S.SidebarBlock>
 				<S.SidebarList>
-					{categoryMock.map(track => (
-						<S.SidebarItem key={track.id}>
+					{categoryTodos && categoryTodos.map(categoryTodo => (
+						<S.SidebarItem key={categoryTodo.id}>
 							<S.SidebarLink>
 								{isLoading ? (
-									<NavLink to={`/category/${track.id}`}>
-										<S.SidebarImg src={track.img} />
+									<NavLink to={`/category/${categoryTodo.id}`}>
+										<S.SidebarImg src={`img/playlist${categoryTodo.id}.png`} />
 									</NavLink>
 								) : (
 									<SidebarSkeleton />

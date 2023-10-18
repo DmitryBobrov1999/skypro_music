@@ -137,6 +137,7 @@ export const TrackTimeSvgActive = styled.svg`
 	}
 `;
 
+
 export const TrackTimeText = styled.span`
 	font-style: normal;
 	font-weight: 400;

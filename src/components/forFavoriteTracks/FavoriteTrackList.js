@@ -1,9 +1,7 @@
-import React, { useContext, useEffect } from 'react';
-import { CreatePlaylistItemFavorite } from './playlistItemFavorite.js';
+import React from 'react';
+import { CreatePlaylistItemFavorite } from './PlaylistFavorite.js';
 
-import * as S from '../../components/tracklist/Tracklist.styles';
-import { NavMenuContext } from '../../routes.jsx';
-import { useNavigate } from 'react-router-dom';
+import * as S from '../tracklist/Tracklist.styles';
 
 export const CreateFavoriteTracklist = ({
 	formatTime,
@@ -15,17 +13,21 @@ export const CreateFavoriteTracklist = ({
 	deleteTrackWithId,
 	addTrackWithId,
 	openPlayer,
-	error,
+	filteredFavoriteTodos,
+	setFavTodosValue,
 }) => {
-	
-
 	return (
 		<S.MainCenterBlock>
 			<S.CenterblockSearch>
 				<S.SearchSvg>
 					<use xlinkHref='img/icon/sprite.svg#icon-search' />
 				</S.SearchSvg>
-				<S.SearchText type='search' placeholder='Поиск' name='search' />
+				<S.SearchText
+					type='search'
+					placeholder='Поиск'
+					name='search'
+					onChange={event => setFavTodosValue(event.target.value)}
+				/>
 			</S.CenterblockSearch>
 			<S.CenterblockH2>Мои треки</S.CenterblockH2>
 
@@ -40,19 +42,20 @@ export const CreateFavoriteTracklist = ({
 						</S.PlaylistTitleSvg>
 					</S.PlaylistTitleCol4>
 				</S.ContentTitle>
-				<S.ContentPlaylist>
+				<S.ContentCategoryPlaylist>
 					<CreatePlaylistItemFavorite
 						$stop={stop}
 						openPlayer={openPlayer}
 						formatTime={formatTime}
 						setSelectedTrackId={setSelectedTrackId}
 						selectedTrackId={selectedTrackId}
+						filteredFavoriteTodos={filteredFavoriteTodos}
 						favoriteTodos={favoriteTodos}
 						handleFavoriteLikeClick={handleFavoriteLikeClick}
 						deleteTrackWithId={deleteTrackWithId}
 						addTrackWithId={addTrackWithId}
 					/>
-				</S.ContentPlaylist>
+				</S.ContentCategoryPlaylist>
 			</S.CenterblockContent>
 		</S.MainCenterBlock>
 	);

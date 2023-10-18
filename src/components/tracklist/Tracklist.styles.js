@@ -94,6 +94,7 @@ export const FilterTitle = styled.div`
 	font-size: 16px;
 	line-height: 24px;
 	margin-right: 15px;
+	width: 77px;
 `;
 
 export const ContentTitle = styled.div`
@@ -127,6 +128,22 @@ export const ContentPlaylist = styled.div`
 		width: 0;
 	}
 `;
+
+export const ContentCategoryPlaylist = styled.div`
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	overflow-y: auto;
+	height: calc(100vh - 375px);
+	&::-webkit-scrollbar {
+		width: 0;
+	}
+`;
+
 
 export const PlaylistTitleCol1 = styled.div`
 	font-style: normal;

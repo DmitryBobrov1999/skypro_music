@@ -1,17 +1,14 @@
 export const categoryMock = [
 	{
 		id: 1,
-		category: 'Плейлист дня',
-		img: 'img/playlist01.png',
+		category: 'Классическая музыка',
 	},
 	{
 		id: 2,
-		category: '100 танцевальных хитов',
-		img: 'img/playlist02.png',
+		category: 'Электронная музыка',
 	},
 	{
 		id: 3,
-		category: 'Инди заряд',
-		img: 'img/playlist03.png',
+		category: 'Рок музыка',
 	},
 ];

@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { CreatePlaylistItem } from '../playlistItem/PlaylistItem.js';
-import { playlistData } from '../playlistItem/PlaylistData.js';
+
 import { yearData } from './searchByButton/yearData.js';
 import { genreData } from './searchByButton/genreData.js';
 import { SearchByArtist } from './searchByButton/SearchByArtist.js';
@@ -8,8 +8,9 @@ import { SearchByYear } from './searchByButton/SearchByYear.js';
 import { SearchByGenre } from './searchByButton/SearchByGenre.js';
 import { useState } from 'react';
 import * as S from './Tracklist.styles';
-import { useNavigate } from 'react-router-dom';
-import { NavMenuContext } from '../../routes.jsx';
+import { useDispatch } from 'react-redux';
+import { setTodosValue } from '../../redux/slice/todoSlice.js';
+
 
 export const CreateTracklist = ({
 	isLoading,
@@ -24,29 +25,21 @@ export const CreateTracklist = ({
 	handleLikeClick,
 	openPlayer,
 	favoriteTodos,
+	filteredTodos,
+	setRealTodos,
+
+
+	filteredAll,
 }) => {
 	const [$visibleFilter, setVisibleFilter] = useState(null);
-
-	const navigate = useNavigate();
-
-	const getNavMenuContext = useContext(NavMenuContext);
 
 	const openFilter = filterName => {
 		setVisibleFilter(filterName);
 	};
-
+	const dispatch = useDispatch();
 	const closeAllFilters = () => {
 		setVisibleFilter(null);
 	};
-
-	
-
-	// useEffect(() => {
-	// 	if (error === 401) {
-	// 		getNavMenuContext();
-	// 		navigate('/login');
-	// 	}
-	// }, [error])
 
 	return (
 		<S.MainCenterBlock>
@@ -54,7 +47,15 @@ export const CreateTracklist = ({
 				<S.SearchSvg>
 					<use xlinkHref='img/icon/sprite.svg#icon-search' />
 				</S.SearchSvg>
-				<S.SearchText type='search' placeholder='Поиск' name='search' />
+
+				<S.SearchText
+					type='search'
+					placeholder='Поиск'
+					name='search'
+					onChange={event => {
+						dispatch(setTodosValue(event.target.value));
+					}}
+				/>
 			</S.CenterblockSearch>
 			<S.CenterblockH2>Треки</S.CenterblockH2>
 			<S.CenterblockFilter>
@@ -63,16 +64,22 @@ export const CreateTracklist = ({
 				<SearchByArtist
 					openFilter={openFilter}
 					closeAllFilters={closeAllFilters}
-					playlistData={playlistData}
 					$visibleFilter={$visibleFilter === 'artist'}
+					todos={todos}
 				/>
 				<SearchByYear
+					todos={todos}
+					setRealTodos={setRealTodos}
+					filteredTodos={filteredTodos}
 					openFilter={openFilter}
 					closeAllFilters={closeAllFilters}
 					yearData={yearData}
 					$visibleFilter={$visibleFilter === 'year'}
 				/>
 				<SearchByGenre
+			
+					filteredTodos={filteredTodos}
+					todos={todos}
 					openFilter={openFilter}
 					closeAllFilters={closeAllFilters}
 					genreData={genreData}
@@ -98,6 +105,7 @@ export const CreateTracklist = ({
 					)}
 					<CreatePlaylistItem
 						todos={todos}
+						filteredTodos={filteredTodos}
 						$stop={stop}
 						isLoading={isLoading}
 						openPlayer={openPlayer}
@@ -107,6 +115,7 @@ export const CreateTracklist = ({
 						addTrackWithId={addTrackWithId}
 						deleteTrackWithId={deleteTrackWithId}
 						handleLikeClick={handleLikeClick}
+						filteredAll={filteredAll}
 						favoriteTodos={favoriteTodos}
 					/>
 				</S.ContentPlaylist>

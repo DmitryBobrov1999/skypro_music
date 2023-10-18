@@ -1,20 +1,19 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { fetchFavoriteTodos } from './favoriteTodosApi';
+import { token } from './tokenApi';
+import { baseURL } from './todosApi';
 
-import { fetchFavoriteTodos } from './favoriteTodo';
-
-import { token } from './token';
-
-export const fetchDeleteFavoriteTrack = createAsyncThunk(
-	'fetchDeleteFavoriteTrack',
+export const fetchAddFavoriteTrack = createAsyncThunk(
+	'fetchAddFavoriteTrack',
 	async (trackId, { rejectWithValue, dispatch }) => {
 		const tokens = await token();
 
 		const { access: accessToken } = tokens;
 		try {
 			const response = await fetch(
-				`https://skypro-music-api.skyeng.tech/catalog/track/${trackId}/favorite/`,
+				`${baseURL}/catalog/track/${trackId}/favorite/`,
 				{
-					method: 'Delete',
+					method: 'POST',
 					headers: {
 						Authorization: `Bearer ${accessToken}`,
 						'content-type': 'application/json',
@@ -31,4 +30,3 @@ export const fetchDeleteFavoriteTrack = createAsyncThunk(
 		}
 	}
 );
-

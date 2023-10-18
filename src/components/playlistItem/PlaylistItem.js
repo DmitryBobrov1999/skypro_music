@@ -1,16 +1,15 @@
 import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setFalseIsFavoriteList } from '../../redux/slice/todo.js';
-
+import { setOneIsFavoriteList } from '../../redux/slice/todoSlice.js';
 import { PlaylistItemSkeleton } from '../SkeletonCard.js';
 import * as S from './PlaylistItem.styles';
 import { NavMenuContext } from '../../routes.jsx';
+
 export const CreatePlaylistItem = ({
 	isLoading,
 	openPlayer,
 	formatTime,
-	todos,
 	$stop,
 	setSelectedTrackId,
 	selectedTrackId,
@@ -18,6 +17,7 @@ export const CreatePlaylistItem = ({
 	deleteTrackWithId,
 	handleLikeClick,
 	favoriteTodos,
+	filteredAll,
 }) => {
 	const dispatch = useDispatch();
 
@@ -35,8 +35,8 @@ export const CreatePlaylistItem = ({
 	};
 
 	return (
-		todos &&
-		todos.map(track => (
+		filteredAll &&
+		filteredAll.map(track => (
 			<S.PlaylistItem key={track.id}>
 				<S.PlaylistTrack>
 					{isLoading ? (
@@ -51,12 +51,12 @@ export const CreatePlaylistItem = ({
 										</S.TrackTitleSvg>
 									)}
 								</S.TrackTitleImage>
-								<S.TrackTitleText className='track__title-text'>
+								<S.TrackTitleText>
 									<S.TrackTitleLink
 										onClick={() => {
 											openPlayer(track);
 											setSelectedTrackId(track.id);
-											dispatch(setFalseIsFavoriteList());
+											dispatch(setOneIsFavoriteList());
 										}}
 									>
 										{track.name}
@@ -70,13 +70,13 @@ export const CreatePlaylistItem = ({
 							<S.TrackAlbum>
 								<S.TrackAlbumLink>{track.album}</S.TrackAlbumLink>
 							</S.TrackAlbum>
-							<S.TrackTime className='track__time'>
+							<S.TrackTime>
 								{favoriteTodos.find(t => t.id === track.id) ? (
 									<S.TrackTimeSvgActive
 										onClick={() => {
 											handleLikeClick(track.id);
 											deleteTrackWithId(track.id);
-											checkForError()
+											checkForError();
 										}}
 										alt='likeActive'
 									>
@@ -87,7 +87,7 @@ export const CreatePlaylistItem = ({
 										onClick={() => {
 											handleLikeClick(track.id);
 											addTrackWithId(track.id);
-											checkForError()
+											checkForError();
 										}}
 										alt='like'
 									>
