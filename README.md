@@ -1,4 +1,4 @@
-# Memory game
+# Skypro.Music.
 
 Разработка приложения для прослушивания музыки "Skypro.Music."
 ____
