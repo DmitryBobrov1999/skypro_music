@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/skypro_music/static/css/main.fc9dcec0.css",
-    "main.js": "/skypro_music/static/js/main.83d98a78.js",
+    "main.js": "/skypro_music/static/js/main.1b0b80e3.js",
     "index.html": "/skypro_music/index.html",
     "main.fc9dcec0.css.map": "/skypro_music/static/css/main.fc9dcec0.css.map",
-    "main.83d98a78.js.map": "/skypro_music/static/js/main.83d98a78.js.map"
+    "main.1b0b80e3.js.map": "/skypro_music/static/js/main.1b0b80e3.js.map"
   },
   "entrypoints": [
     "static/css/main.fc9dcec0.css",
-    "static/js/main.83d98a78.js"
+    "static/js/main.1b0b80e3.js"
   ]
 }
