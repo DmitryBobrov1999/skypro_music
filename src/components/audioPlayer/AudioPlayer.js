@@ -254,17 +254,17 @@ export const CreateAudioPlayer = ({
 											onClick={isShuffle ? shuffleTracks : handleBack}
 										>
 											<S.PlayerBtnPrevSvg alt='prev'>
-												<use xlinkHref='/img/icon/sprite.svg#icon-prev' />
+												<use xlinkHref='img/icon/sprite.svg#icon-prev' />
 											</S.PlayerBtnPrevSvg>
 										</S.PlayerBtnPrev>
 										<S.PlayerBtnPlay onClick={toSetIsPlaying}>
 											{isPlaying ? (
 												<S.PlayerBtnPlaySvg alt='play'>
-													<use xlinkHref='/img/icon/sprite.svg#icon-play' />
+													<use xlinkHref='img/icon/sprite.svg#icon-play' />
 												</S.PlayerBtnPlaySvg>
 											) : (
 												<S.PlayerBtnPauseSvg alt='pause'>
-													<use xlinkHref='/img/icon/sprite.svg#icon-pause' />
+													<use xlinkHref='img/icon/sprite.svg#icon-pause' />
 												</S.PlayerBtnPauseSvg>
 											)}
 										</S.PlayerBtnPlay>
@@ -273,7 +273,7 @@ export const CreateAudioPlayer = ({
 												onClick={isShuffle ? shuffleTracks : handleNext}
 												alt='next'
 											>
-												<use xlinkHref='/img/icon/sprite.svg#icon-next' />
+												<use xlinkHref='img/icon/sprite.svg#icon-next' />
 											</S.PlayerBtnNextSvg>
 										</S.PlayerBtnNext>
 										<S.PlayerBtnRepeat loop={loop}>
@@ -281,7 +281,7 @@ export const CreateAudioPlayer = ({
 												onClick={() => setLoop(!loop)}
 												alt='repeat'
 											>
-												<use xlinkHref='/img/icon/sprite.svg#icon-repeat' />
+												<use xlinkHref='img/icon/sprite.svg#icon-repeat' />
 											</S.PlayerBtnRepeatSvg>
 										</S.PlayerBtnRepeat>
 										<S.PlayerBtnShuffle $isShuffle={isShuffle}>
@@ -291,7 +291,7 @@ export const CreateAudioPlayer = ({
 												}}
 												alt='shuffle'
 											>
-												<use xlinkHref='/img/icon/sprite.svg#icon-shuffle' />
+												<use xlinkHref='img/icon/sprite.svg#icon-shuffle' />
 											</S.PlayerBtnShuffleSvg>
 										</S.PlayerBtnShuffle>
 									</S.PlayerControls>
@@ -299,7 +299,7 @@ export const CreateAudioPlayer = ({
 										<S.TrackPlayContain>
 											<S.TrackPlayImage>
 												<S.TrackPlaySvg alt='music'>
-													<use xlinkHref='/img/icon/sprite.svg#icon-note' />
+													<use xlinkHref='img/icon/sprite.svg#icon-note' />
 												</S.TrackPlaySvg>
 											</S.TrackPlayImage>
 											<S.TrackPlayAuthor>
@@ -319,7 +319,7 @@ export const CreateAudioPlayer = ({
 													t => t.id === currentPlayer.id
 												) ? (
 													<S.TrackPlayLikeActiveSvg alt='likeActive'>
-														<use xlinkHref='/img/icon/sprite.svg#icon-like' />
+														<use xlinkHref='img/icon/sprite.svg#icon-like' />
 													</S.TrackPlayLikeActiveSvg>
 												) : (
 													<S.TrackPlayLikeSvg
@@ -329,7 +329,7 @@ export const CreateAudioPlayer = ({
 														}}
 														alt='like'
 													>
-														<use xlinkHref='/img/icon/sprite.svg#icon-like' />
+														<use xlinkHref='img/icon/sprite.svg#icon-like' />
 													</S.TrackPlayLikeSvg>
 												)}
 											</S.TrackPlayLike>
@@ -345,11 +345,11 @@ export const CreateAudioPlayer = ({
 														}}
 														alt='dislike'
 													>
-														<use xlinkHref='/img/icon/sprite.svg#icon-dislike' />
+														<use xlinkHref='img/icon/sprite.svg#icon-dislike' />
 													</S.TrackPlayDislikeSvg>
 												) : (
 													<S.TrackPlayDislikeActiveSvg alt='dislikeActive'>
-														<use xlinkHref='/img/icon/sprite.svg#icon-dislike' />
+														<use xlinkHref='img/icon/sprite.svg#icon-dislike' />
 													</S.TrackPlayDislikeActiveSvg>
 												)}
 											</S.TrackPlayDislike>
@@ -360,7 +360,7 @@ export const CreateAudioPlayer = ({
 									<S.VolumeContent>
 										<S.VolumeImage>
 											<S.VolumeSvg alt='volume'>
-												<use xlinkHref='/img/icon/sprite.svg#icon-volume' />
+												<use xlinkHref='img/icon/sprite.svg#icon-volume' />
 											</S.VolumeSvg>
 										</S.VolumeImage>
 										<S.VolumeProgress>

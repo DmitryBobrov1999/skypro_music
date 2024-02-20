@@ -40,7 +40,7 @@ export const CreateCategoryTracklist = ({
 		<S.MainCenterBlock>
 			<S.CenterblockSearch>
 				<S.SearchSvg>
-					<use xlinkHref='/img/icon/sprite.svg#icon-search' />
+					<use xlinkHref='img/icon/sprite.svg#icon-search' />
 				</S.SearchSvg>
 				<S.SearchText
 					type='search'
@@ -60,7 +60,7 @@ export const CreateCategoryTracklist = ({
 					<S.PlaylistTitleCol3>АЛЬБОМ</S.PlaylistTitleCol3>
 					<S.PlaylistTitleCol4>
 						<S.PlaylistTitleSvg alt='time'>
-							<use xlinkHref='/img/icon/sprite.svg#icon-watch' />
+							<use xlinkHref='img/icon/sprite.svg#icon-watch' />
 						</S.PlaylistTitleSvg>
 					</S.PlaylistTitleCol4>
 				</S.ContentTitle>
@@ -68,7 +68,7 @@ export const CreateCategoryTracklist = ({
 					<CreatePlaylistItemCategory
 						formatTime={formatTime}
 						filteredCategoryTodos={filteredCategoryTodos}
-						// categoryTodo={categoryTodo}
+				
 						openPlayer={openPlayer}
 						setSelectedTrackId={setSelectedTrackId}
 						selectedTrackId={selectedTrackId}

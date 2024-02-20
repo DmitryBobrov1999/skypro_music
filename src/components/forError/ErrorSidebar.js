@@ -18,7 +18,7 @@ export const ErrorSidebar = () => {
 				<S.SidebarIcon onClick={getNavMenuContext}>
 					<NavLink to='/login'>
 						<S.LogoutSvg alt='logout'>
-							<use xlinkHref='/img/icon/sprite.svg#logout' />
+							<use xlinkHref='img/icon/sprite.svg#logout' />
 						</S.LogoutSvg>
 					</NavLink>
 				</S.SidebarIcon>

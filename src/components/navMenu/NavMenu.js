@@ -8,7 +8,7 @@ export const CreateNavMenu = () => {
 		<S.MainMenu>
 			<S.NavLogo>
 				<NavLink to='/'>
-					<S.LogoImage src='/img/logo.png' alt='logo' />
+					<S.LogoImage src='img/logo.png' alt='logo' />
 				</NavLink>
 			</S.NavLogo>
 			<BurgerBlock />
