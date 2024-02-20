@@ -5,7 +5,7 @@ ____
 
 ## Ссылка на приложение:
 
-https://dmitrybobrov1999.github.io/skypro-music/
+https://dmitrybobrov1999.github.io/skypro_music/
 
 ____
 
